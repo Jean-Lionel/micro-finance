@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('clients.index');
 });
 
 Route::resource('student','StudentController');
 Route::resource('clients','ClientController');
 Route::resource('operations','OperationController');
+Route::resource('copdicomptes','CopdiCompteController');

@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Student;
+use App\Models\CompteClient;
 use Illuminate\Http\Request;
-use Symfony\Component\Routing\Route;
 
-class StudentController extends Controller
+class CompteClientController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Student $student)
+    public function index()
     {
-        $students = $student->sortable()->paginate(10);
-
-      
-        
-        return view('students.index',compact('students'));
+        //
     }
 
     /**
@@ -29,9 +24,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $student = new Student;
-
-        return view('students.create',compact('student'));
+        //
     }
 
     /**
@@ -42,58 +35,51 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $students = Student::create($request->all());
-
-        return $this->index($students);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Models\CompteClient  $compteClient
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show(CompteClient $compteClient)
     {
-        return view('students.show',['student' => $student]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Models\CompteClient  $compteClient
      * @return \Illuminate\Http\Response
      */
-    public function edit(Student $student)
+    public function edit(CompteClient $compteClient)
     {
-        return view('students.edit',compact('student'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Student  $student
+     * @param  \App\Models\CompteClient  $compteClient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, CompteClient $compteClient)
     {
-        $student->update($request->all());
-
-        return $this->index($student);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Student  $student
+     * @param  \App\Models\CompteClient  $compteClient
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Student $student)
+    public function destroy(CompteClient $compteClient)
     {
-        $student->delete();
-        $student = new Student;
-        return back();   
+        //
     }
 }

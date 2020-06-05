@@ -16,7 +16,7 @@ class CreateOperationsTable extends Migration
         Schema::create('operations', function (Blueprint $table) {
             $table->id();
             $table->integer('compte_id');
-            $table->string('type_opertation');
+            $table->string('type_operation');
             $table->float('montant');
             $table->timestamps();
         });

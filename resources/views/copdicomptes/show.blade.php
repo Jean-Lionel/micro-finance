@@ -22,21 +22,15 @@
 	<div class="col-md-6">
 		<div class="card">
 			<div class="card-header">
-				<h1>Information pour ces Comptes</h1>
+				<h1>Information de son Compte</h1>
 			</div>
 
-			@foreach($client->comptes as $compte)
-
-			
-
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item"><b>COMPTE NO : </b>  {{ $compte->name }} </li>
-				<li class="list-group-item"><b>Montant   :</b> <h5>{{ $compte->montant }} FBU</h5></li>
+				<li class="list-group-item"><b>COMPTE NO : </b>  COPDI {{ $compte[0]['id']}} </li>
+				<li class="list-group-item"><b>Montant   :</b> <h5>{{ $compte[0]['montant'] }} FBU</h5></li>
 				<li class="list-group-item"></li>
 				
 			</ul>
-
-			@endforeach
 
 
 		</div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateComptesTable extends Migration
+class CreatePlacementsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateComptesTable extends Migration
      */
     public function up()
     {
-        Schema::create('comptes', function (Blueprint $table) {
+        Schema::create('placements', function (Blueprint $table) {
             $table->id();
             $table->integer('client_id');
-            $table->string('name')->nullable();
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
-            $table->float('montant')->default(0);
+             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->float('montant');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateComptesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comptes');
+        Schema::dropIfExists('placements');
     }
 }

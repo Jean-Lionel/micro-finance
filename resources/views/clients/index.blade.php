@@ -28,13 +28,13 @@
 			<td>{{ $client->cni}}</td>
 			<td>{{ $client->date_naissance}}</td>
 			<td>
-				<a href="{{ route('clients.show',$client) }}" class="btn btn-outline-info">show</a>
-				<a href="{{ route('clients.edit',$client) }}" class="btn btn-outline-dark">Modifier</a>
+				<a href="{{ route('clients.show',$client) }}" class="btn btn-outline-info btn-sm">show</a>
+				<a href="{{ route('clients.edit',$client) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 			
 					<form action="{{ route('clients.destroy' , $client) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
-					<button class="btn btn-outline-danger">Delete</button>
+					<button class="btn btn-outline-danger btn-sm">Delete</button>
 				</form>
 				
 				

@@ -1,7 +1,9 @@
+
 <?php
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormOperationRequest;
 use App\Models\Compte;
 use App\Models\Operation;
 use Illuminate\Http\Request;
@@ -17,6 +19,8 @@ class OperationController extends Controller
     public function index()
     {
         $operations = Operation::sortable()->paginate(40);
+
+        //dd($operations);
 
         return view('operations.index',compact('operations'));
     }
@@ -40,27 +44,40 @@ class OperationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormOperationRequest $request)
     {
 
 
-        $compte = Compte::where('id',$request->compte_id)->get();
+        $compte = Compte::where('id',$request->compte_id)->first();
 
-        if($compte){
-            $nouvel_montant = $compte[0]['montant'];
 
-            if($request->type_operation == '+' )
-                 $nouvel_montant  +=  $request->montant;
-            if($request->type_operation == '-' )
-                 $nouvel_montant  -=  $request->montant;
+       if($compte){
+         $montant = $request->montant;
+        
+        if($request->type_operation == 'VERSEMENT'){
+            $compte->montant =  $compte->montant + $montant ;
 
-           
-           DB::insert("UPDATE comptes SET montant = ".$nouvel_montant . " WHERE client_id = ". $request->compte_id );
-
+             $compte->save();
         }
 
-    
-        Operation::create($request->all());
+        if($request->type_operation == 'RETRAIT'){
+             if( $compte->montant >= $montant  ){
+                $compte->montant = $compte->montant - $montant;
+
+             }else{
+                //todo 
+                return back();
+
+             }
+             
+        }
+
+        $compte->save();
+
+       // dd( $compte);
+       Operation::create($request->all());
+       }
+        
 
         return $this->index();
     }

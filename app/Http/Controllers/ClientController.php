@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormClientRequest;
 use App\Models\Client;
 use App\Models\Compte;
 use Illuminate\Http\Request;
@@ -37,11 +38,16 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormClientRequest $request)
     {
+       
         $client = Client::create($request->all());
 
-        Compte::create(['client_id'=> $client->id]);
+        dd($client);
+
+        Compte::create(['client_id'=> $client->id,
+                        'name' => 'COPDI '.$client->id
+                        ]);
 
         return $this->index();
     }
@@ -54,12 +60,13 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        $compte = Compte::where('client_id', $client->id)->get();
-
-      
+       // $compte = Compte::where('client_id', $client->id)->get();
 
 
-        return view('clients.show',compact('client','compte'));
+       //return $client->comptes;
+       
+
+       return view('clients.show',compact('client'));
     }
 
     /**
@@ -70,6 +77,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
+        
 
         return view('clients.edit',compact('client'));
     }

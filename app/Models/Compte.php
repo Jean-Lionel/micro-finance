@@ -8,9 +8,9 @@ class Compte extends Model
 {
     //
 
-    protected $fillable = ['client_id','motant'];
+    protected $fillable = ['client_id','motant','name'];
 
-     public function clients()
+     public function client()
     {
         return $this->belongsTo('App\Models\Client');
     }
