@@ -3,9 +3,47 @@
 @section('content')
 
 
+	{{--
+
+
+    'cni',
+    'date_naissance',
+    'date_ouverture',
+    '',
+    'nom_mandataire_1',
+    'nom_mandataire_2',
+    'nationalite',
+    'date_delivrance',
+    'etat_civil',
+    'nom_conjoint',
+    'profession',
+    '',
+    'lieu_activite',
+    'commune',
+    'quartier',
+    'rue',
+    'address_no',
+    'boite_postal',
+    'telephone',
+    'signateur_1_nom_prenom',
+    'signateur_1_cni',
+    'signateur_1_tel',
+    'signateur_2_nom_prenom',
+    'signateur_2_cni',
+    'signateur_2_tel',
+    'signateur_3_nom_prenom',
+    'signateur_3_cni',
+    'signateur_3_tel'
+
+
+
+	 --}}
+
+
+
 
 <div class="row">
-	<div class="col-md-6 col-sm-10">
+	<div class="col-md-6">
 		<div class="card" style="width: 40rem;">
 			<div class="card-header">
 				<h1 class="text-center"> Information complet</h1>
@@ -41,7 +79,7 @@
 
 				<li class="list-group-item"> <b>{{ 'Addresse'}} </b>
 
-					<table class="table table-hover table-bordered table-responsive-sm">
+					<table class="table table-hover table-bordered">
 						<thead>
 							<tr>
 								<th>Commune</th>
@@ -74,7 +112,7 @@
 		
 	</div>
 
-	<div class="col-md-6 col-sm-10">
+	<div class="col-md-6">
 		<div class="card">
 			<div class="card-header">
 				<h1>Information pour ces Comptes</h1>
@@ -86,7 +124,7 @@
 						
 					</div>
 					<div class="col-md-4">
-						<a href="{{ route('create_compte',$client) }}" class="btn btn-sm btn-primary text-right"> <i class="fa fab-plus"></i> Attribuer un compter</a>	
+						<a href="{{ route('comptes.create') }}" class="btn btn-sm btn-primary text-right"> <i class="fa fab-plus"></i> Attribuer un compter</a>	
 					</div>
 				</div>
 				

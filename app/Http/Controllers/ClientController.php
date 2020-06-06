@@ -43,12 +43,6 @@ class ClientController extends Controller
        
         $client = Client::create($request->all());
 
-        dd($client);
-
-        Compte::create(['client_id'=> $client->id,
-                        'name' => 'COPDI '.$client->id
-                        ]);
-
         return $this->index();
     }
 
@@ -89,7 +83,7 @@ class ClientController extends Controller
      * @param  \App\Model\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(FormClientRequest $request, Client $client)
     {
         $client->update($request->all());
 

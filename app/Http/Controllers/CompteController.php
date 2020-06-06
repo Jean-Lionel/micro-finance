@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Compte;
+use App\Models\Compte;
 use Illuminate\Http\Request;
+use App\Models\Client;
+use App\Http\Requests\FormCompteRequest;
 
 class CompteController extends Controller
 {
@@ -14,7 +16,9 @@ class CompteController extends Controller
      */
     public function index()
     {
-        //
+        $comptes = Compte::sortable()->paginate(20);
+        
+        return view('comptes.index', compact('comptes'));
     }
 
     /**
@@ -24,7 +28,18 @@ class CompteController extends Controller
      */
     public function create()
     {
-        //
+        
+        $compte = new Compte;
+       return view('comptes.create',compact('compte'));
+    }
+
+    public function createCompte($client_id){
+
+        $client = Client::where('id',$client_id)->firstOrFail();
+
+        $compte = new Compte;
+       return view('comptes.create',compact('compte','client'));
+
     }
 
     /**
@@ -33,9 +48,11 @@ class CompteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormCompteRequest $request)
     {
-        //
+        Compte::create($request->all());
+
+        return $this->index();
     }
 
     /**
@@ -57,7 +74,8 @@ class CompteController extends Controller
      */
     public function edit(Compte $compte)
     {
-        //
+
+       return view('comptes.edit',compact('compte'));
     }
 
     /**
@@ -67,9 +85,14 @@ class CompteController extends Controller
      * @param  \App\Compte  $compte
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Compte $compte)
+    public function update(FormCompteRequest $request, Compte $compte)
     {
-        //
+
+        
+        $compte->update($request->all());
+
+        return $this->index();
+        
     }
 
     /**

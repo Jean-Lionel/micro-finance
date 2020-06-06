@@ -19,6 +19,7 @@ class CreateComptesTable extends Migration
             $table->string('name')->nullable();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->float('montant')->default(0);
+            $table->enum('type_compte',['COURANT','EPARGNE']);
             $table->timestamps();
         });
     }

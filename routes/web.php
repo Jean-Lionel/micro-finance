@@ -14,11 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('clients.index');
-});
+Route::permanentRedirect('/', '/clients');
 
-Route::resource('student','StudentController');
 Route::resource('clients','ClientController');
 Route::resource('operations','OperationController');
-Route::resource('copdicomptes','CopdiCompteController');
+Route::resource('comptes','CompteController');
+
+Route::get('comptes/ajouter/{id}', 'CompteController@createCompte')->name('create_compte');
