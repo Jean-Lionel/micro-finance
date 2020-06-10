@@ -2,10 +2,10 @@
 
 @section('content')
 
-<form action="{{ route('clients.update',$client)}}" method="POST">
+<form action="{{ route('operations.update',$operation)}}" method="POST">
 
 @method('PUT')
-@include('clients._form',['btnTitle' => 'Modifier'])
+@include('operations._form',['btnTitle' => 'Modifier'])
 
 
 

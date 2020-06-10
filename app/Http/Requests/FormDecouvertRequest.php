@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FormOperationRequest extends FormRequest
+class FormDecouvertRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,10 @@ class FormOperationRequest extends FormRequest
     public function rules()
     {
         return [
-                'montant' => 'required|numeric|min:0',
-                'type_operation' => 'required',
-                'compte_name' => 'required|exists:comptes,name',
-                'cni' => 'required|min:10',
-                'operer_par' => 'required|min:5',
-                'type_operation' => 'required',
+            'montant' => 'required|numeric|min:0',
+             'compte_name' => 'required|exists:comptes,name',
+             'interet' => 'required|numeric|min:5',
+             'periode' => 'required|numeric|min:3',
         ];
     }
 }

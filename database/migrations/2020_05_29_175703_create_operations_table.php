@@ -15,10 +15,15 @@ class CreateOperationsTable extends Migration
     {
         Schema::create('operations', function (Blueprint $table) {
             $table->id();
-            $table->integer('compte_id');
-            $table->string('type_operation');
+            $table->string('compte_name');
+            $table->enum('type_operation',['RETRAIT','VERSEMENT']);
+            $table->string('operer_par');
+            $table->string('cni');
             $table->float('montant');
+            $table->integer('user_id')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
+          
         });
     }
 

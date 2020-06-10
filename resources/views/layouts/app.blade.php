@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>	Copedi Manager</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
@@ -17,16 +18,16 @@
     <nav class="my-2 my-md-0 mr-md-3">
       <a class="p-2 text-dark" href="{{ route('clients.index') }}">CLIENT</a>
       <a class="p-2 text-dark" href="{{ route('operations.index') }}">Operation</a>
-      <a class="p-2 text-dark" href="#">Support</a>
-      <a class="p-2 text-dark" href="#">Pricing</a>
+      <a class="p-2 text-dark" href="{{ route('comptes.index') }}">compte</a>
+      <a class="p-2 text-dark" href="{{ route('placements.index') }}">Placement</a>
+      <a class="p-2 text-dark" href="{{ route('decouverts.index') }}">Decouvert</a>
+      <a class="p-2 text-dark" href="{{ route('reboursement-decouverts.index') }}">Remboursement</a>
     </nav>
-    <a class="btn btn-outline-primary" href="#">Sign up</a>
+    <a class="btn btn-outline-primary" href="#">Deconnexion</a>
   </div>
 
   <div class="container-fluid">
-    @if(session()->has('ok'))
-    <div class="alert alert-success alert-dismissible">{!! session('ok') !!}</div>
-    @endif
+   
     @yield('content')
   </div>
 

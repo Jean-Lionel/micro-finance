@@ -7,6 +7,7 @@ use App\Models\Compte;
 use App\Models\Operation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use  MercurySeries\Flashy\Flashy;
 
 class OperationController extends Controller
 {
@@ -46,39 +47,40 @@ class OperationController extends Controller
     public function store(FormOperationRequest $request)
     {
 
+        //flashy()->success('You have been logged out.', 'http://your-awesome-link.com');
 
-        $compte = Compte::where('id',$request->compte_id)->first();
+        $compte = Compte::where('name','=',$request->compte_name)->firstOrFail();
 
-
-       if($compte){
-         $montant = $request->montant;
-        
-        if($request->type_operation == 'VERSEMENT'){
-            $compte->montant =  $compte->montant + $montant ;
-
-             $compte->save();
-        }
+        $current_sum = $compte->montant;
 
         if($request->type_operation == 'RETRAIT'){
-             if( $compte->montant >= $montant  ){
-                $compte->montant = $compte->montant - $montant;
 
-             }else{
-                //todo 
-                return back();
+            if($current_sum > $request->montant){
+                $newValue = $current_sum - $request->montant;
+                //Modification du compte principale
+                $compte->update(['montant' => $newValue]);
 
-             }
-             
+            }else{
+
+                $operation = new Operation($request->all());
+
+                return view('operations.create',compact('operation'));;
+            }
+
+        }
+        else if($request->type_operation == 'VERSEMENT'){
+            $newValue = $current_sum  + $request->montant;
+                //Modification du compte principale
+             $compte->update(['montant' => $newValue]);
+
         }
 
-        $compte->save();
+        Operation::create($request->all());
 
-       // dd( $compte);
-       Operation::create($request->all());
-       }
-        
 
         return $this->index();
+
+
     }
 
     /**
@@ -100,7 +102,7 @@ class OperationController extends Controller
      */
     public function edit(Operation $operation)
     {
-        //
+        return view('operations.edit',compact('operation'));
     }
 
     /**
@@ -110,7 +112,7 @@ class OperationController extends Controller
      * @param  \App\Models\Operation  $operation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Operation $operation)
+    public function update(FormOperationRequest $request, Operation $operation)
     {
         //
     }

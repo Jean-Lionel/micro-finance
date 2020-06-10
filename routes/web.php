@@ -19,5 +19,8 @@ Route::permanentRedirect('/', '/clients');
 Route::resource('clients','ClientController');
 Route::resource('operations','OperationController');
 Route::resource('comptes','CompteController');
+Route::resource('placements','PlacementController');
+Route::resource('decouverts','DecouvertController');
+Route::resource('reboursement-decouverts','ReboursementDecouvertController');
 
 Route::get('comptes/ajouter/{id}', 'CompteController@createCompte')->name('create_compte');

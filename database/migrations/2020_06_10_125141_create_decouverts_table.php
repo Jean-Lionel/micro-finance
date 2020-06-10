@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlacementsTable extends Migration
+class CreateDecouvertsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreatePlacementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('placements', function (Blueprint $table) {
+        Schema::create('decouverts', function (Blueprint $table) {
             $table->id();
+            $table->string('compte_name');
             $table->float('montant');
-            $table->float('compte_name');
-            $table->integer('nbre_moi');
-            $table->float('interet_total');
-            $table->float('interet_Moi');
-            $table->float('place_interet')->nullable();
-            $table->date('date_placement');
+            $table->float('interet');
+            $table->integer('periode');
+            $table->float('total_a_rambourse');
+            $table->boolean('paye')->default(false);
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreatePlacementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('placements');
+        Schema::dropIfExists('decouverts');
     }
 }

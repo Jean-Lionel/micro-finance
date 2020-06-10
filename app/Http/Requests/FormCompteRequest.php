@@ -27,7 +27,7 @@ class FormCompteRequest extends FormRequest
              'montant' => 'required|numeric|min:0',
              'type_compte' => 'required',
              'client_id' => 'required',
-             'name' => 'required|unique:comptes,name,'.$this->compte->id
+             'name' => 'required|unique:comptes,name,'.($this->compte->id ?? '')
         ];
     }
 }

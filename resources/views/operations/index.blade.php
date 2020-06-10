@@ -11,11 +11,12 @@
 	<thead>
 		<tr>
 			<th>No</th>
-			<th>@sortablelink('compte_id','COMPTE NO')</th>
+			<th>@sortablelink('compte_name','COMPTE NO')</th>
 			<th>@sortablelink('montant','Montant') </th>
+			<th>@sortablelink('type_operation','Type d\' operation')</th>
 			<th>@sortablelink('created_at','Date') </th>
 
-			<th>@sortablelink('type_operation','Type d\' operation')</th>
+			
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -24,7 +25,7 @@
 		@foreach($operations as $key=> $operation)
 		<tr>
 			<td>{{$key + 1}}</td>
-			<td>{{ $operation->compte_id}}</td>
+			<td>{{ $operation->compte_name}}</td>
 			<td>{{ $operation->montant}}</td>
 			<td>{{ $operation->type_operation}}</td>
 			<td>{{ $operation->created_at}}</td>

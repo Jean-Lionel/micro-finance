@@ -8,9 +8,14 @@ class Operation extends ParentModel
 {
     //
 
-    protected $fillable = ['compte_id','montant','type_operation'];
+    protected $fillable = ['compte_name','operer_par','montant','type_operation',
+    'user_id','cni'
+    ];
 
-    public $sortable = ['compte_id','montant','type_operation'];
+    public $sortable = ['compte_name','operer_par','montant','type_operation',
+    'user_id','cni'
+    ];
+
 
 
 }

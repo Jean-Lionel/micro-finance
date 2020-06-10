@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Placement;
+use App\Models\Placement;
+use App\Http\Requests\FormPlacementRequest;
+
 use Illuminate\Http\Request;
 
 class PlacementController extends Controller
@@ -14,7 +16,10 @@ class PlacementController extends Controller
      */
     public function index()
     {
-        //
+        $placements = Placement::sortable()->paginate(20);
+
+        return view('placements.index',compact('placements'));
+        
     }
 
     /**
@@ -24,7 +29,9 @@ class PlacementController extends Controller
      */
     public function create()
     {
-        //
+        $placement = new Placement;
+
+        return view('placements.create', compact('placement'));
     }
 
     /**
@@ -33,9 +40,24 @@ class PlacementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormPlacementRequest $request)
     {
-        //
+        $interet_total = ($request->interet_total * $request->montant) / 100;
+        $place_interet = $request->montant + $interet_total;
+        $interet_moi = $interet_total / $request->nbre_moi;
+
+        Placement::create([
+            'montant' => $request->montant,
+            'compte_name' => $request->compte_name,
+            'nbre_moi' => $request->nbre_moi,
+            'interet_total' => $interet_total,
+            'interet_Moi' => $interet_moi,
+            'place_interet' => $place_interet,
+            'date_placement' => $request->date_placement
+            ]);
+
+        return $this->index();
+      
     }
 
     /**
@@ -46,7 +68,7 @@ class PlacementController extends Controller
      */
     public function show(Placement $placement)
     {
-        //
+        
     }
 
     /**
@@ -57,7 +79,7 @@ class PlacementController extends Controller
      */
     public function edit(Placement $placement)
     {
-        //
+       return view('placements.edit',compact('placement'));
     }
 
     /**

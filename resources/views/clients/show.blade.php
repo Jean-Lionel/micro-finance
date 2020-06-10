@@ -86,7 +86,7 @@
 						
 					</div>
 					<div class="col-md-4">
-						<a href="{{ route('create_compte',$client) }}" class="btn btn-sm btn-primary text-right"> <i class="fa fab-plus"></i> Attribuer un compter</a>	
+						<a href="{{ route('create_compte',$client) }}" class="btn btn-sm btn-primary text-right"><i class="fas fa-cat"></i> Attribuer un compter</a>	
 					</div>
 				</div>
 				
