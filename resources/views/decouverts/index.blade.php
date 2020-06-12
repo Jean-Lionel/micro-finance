@@ -1,13 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Listes des decouverts disponible</h1>
 
-<a href="{{ route('decouverts.create')}}" class="btn btn-info">Nouvel Decouvert</a>
+<div class="row">
+	<div class="col-md-6">
+		<h1>Listes des decouverts disponible</h1>
+	</div>
+	<div class="col-md-6">
+		<a href="{{ route('decouverts.create')}}" class="btn btn-info btn-sm">
+			<i class="fa fa-plus"></i> Nouvel decouvert</a>
+
+		<a href="{{ route('reboursement-decouverts.create')}}" class="btn btn-info btn-sm">
+			<i class="fa fa-plus"></i> Remboursement decouvert</a>
+	</div>
+</div>
+
 
 @if($decouverts)
 
-<table class="table table-bordered table-inverse table-hover">
+<table class="table table-bordered table-responsive table-inverse table-hover">
 	<thead>
 		<tr>
 
@@ -17,6 +28,7 @@
 			<th>@sortablelink('montant','Montant') </th>
 			<th>@sortablelink('interet','Interet en %') </th>
 			<th>@sortablelink('total_a_rambourse','Taux à rembourse (FBU)') </th>
+			<th>@sortablelink('periode','Periode') </th>
 			<th>@sortablelink('created_at','Date') </th>
 
 			
@@ -32,6 +44,7 @@
 			<td>{{ $placement->montant}}</td>
 			<td>{{ $placement->interet}}</td>
 			<td>{{ $placement->total_a_rambourse}}</td>
+			<td>{{ $placement->periode}}</td>
 			<td>{{ $placement->created_at}}</td>
 			<td>
 				<a href="{{ route('decouverts.show',$placement) }}" class="btn btn-outline-info">show</a>

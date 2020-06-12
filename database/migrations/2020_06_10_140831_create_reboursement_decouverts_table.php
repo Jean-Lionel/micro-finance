@@ -16,11 +16,9 @@ class CreateReboursementDecouvertsTable extends Migration
         Schema::create('reboursement_decouverts', function (Blueprint $table) {
             $table->id();
             $table->string('compte_name');
-            $table->float('montant_rembourse');
+            $table->float('montant');
             $table->date('date_remboursement');
             $table->date('decouvert_id');
-            $table->integer('client_id');
-            $table->foreign('client_id')->references('id')->on('clients');
             $table->foreign('decouvert_id')->references('id')->on('decouverts');
             $table->timestamps();
         });

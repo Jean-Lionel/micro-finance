@@ -6,6 +6,7 @@
 	<div class="col-md-12">
 		<h5 class="text-left">Remboursement du découvert</h5>
 	</div>
+
 	<div class="col-md-3">
 		<fieldset class="form-group">
 			<label for="compte_name">Numero du compte</label>
@@ -23,45 +24,28 @@
 		
 	</div>
 
+	
 	<div class="col-md-3">
-		
+		<fieldset class="form-group">
+			<label for="decouvert_id">Decouvert No </label>
+			<input type="text" class="form-control {{$errors->has('decouvert_id') ? 'is-invalid' : 'is-valid' }}" id="decouvert_id" name="decouvert_id" value="{{ old('decouvert_id') ?? $reboursementDecouvert->decouvert_id }}">
 
-		<div class="row">
-			<div class="col-md-6">
-				<fieldset class="form-group">
-			<label for="interet">Interet </label>
-			<input type="text" class="form-control {{$errors->has('interet') ? 'is-invalid' : 'is-valid' }}" id="interet" name="interet" value="{{ old('interet') ?? $reboursementDecouvert->interet ?? 8 }}">
-
-			{!! $errors->first('interet', '<small class="help-block invalid-feedback">:message</small>') !!}
+			{!! $errors->first('decouvert_id', '<small class="help-block invalid-feedback">:message</small>') !!}
 
 		</fieldset>
-				
-			</div>
-			<div class="col-md-6">
-				<fieldset class="form-group">
-			<label for="periode">periode </label>
-			<input type="text" class="form-control {{$errors->has('periode') ? 'is-invalid' : 'is-valid' }}" id="periode" name="periode" value="{{ old('periode') ?? $reboursementDecouvert->periode ?? 3 }}">
 
-			{!! $errors->first('periode', '<small class="help-block invalid-feedback">:message</small>') !!}
-
-		</fieldset>
-			</div>
-		</div>
-
-		<fieldset>
-			<label for=""></label>
-			<input type="submit" class="btn btn-outline-primary btn-block"
-
-			value="{{$btnTitle}}" 
-			>
-		</fieldset>
-
-		
 		
 	</div>
 
 
 </div>
+
+
+
+
+
+
+
 
 
 

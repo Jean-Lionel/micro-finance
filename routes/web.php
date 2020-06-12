@@ -22,5 +22,4 @@ Route::resource('comptes','CompteController');
 Route::resource('placements','PlacementController');
 Route::resource('decouverts','DecouvertController');
 Route::resource('reboursement-decouverts','ReboursementDecouvertController');
-
-Route::get('comptes/ajouter/{id}', 'CompteController@createCompte')->name('create_compte');
+Route::get('find_decouvert', 'ReboursementDecouvertController@ajaxfindDecouvert')->name('find_decouvert');

@@ -20,8 +20,9 @@ class CreateDecouvertsTable extends Migration
             $table->float('interet');
             $table->integer('periode');
             $table->float('total_a_rambourse');
+            $table->float('montant_payer')->default(0);
+            $table->float('montant_restant');
             $table->boolean('paye')->default(false);
-            $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();
         });
     }

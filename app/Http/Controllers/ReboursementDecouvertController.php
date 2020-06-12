@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ReboursementDecouvert;
+use App\Models\Decouvert;
 use Illuminate\Http\Request;
 
 class ReboursementDecouvertController extends Controller
@@ -31,6 +32,18 @@ class ReboursementDecouvertController extends Controller
         return view('reboursementDecouverts.create',compact('reboursementDecouvert'));
     }
 
+    public function ajaxfindDecouvert(){
+        $compte_name = \Request::get('compte_name'); 
+
+        $decouverts = 
+        Decouvert::where('compte_name','=', $compte_name)
+                    ->where('paye','=',0)
+                    ->get();
+
+         return response()->json(['decouverts'=> $decouverts]);
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -50,7 +63,7 @@ class ReboursementDecouvertController extends Controller
      */
     public function show(ReboursementDecouvert $reboursementDecouvert)
     {
-        //
+        
     }
 
     /**

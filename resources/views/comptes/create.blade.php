@@ -3,9 +3,11 @@
 @section('content')
 
 
+
+
 <form action="{{ route('comptes.store')}}" method="POST">
 
-@include('comptes._form',['btnTitle' => 'Enregistre'])
+	@include('comptes._form',['btnTitle' => 'Enregistre'])
 
 </form>
 

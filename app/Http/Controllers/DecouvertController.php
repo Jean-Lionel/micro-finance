@@ -17,6 +17,7 @@ class DecouvertController extends Controller
      {
         $decouverts = Decouvert::sortable()->paginate(10);
 
+
         return view('decouverts.index', compact('decouverts'));
     }
 
@@ -49,7 +50,8 @@ class DecouvertController extends Controller
             'montant' => $request->montant,
             'interet' => $request->interet,
             'periode' => $request->periode,
-            'total_a_rambourse' => $total_a_rambourse 
+            'total_a_rambourse' => $total_a_rambourse,
+            'montant_restant' => $total_a_rambourse
             ]);
 
         return $this->index();
@@ -90,13 +92,15 @@ class DecouvertController extends Controller
         $total_a_rambourse = 
         $request->montant + 
         ((($request->montant * $request->interet)/100) * $request->periode);
+
         $decouvert->update(
             [
             'compte_name' => $request->compte_name,
             'montant' => $request->montant,
             'interet' => $request->interet,
             'periode' => $request->periode,
-            'total_a_rambourse' => $total_a_rambourse 
+            'total_a_rambourse' => $total_a_rambourse ,
+            'montant_restant' => $total_a_rambourse
             ]
 
             );
