@@ -6,9 +6,11 @@ use App\Http\Requests\FormClientRequest;
 use App\Models\Client;
 use App\Models\Compte;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,17 +18,20 @@ class ClientController extends Controller
      */
      public function index()
      {
+      
+
         $clients = Client::sortable()->paginate(20);
 
         $search = \Request::get('search'); 
 
         $clients = Client::where('nom','like','%'.$search.'%')
-                            ->orWhere('prenom','like','%'.$search.'%')
-                            ->orWhere('cni','like','%'.$search.'%')
-                            ->orWhere('nom_association','like','%'.$search.'%')
-                            ->orWhere('profession','like','%'.$search.'%')
-                            ->orderBy('nom')
-                            ->paginate(10);
+        ->orWhere('prenom','like','%'.$search.'%')
+        ->orWhere('cni','like','%'.$search.'%')
+        ->orWhere('nom_association','like','%'.$search.'%')
+        ->orWhere('profession','like','%'.$search.'%')
+        ->orWhere('date_naissance','like','%'.$search.'%')
+        ->orderBy('nom')
+        ->paginate(10);
 
         return view('clients.index', compact('clients','search'));
     }

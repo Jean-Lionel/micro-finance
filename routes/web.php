@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::permanentRedirect('/', '/clients');
 
 Route::resource('clients','ClientController');
@@ -23,3 +25,10 @@ Route::resource('placements','PlacementController');
 Route::resource('decouverts','DecouvertController');
 Route::resource('reboursement-decouverts','ReboursementDecouvertController');
 Route::get('find_decouvert', 'ReboursementDecouvertController@ajaxfindDecouvert')->name('find_decouvert');
+
+
+
+Auth::routes();
+
+
+Route::get('/home', 'DashboardController@index')->name('home');

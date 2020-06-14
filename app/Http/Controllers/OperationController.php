@@ -18,7 +18,7 @@ class OperationController extends Controller
      */
     public function index()
     {
-        $operations = Operation::sortable()->paginate(40);
+        $operations = Operation::sortable('date')->paginate(40);
 
         //dd($operations);
 

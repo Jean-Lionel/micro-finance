@@ -18,7 +18,7 @@ class CreateReboursementDecouvertsTable extends Migration
             $table->string('compte_name');
             $table->float('montant');
             $table->date('date_remboursement');
-            $table->date('decouvert_id');
+            $table->integer('decouvert_id');
             $table->foreign('decouvert_id')->references('id')->on('decouverts');
             $table->timestamps();
         });

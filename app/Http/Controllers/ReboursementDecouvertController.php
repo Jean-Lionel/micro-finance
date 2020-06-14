@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ReboursementDecouvert;
 use App\Models\Decouvert;
 use Illuminate\Http\Request;
+use App\Http\Requests\FormRemboursementRequest;
 
 class ReboursementDecouvertController extends Controller
 {
@@ -52,7 +53,9 @@ class ReboursementDecouvertController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       ReboursementDecouvert::create($request->all());
+
+       return $this->index();
     }
 
     /**

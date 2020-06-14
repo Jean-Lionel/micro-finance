@@ -23,20 +23,31 @@
 	</div>
 </div>
 
-
-<form action="{{ route('reboursement-decouverts.store')}}" method="POST">
-
-	@include('reboursementDecouverts._form',['btnTitle' => 'Enregistre'])
-
-</form>
-
-
+	@include('reboursementDecouverts._form')
 @endsection
 
 
 @section('javascript')
 
 <script>
+	let remplireCase =  (compte_name,montant,decouvert_id,montant_restant,created_at) =>{
+
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('COMPTE No' + compte_name)
+  modal.find('.modal-body #compte_name').val(compte_name)
+  modal.find('.modal-body #decouvert_id').val(decouvert_id)
+  modal.find('#montant_restant').text('Montant restant '+montant_restant + ' FBU')
+})
+
+
+
+	}
 
 	$(document).ready(function() {
 
@@ -50,9 +61,14 @@
 				data: {compte_name: $('#search').val()},
 			})
 			.done(function(data) {
-				
-				recupere(data.decouverts);
 				console.log("success");
+
+				// console.log(data)
+				let table = recupere(data.decouverts);
+
+				//document.getElementById('decouvert').innerHTML = ""
+				$('#decouvert').html('')				
+				$('#decouvert').append(table)
 				
 			})
 			.fail(function() {
@@ -67,22 +83,61 @@
 
 
 		function recupere(data){
-			console.log(data)
+			let table = `<table class="table table-hover">
+			<thead>
+			<tr>
+			<th>No du compte</th>
+			<th>Montant</th>
+			<th>Decouvert No</th>
+			<th>Date du decouvert</th>
+			<th>Montant restant</th>
+
+			<th>Action</th>
+			</tr>
+			</thead>
+			`;
 			
 			for (var i = 0; i < data.length; i++) {
 
-				console.log(data[i].compte_name)
+				// console.log(data[i])
+
+
+				let tr = 
+				`
+				<tr>
+				<td>${data[i].compte_name}</td>
+				<td>${data[i].montant}</td>
+				<td>#${data[i].id}</td>
+				<td>${data[i].created_at}</td>
+				<td>${data[i].montant_restant}</td>
+				
+				<td>
+
+				<button type="button" onclick="remplireCase('${data[i].compte_name}',${data[i].montant},${data[i].id},${data[i].montant_restant},'${data[i].created_at}')" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Paye</button>
+
+				</td>
+				</tr>
+				`;
+
+				table += tr;
 				
 			}
 
-			return 
+			table += '</table>'
+
+			return table;
 
 		}
+
+
+		
 		
 	});
 	
+
+
 	
-		
+
 
 </script>
 
