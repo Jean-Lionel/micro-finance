@@ -16,11 +16,14 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::permanentRedirect('/', '/clients');
+Route::permanentRedirect('/', '/home');
 
 Route::resource('clients','ClientController');
 Route::resource('operations','OperationController');
 Route::resource('comptes','CompteController');
+
+Route::get('comptes/ajouter/{id}', 'CompteController@createCompte')->name('create_compte');
+
 Route::resource('placements','PlacementController');
 Route::resource('decouverts','DecouvertController');
 Route::resource('reboursement-decouverts','ReboursementDecouvertController');

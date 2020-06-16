@@ -27,13 +27,13 @@
 			<td>{{ $compte->name }}</td>
 			<td>{{ $compte->montant}}</td>
 			<td>
-				<a href="{{ route('comptes.show',$compte) }}" class="btn btn-outline-info btn-sm">show</a>
+			{{-- 	<a href="{{ route('comptes.show',$compte) }}" class="btn btn-outline-info btn-sm">show</a> --}}
 				<a href="{{ route('comptes.edit',$compte) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 			
 					<form action="{{ route('comptes.destroy' , $compte) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
-					<button class="btn btn-outline-danger btn-sm">Delete</button>
+					<button class="btn btn-outline-danger btn-sm">Supprime</button>
 				</form>
 				
 				

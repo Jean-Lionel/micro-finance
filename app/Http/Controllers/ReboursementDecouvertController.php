@@ -53,7 +53,23 @@ class ReboursementDecouvertController extends Controller
      */
     public function store(Request $request)
     {
-       ReboursementDecouvert::create($request->all());
+
+       $decouvert = Decouvert::where('id',$request->decouvert_id)->firstOrFail();
+
+       if($decouvert){
+        
+         $montant_r = $decouvert->montant_restant - $request->montant;
+
+         if($montant_r >=0){
+             ReboursementDecouvert::create($request->all());
+
+             $decouvert->update(['montant_restant' => $montant_r ]);
+
+         }else{
+            return index();
+         }
+       }
+      
 
        return $this->index();
     }

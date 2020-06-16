@@ -18,7 +18,7 @@
 
 @if($decouverts)
 
-<table class="table table-bordered table-responsive table-inverse table-hover">
+<table class="table table-bordered table-responsive table-sm table-hover">
 	<thead>
 		<tr>
 
@@ -28,6 +28,7 @@
 			<th>@sortablelink('montant','Montant') </th>
 			<th>@sortablelink('interet','Interet en %') </th>
 			<th>@sortablelink('total_a_rambourse','Taux à rembourse (FBU)') </th>
+			<th>@sortablelink('montant_restant','Montant restant (FBU)') </th>
 			<th>@sortablelink('periode','Periode') </th>
 			<th>@sortablelink('created_at','Date') </th>
 
@@ -44,16 +45,17 @@
 			<td>{{ $placement->montant}}</td>
 			<td>{{ $placement->interet}}</td>
 			<td>{{ $placement->total_a_rambourse}}</td>
+			<td>{{ $placement->montant_restant}}</td>
 			<td>{{ $placement->periode}}</td>
 			<td>{{ $placement->created_at}}</td>
 			<td>
-				<a href="{{ route('decouverts.show',$placement) }}" class="btn btn-outline-info">show</a>
-				<a href="{{ route('decouverts.edit',$placement) }}" class="btn btn-outline-dark">Modifier</a>
+				{{-- <a href="{{ route('decouverts.show',$placement) }}" class="btn btn-outline-info">show</a> --}}
+				<a href="{{ route('decouverts.edit',$placement) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 			
 					<form action="{{ route('decouverts.destroy' , $placement) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
-					<button class="btn btn-outline-danger">Delete</button>
+					<button class="btn btn-outline-danger btn-sm">Delete</button>
 				</form>
 				
 				

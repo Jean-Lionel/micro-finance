@@ -30,13 +30,13 @@
 			<td>{{ $operation->type_operation}}</td>
 			<td>{{ $operation->created_at}}</td>
 			<td>
-				<a href="{{ route('operations.show',$operation) }}" class="btn btn-outline-info">show</a>
-				<a href="{{ route('operations.edit',$operation) }}" class="btn btn-outline-dark">Modifier</a>
+				<!-- <a href="{{ route('operations.show',$operation) }}" class="btn btn-outline-info">show</a> -->
+				<a href="{{ route('operations.edit',$operation) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 			
 					<form action="{{ route('operations.destroy' , $operation) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
-					<button class="btn btn-outline-danger">Delete</button>
+					<button class="btn btn-outline-danger btn-sm">Delete</button>
 				</form>
 				
 				
