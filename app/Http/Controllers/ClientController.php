@@ -20,16 +20,19 @@ class ClientController extends Controller
      {
       
 
-        $clients = Client::sortable()->paginate(20);
+        //$clients = Client::sortable()->paginate(10);
 
         $search = \Request::get('search'); 
 
-        $clients = Client::where('nom','like','%'.$search.'%')
+        $clients = Client::sortable()
+        ->where('nom','like','%'.$search.'%')
         ->orWhere('prenom','like','%'.$search.'%')
         ->orWhere('cni','like','%'.$search.'%')
         ->orWhere('nom_association','like','%'.$search.'%')
         ->orWhere('profession','like','%'.$search.'%')
         ->orWhere('date_naissance','like','%'.$search.'%')
+        ->orWhere('antenne','like','%'.$search.'%')
+        ->orWhere('created_at','like','%'.$search.'%')
         ->orderBy('nom')
         ->paginate(10);
 
@@ -57,6 +60,15 @@ class ClientController extends Controller
      {
 
         $client = Client::create($request->all());
+        
+        Compte::create(
+            [
+            'montant' => 0,
+             'type_compte' => 'COURANT',
+             'client_id' => $client->id,
+             'name' => 'COO-'.$client->id
+            ]
+            );
 
         return $this->index();
     }

@@ -13,7 +13,7 @@ class Operation extends ParentModel
     ];
 
     public $sortable = ['compte_name','operer_par','montant','type_operation',
-    'user_id','cni'
+    'user_id','cni','created_at'
     ];
 
 

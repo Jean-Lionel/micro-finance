@@ -35,7 +35,7 @@
 
 $('#exampleModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
+  //var recipient = button.data('whatever') // Extract info from data-* attributes
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this)
@@ -113,7 +113,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 				
 				<td>
 
-				<button type="button" onclick="remplireCase('${data[i].compte_name}',${data[i].montant},${data[i].id},${data[i].montant_restant},'${data[i].created_at}')" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Paye</button>
+				<button type="button" onclick="remplireCase('${data[i].compte_name}',${data[i].montant},${data[i].id},${data[i].montant_restant},'${data[i].created_at}')" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Paye</button>
 
 				</td>
 				</tr>

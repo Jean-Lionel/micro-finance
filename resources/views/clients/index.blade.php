@@ -27,7 +27,7 @@
 
 @if($clients)
 
-<table class="table table-bordered table-inverse table-responsive table-hover">
+<table class="table table-sm table-bordered table-inverse table-hover">
 	<thead>
 		<tr>
 			<th>No</th>
@@ -35,7 +35,10 @@
 			<th>@sortablelink('prenom','Prénom') </th>
 			<th>@sortablelink('cni','CNI')</th>
 			<th>Compte</th>
+			<th>@sortablelink('antenne','Antenne')</th>
 			<th>@sortablelink('date_naissance','Date de naissance')</th>
+			<th>@sortablelink('created_at','created at')</th>
+			
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -55,7 +58,9 @@
 					@endforeach
 				</ul>
 			</td>
+			<td>{{ $client->antenne}}</td>
 			<td>{{ $client->date_naissance}}</td>
+			<td>{{ $client->created_at}}</td>
 			<td>
 				<a href="{{ route('clients.show',$client) }}" class="btn btn-outline-info btn-sm">show</a>
 				<a href="{{ route('clients.edit',$client) }}" class="btn btn-outline-dark btn-sm">Modifier</a>

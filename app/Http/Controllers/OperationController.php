@@ -18,11 +18,20 @@ class OperationController extends Controller
      */
     public function index()
     {
-        $operations = Operation::sortable('date')->paginate(10);
+        
+        $search = \Request::get('search');
+        $operations = Operation::sortable(['created_at'=>'desc'])
+                    ->where('compte_name', 'like', '%'.$search.'%')
+                    ->orWhere('operer_par', 'like', '%'.$search.'%')
+                    ->orWhere('montant', 'like', '%'.$search.'%')
+                    ->orWhere('type_operation', 'like', '%'.$search.'%')
+                    ->orWhere('user_id', 'like', '%'.$search.'%')
+                    ->orWhere('cni', 'like', '%'.$search.'%')
+                    ->paginate(10);
 
         //dd($operations);
 
-        return view('operations.index',compact('operations'));
+        return view('operations.index',compact('operations','search'));
     }
 
     /**

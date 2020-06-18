@@ -16,9 +16,18 @@ class PlacementController extends Controller
      */
     public function index()
     {
-        $placements = Placement::sortable()->paginate(20);
+        $search = \Request::get('search');
 
-        return view('placements.index',compact('placements'));
+
+        $placements = Placement::sortable()
+                    ->where('montant','like', '%'.$search.'%')
+                    ->orWhere('compte_name','like', '%'.$search.'%')
+                    ->orWhere('date_placement','like', '%'.$search.'%')
+                    ->orWhere('interet_total','like', '%'.$search.'%')
+                    ->orWhere('nbre_moi','like', '%'.$search.'%')
+                    ->paginate(20);
+
+        return view('placements.index',compact('placements','search'));
         
     }
 

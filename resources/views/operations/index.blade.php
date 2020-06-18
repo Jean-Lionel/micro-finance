@@ -1,13 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Listes des operations disponible</h1>
+<div class="row">
+	<div class="col-md-8">
+		<h1>Tout les opérations</h1>	
+	</div>
+	<div class="col-md-4 col-sm-6">
+		<form action="" class="navbar-form navbar-left">
+			<div class="input-group custom-search-form">
+				<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search}}">
+				<span class="input-group-btn">
+					<button class="btn btn-default-sm" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+
+			</div>
+		</form>
+	</div>
+</div>
+
 
 <a href="{{ route('operations.create')}}" class="btn btn-info">Ajouter un operation</a>
 
 @if($operations)
 
-<table class="table table-bordered table-inverse table-hover">
+<table class="table table-bordered table-sm table-inverse table-hover">
 	<thead>
 		<tr>
 			<th>No</th>

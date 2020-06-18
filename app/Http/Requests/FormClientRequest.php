@@ -27,7 +27,8 @@ class FormClientRequest extends FormRequest
         'nom' => 'required|max:255',
         'prenom' => 'required',
         'cni' => 'required|unique:clients,cni,'.($this->client->id ?? '').'|max:255',
-        'date_naissance' => 'date'
+        'date_naissance' => 'required|date',
+        
         ];
     }
 

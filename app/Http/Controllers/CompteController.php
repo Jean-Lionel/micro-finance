@@ -16,9 +16,19 @@ class CompteController extends Controller
      */
     public function index()
     {
-        $comptes = Compte::sortable()->paginate(20);
+        //$comptes = Compte::sortable()->paginate(10);
+         $search = \Request::get('search');
+
+         $comptes = Compte::sortable()
+                            ->where('client_id','like', '%'.$search.'%')
+                            ->orWhere('montant','like', '%'.$search.'%')
+                            ->orWhere('name','like', '%'.$search.'%')
+                            ->orWhere('type_compte','like', '%'.$search.'%')
+                            ->paginate(10);
+
+
         
-        return view('comptes.index', compact('comptes'));
+        return view('comptes.index', compact('comptes','search'));
     }
 
     /**

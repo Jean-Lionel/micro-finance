@@ -15,10 +15,23 @@ class DecouvertController extends Controller
      */
      public function index()
      {
-        $decouverts = Decouvert::sortable()->paginate(10);
+        //$decouverts = Decouvert::sortable()->paginate(10);
+
+        $search = \Request::get('search'); 
+
+        $decouverts = Decouvert::sortable()
+        ->where('compte_name','like','%'.$search.'%')
+        ->orWhere('montant','like','%'.$search.'%')
+        ->orWhere('interet','like','%'.$search.'%')
+        ->orWhere('total_a_rambourse','like','%'.$search.'%')
+        ->orWhere('periode','like','%'.$search.'%')
+        ->orWhere('montant_payer','like','%'.$search.'%')
+        ->orWhere('montant_restant','like','%'.$search.'%')
+        ->orWhere('created_at','like','%'.$search.'%')
+        ->paginate(10);
 
 
-        return view('decouverts.index', compact('decouverts'));
+        return view('decouverts.index', compact('decouverts','search'));
     }
 
     /**

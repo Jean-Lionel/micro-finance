@@ -41,7 +41,7 @@ class Client extends ParentModel
     'signateur_3_tel'
     ];
     
-    public $sortable = ['nom','prenom','cni','date_naissance'];
+    public $sortable = ['nom','prenom','cni','date_naissance','created_at','antenne'];
 
 
     public function comptes()
