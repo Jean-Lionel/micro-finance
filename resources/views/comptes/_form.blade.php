@@ -21,7 +21,7 @@
 		<div class="form-group row">
 			<label for="name" class="col-sm-2 col-form-label">Numero du compte</label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control  {!! $errors->has('name')? 'is-invalid' : 'is-valid' !!}" name="name" id="name" value="{{ old('name') ?? $compte->name }}">
+				<input type="text" class="form-control  {!! $errors->has('name')? 'is-invalid' : 'is-valid' !!}" name="name" id="name" value="{{ old('name') ?? $compte->name ?? 'COO-' }}">
 
 				{!! $errors->first('name', '<small class="help-block invalid-feedback">:message</small>') !!}
 			</div>

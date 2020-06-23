@@ -32,8 +32,6 @@ class RegisterController extends Controller
      */
      protected $redirectTo = RouteServiceProvider::HOME;
 
-     Auth::routes(['register' => false]);
-
     /**
      * Create a new controller instance.
      *

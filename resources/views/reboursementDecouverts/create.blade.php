@@ -33,7 +33,7 @@
 	let remplireCase =  (compte_name,montant,decouvert_id,montant_restant,created_at) =>{
 
 
-$('#exampleModal').on('show.bs.modal', function (event) {
+$('#mondal_query').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget) // Button that triggered the modal
   //var recipient = button.data('whatever') // Extract info from data-* attributes
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
@@ -113,7 +113,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 				
 				<td>
 
-				<button type="button" onclick="remplireCase('${data[i].compte_name}',${data[i].montant},${data[i].id},${data[i].montant_restant},'${data[i].created_at}')" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Paye</button>
+				<button type="button" onclick="remplireCase('${data[i].compte_name}',${data[i].montant},${data[i].id},${data[i].montant_restant},'${data[i].created_at}')" class="btn btn-primary" data-toggle="modal" data-target="#mondal_query" >Paye</button>
 
 				</td>
 				</tr>

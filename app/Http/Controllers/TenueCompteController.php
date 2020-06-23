@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CopdiCompte;
+use App\Models\TenueCompte;
 use Illuminate\Http\Request;
 
-class CopdiCompteController extends Controller
+class TenueCompteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,7 @@ class CopdiCompteController extends Controller
      */
     public function index()
     {
-        $copdiComptes = CopdiCompte::sortable(['created_at' => 'DESC'])->paginate(5);
-
-        return view('copdicomptes.index', compact('copdiComptes'));
+        //
     }
 
     /**
@@ -43,10 +41,10 @@ class CopdiCompteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\CopdiCompte  $copdiCompte
+     * @param  \App\Models\TenueCompte  $tenueCompte
      * @return \Illuminate\Http\Response
      */
-    public function show(CopdiCompte $copdiCompte)
+    public function show(TenueCompte $tenueCompte)
     {
         //
     }
@@ -54,10 +52,10 @@ class CopdiCompteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\CopdiCompte  $copdiCompte
+     * @param  \App\Models\TenueCompte  $tenueCompte
      * @return \Illuminate\Http\Response
      */
-    public function edit(CopdiCompte $copdiCompte)
+    public function edit(TenueCompte $tenueCompte)
     {
         //
     }
@@ -66,10 +64,10 @@ class CopdiCompteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CopdiCompte  $copdiCompte
+     * @param  \App\Models\TenueCompte  $tenueCompte
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CopdiCompte $copdiCompte)
+    public function update(Request $request, TenueCompte $tenueCompte)
     {
         //
     }
@@ -77,10 +75,10 @@ class CopdiCompteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\CopdiCompte  $copdiCompte
+     * @param  \App\Models\TenueCompte  $tenueCompte
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CopdiCompte $copdiCompte)
+    public function destroy(TenueCompte $tenueCompte)
     {
         //
     }

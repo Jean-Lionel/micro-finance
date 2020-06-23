@@ -35,3 +35,5 @@ Auth::routes();
 
 
 Route::get('/home', 'DashboardController@index')->name('home');
+
+Route::get('pdf','PDFController@generatePDF');

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Placement;
+use App\Http\Controllers\ComptePrincipalController;
 use App\Http\Requests\FormPlacementRequest;
-
+use App\Models\Placement;
 use Illuminate\Http\Request;
+use Illuminate\Routing\back;
 
 class PlacementController extends Controller
 {
@@ -14,18 +15,18 @@ class PlacementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+     public function index()
+     {
         $search = \Request::get('search');
 
 
         $placements = Placement::sortable()
-                    ->where('montant','like', '%'.$search.'%')
-                    ->orWhere('compte_name','like', '%'.$search.'%')
-                    ->orWhere('date_placement','like', '%'.$search.'%')
-                    ->orWhere('interet_total','like', '%'.$search.'%')
-                    ->orWhere('nbre_moi','like', '%'.$search.'%')
-                    ->paginate(20);
+        ->where('montant','like', '%'.$search.'%')
+        ->orWhere('compte_name','like', '%'.$search.'%')
+        ->orWhere('date_placement','like', '%'.$search.'%')
+        ->orWhere('interet_total','like', '%'.$search.'%')
+        ->orWhere('nbre_moi','like', '%'.$search.'%')
+        ->paginate(20);
 
         return view('placements.index',compact('placements','search'));
         
@@ -36,8 +37,8 @@ class PlacementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+     public function create()
+     {
         $placement = new Placement;
 
         return view('placements.create', compact('placement'));
@@ -49,13 +50,20 @@ class PlacementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(FormPlacementRequest $request)
-    {
+     public function store(FormPlacementRequest $request)
+     {
         $interet_total = ($request->interet_total * $request->montant) / 100;
         $place_interet = $request->montant + $interet_total;
         $interet_moi = $interet_total / $request->nbre_moi;
 
-        Placement::create([
+        //Verification sur le compte principal
+        $response = ComptePrincipalController::update($request->montant,'PLACEMENT');
+
+
+        if($response  == 'OK'){
+
+        ComptePrincipalOperationController::storeOpertation($request->montant,'placement');
+          Placement::create([
             'montant' => $request->montant,
             'compte_name' => $request->compte_name,
             'nbre_moi' => $request->nbre_moi,
@@ -65,9 +73,19 @@ class PlacementController extends Controller
             'date_placement' => $request->date_placement
             ]);
 
-        return $this->index();
+          successMessage();
+
+          }else{
+            //Message d'erreur 
+           errorMessage($response);
+
+            return back();
+          }
       
-    }
+
+      return $this->index();
+      
+  }
 
     /**
      * Display the specified resource.
@@ -75,10 +93,10 @@ class PlacementController extends Controller
      * @param  \App\Placement  $placement
      * @return \Illuminate\Http\Response
      */
-    public function show(Placement $placement)
-    {
-        
-    }
+     public function show(Placement $placement)
+     {
+
+     }
 
     /**
      * Show the form for editing the specified resource.
@@ -86,10 +104,10 @@ class PlacementController extends Controller
      * @param  \App\Placement  $placement
      * @return \Illuminate\Http\Response
      */
-    public function edit(Placement $placement)
-    {
-       return view('placements.edit',compact('placement'));
-    }
+     public function edit(Placement $placement)
+     {
+         return view('placements.edit',compact('placement'));
+     }
 
     /**
      * Update the specified resource in storage.
@@ -98,8 +116,8 @@ class PlacementController extends Controller
      * @param  \App\Placement  $placement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Placement $placement)
-    {
+     public function update(Request $request, Placement $placement)
+     {
         //
     }
 
@@ -109,8 +127,8 @@ class PlacementController extends Controller
      * @param  \App\Placement  $placement
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Placement $placement)
-    {
+     public function destroy(Placement $placement)
+     {
         //
     }
 }

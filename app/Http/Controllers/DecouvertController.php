@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ComptePrincipalController;
 use App\Http\Requests\FormDecouvertRequest;
 use App\Models\Decouvert;
 use Illuminate\Http\Request;
+use Illuminate\Routing\back;
 
 class DecouvertController extends Controller
 {
@@ -58,7 +60,11 @@ class DecouvertController extends Controller
         $total_a_rambourse = 
         $request->montant + ((($request->montant * $request->interet)/100) *  $request->periode);
 
-        Decouvert::create([
+        $response = ComptePrincipalController::update($request->montant, 'DECOUVERT');
+
+        if($response == "OK"){
+
+            Decouvert::create([
             'compte_name' => $request->compte_name,
             'montant' => $request->montant,
             'interet' => $request->interet,
@@ -66,6 +72,18 @@ class DecouvertController extends Controller
             'total_a_rambourse' => $total_a_rambourse,
             'montant_restant' => $total_a_rambourse
             ]);
+
+            ComptePrincipalOperationController::storeOpertation($request->montant, 'DECOUVERT');
+
+            successMessage();
+
+        }else{
+            errorMessage($response);
+
+            return back();
+        }
+
+        
 
         return $this->index();
 

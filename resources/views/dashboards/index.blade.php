@@ -3,6 +3,14 @@
 @section('content')
 
 <div class="row text-center">
+	<div class="col-md-12">
+		@livewire('chart-compte-principal')
+	</div>
+
+{{-- 	<div class="col-md-12">
+		@livewire('general-chart')
+	</div> --}}
+	
 	<div class="col-md-6 col-sm-12">
 		<canvas id="graphique1" width="200" height="100">
 			Ooops !!! votre navigateur n'est pas à jour essayer de chercher les derniers mise à jour
@@ -25,8 +33,6 @@
 @endsection
 
 @section('javascript')
-
-
 
 <script>
 	var ctx1 = document.getElementById('graphique1').getContext('2d');
@@ -98,11 +104,8 @@
 
 	})
 	var char4 = new Chart(ctx4,{
-		type:'line',
-		data:{
-			labels:[]
+		type: 'pie',
 
-		}
 
 	})
 	

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Operation extends ParentModel
 {
@@ -16,6 +17,16 @@ class Operation extends ParentModel
     'user_id','cni','created_at'
     ];
 
+    public static function boot()
+    {
+    	parent::boot();
+
+    	self::creating(function($model){
+            $model->user_id = Auth::user()->id;
+
+            });
+
+    }
 
 
 }

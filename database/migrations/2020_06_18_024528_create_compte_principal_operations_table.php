@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReboursementDecouvertsTable extends Migration
+class CreateComptePrincipalOperationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateReboursementDecouvertsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reboursement_decouverts', function (Blueprint $table) {
+        Schema::create('compte_principal_operations', function (Blueprint $table) {
             $table->id();
-            $table->string('compte_name');
-            $table->float('montant');
-            $table->date('date_remboursement');
-            $table->integer('decouvert_id');
+            $table->float('retrait')->default(0);
+            $table->float('versement')->default(0);
+            $table->float('placement')->default(0);
+            $table->float('decouvert')->default(0);
+            $table->float('reboursement')->default(0);
             $table->integer('user_id');
-            $table->foreign('decouvert_id')->references('id')->on('decouverts');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateReboursementDecouvertsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reboursement_decouverts');
+        Schema::dropIfExists('compte_principal_operations');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Placement extends ParentModel
 {
@@ -11,15 +12,22 @@ class Placement extends ParentModel
 	'montant','compte_name',
 	'nbre_moi','interet_total',
 	'interet_Moi','place_interet',
-	'date_placement'
+	'date_placement','user_id'
 	];
 
 	public $sortable = [
 	'montant','compte_name',
 	'nbre_moi','interet_total',
 	'interet_Moi','place_interet',
-	'date_placement'
+	'date_placement','user_id'
 	];
 
+	public static function boot(){
+		parent::boot();
+
+		self::creating(function($model){
+			$model->user_id = Auth::user()->id;
+			});
+	}
 
 }

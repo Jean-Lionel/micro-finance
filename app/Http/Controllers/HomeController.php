@@ -23,6 +23,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $a = new Illuminate\Support\Carbon(); 
+        
+      
         return view('home');
     }
 }

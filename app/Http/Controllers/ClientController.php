@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FormClientRequest;
 use App\Models\Client;
 use App\Models\Compte;
+use App\Models\ComptePrincipal;
+use Faker\Provider\url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,8 +20,7 @@ class ClientController extends Controller
      */
      public function index()
      {
-      
-
+        
         //$clients = Client::sortable()->paginate(10);
 
         $search = \Request::get('search'); 

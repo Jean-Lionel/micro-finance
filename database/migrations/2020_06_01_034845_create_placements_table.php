@@ -22,6 +22,8 @@ class CreatePlacementsTable extends Migration
             $table->float('interet_Moi');
             $table->float('place_interet')->nullable();
             $table->date('date_placement');
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Decouvert extends ParentModel
 {
@@ -18,6 +19,14 @@ class Decouvert extends ParentModel
     'created_at','periode',
     'montant_payer',
 	'montant_restant'];
+
+    public static function boot(){
+        parent::boot();
+
+        self::creating(function($model){
+                $model->user_id = Auth::user()->id;
+            });
+    }
 
 
 }

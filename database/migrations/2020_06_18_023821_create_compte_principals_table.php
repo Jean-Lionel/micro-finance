@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCopdiComptesTable extends Migration
+class CreateComptePrincipalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateCopdiComptesTable extends Migration
      */
     public function up()
     {
-        Schema::create('copdi_comptes', function (Blueprint $table) {
+        Schema::create('compte_principals', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->default('COPDI COMPTE');
-            $table->float('montant')->default(0);
+            $table->float('montant');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateCopdiComptesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('copdi_comptes');
+        Schema::dropIfExists('compte_principals');
     }
 }

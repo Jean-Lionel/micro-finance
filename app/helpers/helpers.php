@@ -1,7 +1,12 @@
 <?php
 
+use MercurySeries\Flashy\flashy;
+
+
+
 function set_active_router($route){
-	return Route::is($route) ? 'active' : 'dark';
+
+	return Route::is($route) ? 'active' : '';
 }
 
 function pageTitle($title){
@@ -13,6 +18,15 @@ function pageTitle($title){
 	
 }
 
-function hello(){
-	return 'Hacked';
+function successMessage($message = 'Opération réussi'){
+	  flashy()->success($message);
+}
+
+function errorMessage($message = 'Opération echoué'){
+	  flashy()->error($message);
+}
+
+
+function testLionel(){
+	return "JEAN";
 }

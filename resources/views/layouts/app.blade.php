@@ -9,6 +9,7 @@
 
   <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
+ @livewireStyles
 <style> 
   .active{
     background: rgba(255,45,255,0.5);
@@ -69,8 +70,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
-
+  @livewireScripts
   @yield('javascript')
+  
+  @include('flashy::message')
+
+   @livewireScripts
+  @stack('scripts')
   
 </body>
 </html>
