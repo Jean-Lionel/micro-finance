@@ -18,12 +18,14 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index()
-     {
-        
+    public function index()
+    {
+
         //$clients = Client::sortable()->paginate(10);
 
         $search = \Request::get('search'); 
+
+        
 
         $clients = Client::sortable()
         ->where('nom','like','%'.$search.'%')
@@ -37,6 +39,8 @@ class ClientController extends Controller
         ->orderBy('nom')
         ->paginate(10);
 
+
+
         return view('clients.index', compact('clients','search'));
     }
 
@@ -45,8 +49,8 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function create()
-     {
+    public function create()
+    {
         $client = new Client;
         return view('clients.create',compact('client'));
     }
@@ -57,21 +61,30 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(FormClientRequest $request)
-     {
+    public function store(FormClientRequest $request)
+    {
+        $imageName = '';
+        if (isset($request->upload_image)) {
+            # code...
+            $imageName = time().'.'.$request->upload_image->extension();  
+            $request->upload_image->move(public_path('img\client_images'), $imageName);
+    
+        }
 
-        $client = Client::create($request->all());
+        $client = Client::create($request->all()  + ['image' => $imageName ]);
         
         Compte::create(
             [
-            'montant' => 0,
-             'type_compte' => 'COURANT',
-             'client_id' => $client->id,
-             'name' => 'COO-'.$client->id
+                'montant' => 0,
+                'type_compte' => 'COURANT',
+                'client_id' => $client->id,
+                'name' => 'COO-'.$client->id
             ]
-            );
+        );
 
-        return $this->index();
+        successMessage();
+
+        return back();
     }
 
     /**
@@ -80,16 +93,16 @@ class ClientController extends Controller
      * @param  \App\Model\Client  $client
      * @return \Illuminate\Http\Response
      */
-     public function show(Client $client)
-     {
+    public function show(Client $client)
+    {
        // $compte = Compte::where('client_id', $client->id)->get();
 
 
        //return $client->comptes;
-       
 
-       return view('clients.show',compact('client'));
-   }
+
+     return view('clients.show',compact('client'));
+ }
 
     /**
      * Show the form for editing the specified resource.
@@ -97,8 +110,8 @@ class ClientController extends Controller
      * @param  \App\Model\Client  $client
      * @return \Illuminate\Http\Response
      */
-     public function edit(Client $client)
-     {
+    public function edit(Client $client)
+    {
 
 
         return view('clients.edit',compact('client'));
@@ -111,8 +124,8 @@ class ClientController extends Controller
      * @param  \App\Model\Client  $client
      * @return \Illuminate\Http\Response
      */
-     public function update(FormClientRequest $request, Client $client)
-     {
+    public function update(FormClientRequest $request, Client $client)
+    {
         $client->update($request->all());
 
         return $this->index();
@@ -124,8 +137,8 @@ class ClientController extends Controller
      * @param  \App\Model\Client  $client
      * @return \Illuminate\Http\Response
      */
-     public function destroy(Client $client)
-     {
+    public function destroy(Client $client)
+    {
         $client->delete();
 
         return back();

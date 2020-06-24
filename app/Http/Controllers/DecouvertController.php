@@ -62,6 +62,8 @@ class DecouvertController extends Controller
 
         $response = ComptePrincipalController::update($request->montant, 'DECOUVERT');
 
+        dd($response);
+
         if($response == "OK"){
 
             Decouvert::create([

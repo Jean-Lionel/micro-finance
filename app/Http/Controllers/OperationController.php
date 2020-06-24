@@ -146,7 +146,11 @@ class OperationController extends Controller
      */
      public function edit(Operation $operation)
      {
-        return view('operations.edit',compact('operation'));
+
+        warningMessage('Action ne permise');
+        //return view('operations.edit',compact('operation'));
+
+        return back();
     }
 
     /**

@@ -9,7 +9,5 @@ class ComptePrincipal extends Model
 
 	protected $fillable = ['montant'];
 
-     protected $attributes = [
-        'montant' => 500000,
-    ];
+     
 }

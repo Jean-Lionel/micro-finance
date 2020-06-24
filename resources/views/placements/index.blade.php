@@ -49,10 +49,10 @@
 		<tr>
 			<td>{{$key + 1}}</td>
 			<td>{{ $placement->compte_name}}</td>
-			<td>{{ $placement->montant}}</td>
+			<td>{{ numberFormat($placement->montant)}}</td>
 			<td>{{ $placement->nbre_moi}}</td>
-			<td>{{ $placement->interet_total}}</td>
-			<td>{{ $placement->place_interet}}</td>
+			<td>{{ numberFormat($placement->interet_total)}}</td>
+			<td>{{ numberFormat($placement->place_interet)}}</td>
 			<td>{{ $placement->created_at}}</td>
 			<td>
 			{{-- 	<a href="{{ route('placements.show',$placement) }}" class="btn btn-outline-info">show</a> --}}

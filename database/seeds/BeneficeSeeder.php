@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CopdiCompteSeeder extends Seeder
+class BeneficeSeeder extends Seeder
 {
     /**
      * Run the database seeds.

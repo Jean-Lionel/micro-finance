@@ -11,7 +11,11 @@ class ChartComptePrincipal extends Component
 
     public function render()
     {
-        $currentMontant = ComptePrincipal::latest()->first()->montant;
+        $currentMontant = 0.0;
+
+        if(ComptePrincipal::all()->count() > 0)
+        	$currentMontant = ComptePrincipal::latest()->first()->montant;
+        
         
         return view('livewire.chart-compte-principal',['value' => $currentMontant]);
     }

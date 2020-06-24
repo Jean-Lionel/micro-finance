@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Listes des reboursementDecouverts disponible</h1>
+<h1>Listes</h1>
 
 <a href="{{ route('reboursement-decouverts.create')}}" class="btn btn-info">Nouvel Decouvert</a>
 
@@ -29,9 +29,9 @@
 		<tr>
 			<td>{{$key + 1}}</td>
 			<td>{{ $placement->compte_name}}</td>
-			<td>{{ $placement->montant}}</td>
-			<td>{{ $placement->interet}}</td>
-			<td>{{ $placement->total_a_rambourse}}</td>
+			<td>{{ numberFormat($placement->montant)}}</td>
+			<td>{{ numberFormat($placement->interet)}}</td>
+			<td>{{ numberFormat($placement->total_a_rambourse)}}</td>
 			<td>{{ $placement->created_at}}</td>
 			<td>
 				<a href="{{ route('reboursement-decouverts.show',$placement) }}" class="btn btn-outline-info">show</a>

@@ -21,7 +21,7 @@
 </div>
 
 
-<a href="{{ route('operations.create')}}" class="btn btn-info">Ajouter un operation</a>
+<a href="{{ route('operations.create')}}" class="btn btn-info">Ajouter une operation</a>
 
 @if($operations)
 
@@ -44,7 +44,7 @@
 		<tr>
 			<td>{{$key + 1}}</td>
 			<td>{{ $operation->compte_name}}</td>
-			<td>{{ $operation->montant}}</td>
+			<td>{{ numberFormat($operation->montant)}}</td>
 			<td>{{ $operation->type_operation}}</td>
 			<td>{{ $operation->created_at}}</td>
 			<td>

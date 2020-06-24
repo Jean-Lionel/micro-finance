@@ -3,6 +3,8 @@
 use MercurySeries\Flashy\flashy;
 
 
+define('TENU_COMPTE_MENSUELLE', 500);
+
 
 function set_active_router($route){
 
@@ -24,6 +26,17 @@ function successMessage($message = 'Opération réussi'){
 
 function errorMessage($message = 'Opération echoué'){
 	  flashy()->error($message);
+}
+function warningMessage($message = 'Opération echoué'){
+	  flashy()->warning($message);
+}
+
+//Formatage des chiffres 
+
+
+function numberFormat($number){
+	
+	return number_format($number, 2, ',', ' ');
 }
 
 

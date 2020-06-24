@@ -8,7 +8,7 @@
 	<div class="col-md-6 col-sm-10">
 		<div class="card" style="width: 40rem;">
 			<div class="card-header">
-				<h1 class="text-center"> Information complet</h1>
+				<b class="text-center"> Information complet</b>
 			</div>
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item">Nom et prénom :<b>{{ $client->nom}}  {{ $client->prenom}} </b></li>
@@ -77,7 +77,7 @@
 	<div class="col-md-6 col-sm-10">
 		<div class="card">
 			<div class="card-header">
-				<h1>Information pour ces Comptes</h1>
+				<b>Information pour ces Comptes</b>
 			</div>
 
 			@if (count($client->comptes) <=0)
@@ -98,7 +98,8 @@
 
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item"><b>COMPTE NO : </b>  {{ $compte->name }} </li>
-				<li class="list-group-item"><b>Montant   :</b> <h5>{{ $compte->montant }} FBU</h5></li>
+				<li class="list-group-item"><b>Montant   :</b> 
+					<h5>{{ numberFormat($compte->montant) }} FBU</h5></li>
 				<li class="list-group-item"></li>
 				
 			</ul>

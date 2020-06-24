@@ -43,7 +43,7 @@
 			<td>{{$key + 1}}</td>
 			<td>{{ $compte->client->nom .' '.$compte->client->prenom}}</td>
 			<td>{{ $compte->name }}</td>
-			<td>{{ $compte->montant}}</td>
+			<td>{{ numberFormat($compte->montant) }}</td>
 			<td>
 			{{-- 	<a href="{{ route('comptes.show',$compte) }}" class="btn btn-outline-info btn-sm">show</a> --}}
 				<a href="{{ route('comptes.edit',$compte) }}" class="btn btn-outline-dark btn-sm">Modifier</a>

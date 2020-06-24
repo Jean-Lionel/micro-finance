@@ -3,15 +3,35 @@
 @section('content')
 
 <div class="row text-center">
-	<div class="col-md-12">
-		@livewire('chart-compte-principal')
+	<div class="col-md-12 row">
+		<div class="col-sm-6 col-md-3">
+			@livewire('chart-compte-principal')
+		</div>
+		<div class="col-sm-6 col-md-3">
+			@livewire('chart-compte-principal')
+		</div>
+		<div class="col-sm-6 col-md-3">
+			@livewire('chart-compte-principal')
+		</div>
+		<div class="col-sm-6 col-md-3">
+			@livewire('chart-compte-principal')
+		</div>
+		
 	</div>
+	
 
 {{-- 	<div class="col-md-12">
-		@livewire('general-chart')
+		@livewire(('general-chart')
 	</div> --}}
 	
 	<div class="col-md-6 col-sm-12">
+		@livewire('general-chart')
+		
+	</div>
+
+
+	
+	{{-- <div class="col-md-6 col-sm-12">
 		<canvas id="graphique1" width="200" height="100">
 			Ooops !!! votre navigateur n'est pas à jour essayer de chercher les derniers mise à jour
 		</canvas>
@@ -27,14 +47,14 @@
 	<div class="col-md-6 col-sm-12">
 		<canvas id="graphique4" width="200" height="100">
 		</canvas>
-	</div>
+	</div> --}}
 </div>
 
 @endsection
 
 @section('javascript')
 
-<script>
+{{-- <script>
 	var ctx1 = document.getElementById('graphique1').getContext('2d');
 	var ctx2 = document.getElementById('graphique2').getContext('2d');
 	var ctx3 = document.getElementById('graphique3').getContext('2d');
@@ -109,7 +129,7 @@
 
 	})
 	
-</script>
+</script> --}}
 
 @endsection()
 

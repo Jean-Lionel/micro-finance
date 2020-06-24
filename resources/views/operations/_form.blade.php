@@ -9,7 +9,7 @@
 	<div class="col-md-3">
 		<fieldset class="form-group">
 			<label for="compte_name">Numero du compte</label>
-			<input type="text" class="form-control {{$errors->has('compte_name') ? 'is-invalid' : 'is-valid' }}" id="compte_name" name="compte_name" value="{{ old('compte_name') ?? $operation->compte_name }}">
+			<input type="text" class="form-control {{$errors->has('compte_name') ? 'is-invalid' : 'is-valid' }}" id="compte_name" name="compte_name" value="{{ old('compte_name') ?? $operation->compte_name ?? 'COO-'}}">
 
 			{!! $errors->first('compte_name', '<small class="help-block invalid-feedback">:message</small>') !!}
 
@@ -17,7 +17,7 @@
 
 		<fieldset class="form-group">
 			<label for="montant">Montant</label>
-			<input type="text" class="form-control {{$errors->has('montant') ? 'is-invalid' : 'is-valid' }}" id="montant"   name="montant" value="{{ old('montant') ?? $operation->montant }}">
+			<input type="text" class="form-control {{$errors->has('montant') ? 'is-invalid' : 'is-valid' }} number" id="montant"   name="montant" value="{{ old('montant') ?? $operation->montant }}">
 			{!! $errors->first('montant', '<small class="help-block invalid-feedback">:message</small>') !!}
 		</fieldset>
 		

@@ -4,17 +4,18 @@
 
 <div class="row">
 	<div class="col-md-8">
-		<h1>Listes des clients disponible</h1>	
+		<b>Liste des clients</b>	
 	</div>
 	<div class="col-md-4 col-sm-6">
 		<form action="" class="navbar-form navbar-left">
-			<div class="input-group custom-search-form">
-				<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search}}">
-				<span class="input-group-btn">
+			<div class="input-group row custom-search-form">
+
+				<input type="text" class="form-control col-md-8 " name="search" placeholder="Search..." value="{{$search}}" >
+				
 					<button class="btn btn-default-sm" type="submit">
 						<i class="fa fa-search"></i>
 					</button>
-				</span>
+			
 
 			</div>
 		</form>

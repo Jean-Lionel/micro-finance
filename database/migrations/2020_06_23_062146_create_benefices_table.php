@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTenueComptesTable extends Migration
+class CreateBeneficesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateTenueComptesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tenue_comptes', function (Blueprint $table) {
+        Schema::create('benefices', function (Blueprint $table) {
             $table->id();
-            $table->float('montant')->dafault(0);
-            $table->string('compte_name');
+            $table->string('type_revenue');
+            $table->float('montant');
             $table->timestamps();
         });
-    }  
+    }
 
     /**
      * Reverse the migrations.
@@ -28,6 +28,6 @@ class CreateTenueComptesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tenue_comptes');
+        Schema::dropIfExists('benefices');
     }
 }

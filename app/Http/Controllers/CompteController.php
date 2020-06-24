@@ -62,6 +62,8 @@ class CompteController extends Controller
     {
         Compte::create($request->all());
 
+        successMessage();
+
         return $this->index();
     }
 
@@ -84,8 +86,12 @@ class CompteController extends Controller
      */
     public function edit(Compte $compte)
     {
+        
+        errorMessage('Action interdit');
 
-       return view('comptes.edit',compact('compte'));
+        return back();
+
+       //return view('comptes.edit',compact('compte'));
     }
 
     /**
@@ -114,5 +120,20 @@ class CompteController extends Controller
     public function destroy(Compte $compte)
     {
         //
+        errorMessage('Action interdit');
+
+        return back();
+    }
+
+
+//La fonction ajax permettant de retourner le nom du client a partir de son numero de compte
+    public function getClientCompteName()
+    {
+        $compte_name = \Request::get('compte_name');
+        
+        $compte = Compte::where('name','=',$compte_name)->first();
+
+        return response()->json(['client' => $compte->client,'compte'=>$compte]);
+    
     }
 }
