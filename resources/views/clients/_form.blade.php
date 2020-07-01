@@ -59,7 +59,7 @@
 					<select name="etat_civil" id="etat_civil"  class="form-control {!! $errors->has('etat_civil') ? 'is-invalid' : 'is-valid'  !!}">
 						<option value="{{ old('etat_civil') ?? $client->etat_civil }}" selected="">
 							{{ (old('etat_civil') ?? $client->etat_civil) ?? "Choisissez l'option ici ..." }}
-						 </option>
+						</option>
 						<option value="CELIBATAIRE">CELIBATAIRE</option>
 						<option value="MARIE">MARIE</option>
 						<option value="DIVORCE">DIVORCE</option>
@@ -69,7 +69,7 @@
 					</select>
 
 					{!! $errors->first('etat_civil', '<small class="help-block invalid-feedback">:message</small>') !!}
-				
+
 				</fieldset>
 
 				<fieldset class="form-group">
@@ -223,6 +223,13 @@
 					{!! $errors->first('signateur_3_tel', '<small class="help-block invalid-feedback">:message</small>') !!}
 				</fieldset>
 
+			</div>
+
+			<div class="col-md-12 mt-4">
+				<div class="form-group">
+					<label for="upload_image">Ajouter sa photo</label>
+					<input type="file" name="upload_image" class="form-control-file" id="upload_image">
+				</div>
 			</div>
 
 		</div>

@@ -30,6 +30,8 @@ class FormClientRequest extends FormRequest
         'date_naissance' => 'required|date',
         'nationalite' => 'required',
         'antenne' => 'required',
+        'upload_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'etat_civil' => 'required',
         
         ];
     }

@@ -75,12 +75,15 @@ public static function montantMensuelle($date_d = null)
     return $sum;
 }
 
-public static function tenueMensuelPaye($compte_name,$date_paiement = ""){
+public static function tenueMensuelPaye($compte_name,$date_paiement = null){
 
     $date_search = $date_paiement ?? date('Y').'-'.date('m');
 
+    //dd($date_search);
+
      $result = self::where('compte_name','=',$compte_name)
                     ->where('created_at', 'LIKE', $date_search.'%' )->get();
+
 
     return  $result->count() >0 ? true : false;
 }

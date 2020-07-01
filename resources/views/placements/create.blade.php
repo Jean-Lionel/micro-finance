@@ -2,11 +2,20 @@
 
 @section('content')
 
-<form action="{{ route('placements.store')}}" method="POST">
 
-@include('placements._form',['btnTitle' => 'Enregistre'])
 
-</form>
+<div class="row">
+	<div class="col-md-6">
+		<form action="{{ route('placements.store')}}" method="POST">
 
+			@include('placements._form',['btnTitle' => 'Enregistre'])
+
+		</form>
+		
+	</div>
+	<div class="col-md-6 client-info">
+		
+	</div>
+</div>
 
 @endsection

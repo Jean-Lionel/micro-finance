@@ -2,11 +2,22 @@
 
 @section('content')
 
-<form action="{{ route('decouverts.store')}}" method="POST">
 
-@include('decouverts._form',['btnTitle' => 'Enregistre'])
+<div class="row">
 
-</form>
+	<div class="col-md-6">
+		<form action="{{ route('decouverts.store')}}" method="POST">
+
+			@include('decouverts._form',['btnTitle' => 'Enregistre'])
+
+		</form>
+	</div>
+
+	<div class="col-md-6 client-info">
+		
+	</div>
+	
+</div>
 
 
 @endsection

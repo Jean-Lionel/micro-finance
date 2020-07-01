@@ -62,7 +62,7 @@ class DecouvertController extends Controller
 
         $response = ComptePrincipalController::update($request->montant, 'DECOUVERT');
 
-        dd($response);
+        // dd($response);
 
         if($response == "OK"){
 
@@ -75,7 +75,7 @@ class DecouvertController extends Controller
             'montant_restant' => $total_a_rambourse
             ]);
 
-            ComptePrincipalOperationController::storeOpertation($request->montant, 'DECOUVERT');
+            ComptePrincipalOperationController::storeOperation($request->montant, 'DECOUVERT');
 
             successMessage();
 

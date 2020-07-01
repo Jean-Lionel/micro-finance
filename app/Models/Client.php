@@ -38,7 +38,8 @@ class Client extends ParentModel
     'signateur_2_tel',
     'signateur_3_nom_prenom',
     'signateur_3_cni',
-    'signateur_3_tel'
+    'signateur_3_tel',
+    'image'
     ];
     
     public $sortable = ['nom','prenom','cni','date_naissance','created_at','antenne'];

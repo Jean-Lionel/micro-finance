@@ -18,14 +18,14 @@ class CreateClientsTable extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
-            $table->string('antenne');
+            $table->string('antenne')->nullable();
             $table->string('cni')->unique();
             $table->date('date_naissance');
             $table->date('date_ouverture')->nullable();
             $table->string('nom_association')->nullable();
             $table->string('nom_mandataire_1')->nullable();
             $table->string('nom_mandataire_2')->nullable();
-            $table->string('nationalite');
+            $table->string('nationalite')->nullable();
             $table->date('date_delivrance')->nullable();
             $table->enum('etat_civil',['CELIBATAIRE','MARIE','DIVORCE','VEUF','VEUVE']);
 
@@ -54,6 +54,7 @@ class CreateClientsTable extends Migration
              $table->string('signateur_3_nom_prenom')->nullable();
             $table->string('signateur_3_cni')->nullable();
             $table->string('signateur_3_tel')->nullable();
+            $table->string('image')->nullable();
            
             $table->timestamps();
         });

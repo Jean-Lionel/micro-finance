@@ -17,13 +17,15 @@
 	let placement = {{$placement}};
 	let retrait = {{$retrait}};
 	let decouvert = {{$decouvert}};
+	let tenue_compte = {{$tenue_compte}};
+	let depense = {{$depense}};
 
 
     var ctx2 = document.getElementById('graphique1').getContext('2d');
 		var char2 = new Chart(ctx2,{
 			type:'bar',
 			data:{
-				labels: ['DEPENSES', 'RETRAIT', 'VERSEMENT', 'PLACEMENT', 'DECOUVERT', 'COMPTE PRINCIPALE'],
+				labels: ['DEPENSES', 'RETRAIT', 'VERSEMENT', 'PLACEMENT', 'DECOUVERT', 'COMPTE PRINCIPALE','TENUE DE COMPTE'],
 				datasets: [{
 					label: 'Valeur actuel en FBU #',
 					backgroundColor: [
@@ -36,7 +38,7 @@
 
 					],
 					borderColor: '#000',
-					data: [0, retrait, versement, placement, decouvert, compte_principal],
+					data: [depense, retrait, versement, placement, decouvert, compte_principal,tenue_compte],
 				}]
 			}
 		})

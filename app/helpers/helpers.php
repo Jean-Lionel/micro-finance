@@ -41,5 +41,9 @@ function numberFormat($number){
 
 
 function testLionel(){
+
+	dump();
 	return "JEAN";
 }
+
+///testLionel();

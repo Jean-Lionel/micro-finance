@@ -9,7 +9,7 @@ class ComptePrincipalOperation extends Model
 {
 
 	protected $fillable = [
-	'retrait','versement','placement','decouvert'];
+	'retrait','versement','placement','decouvert','depense'];
 
 
 	public static function boot(){

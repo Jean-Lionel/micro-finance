@@ -62,7 +62,7 @@ class PlacementController extends Controller
 
         if($response  == 'OK'){
 
-        ComptePrincipalOperationController::storeOpertation($request->montant,'placement');
+        ComptePrincipalOperationController::storeOperation($request->montant,'placement');
           Placement::create([
             'montant' => $request->montant,
             'compte_name' => $request->compte_name,

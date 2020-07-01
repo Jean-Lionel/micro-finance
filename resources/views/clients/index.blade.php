@@ -10,7 +10,7 @@
 		<form action="" class="navbar-form navbar-left">
 			<div class="input-group row custom-search-form">
 
-				<input type="text" class="form-control col-md-8 " name="search" placeholder="Search..." value="{{$search}}" >
+				<input type="text" id="search" class="form-control col-md-8 " name="search" placeholder="Search..." value="{{$search}}" >
 				
 					<button class="btn btn-default-sm" type="submit">
 						<i class="fa fa-search"></i>
@@ -69,7 +69,7 @@
 				<form action="{{ route('clients.destroy' , $client) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
-					<button class="btn btn-outline-danger btn-sm">Delete</button>
+					<button class="btn btn-outline-danger btn-sm" onclick="swal('HELLO')">Delete</button>
 				</form>
 
 
@@ -88,3 +88,41 @@
 
 
 @endsection
+
+
+@section('javascript')
+
+<script>
+	jQuery(document).ready(function() {
+		let search = $('#search')
+
+		// search.keyup(function(event) {
+		// 	/* Act on the event */
+		// 	event.preventDefault()
+
+		// 	$.ajax({
+		// 		url: '{{ url('clients') }}',
+		// 		type: 'GET',
+				
+		// 		data: {search: search.val()},
+		// 	})
+		// 	.done(function() {
+
+		// 		//$('.table').hide()
+		// 		console.log("success");
+		// 	})
+		// 	.fail(function() {
+		// 		console.log("error");
+		// 	})
+		// 	.always(function() {
+		// 		console.log("complete");
+		// 		//$('.table').show()
+
+		// 	});
+			
+		// });
+
+	});
+</script>
+
+@stop

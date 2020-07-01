@@ -78,7 +78,7 @@ class OperationController extends Controller
                  
                  $newValue = $current_sum - $request->montant;
                  $compte->update(['montant' => $newValue]);
-                 ComptePrincipalOperationController::storeOpertation($request->montant, 'retrait');
+                 ComptePrincipalOperationController::storeOperation($request->montant, 'retrait');
                  Operation::create($request->all());
                  //Message
                  successMessage();
@@ -110,7 +110,7 @@ class OperationController extends Controller
                 if($resp){
                  $compte->update(['montant' => $newValue]);
                      //'retrait','versement'
-                     ComptePrincipalOperationController::storeOpertation($request->montant, 'versement');
+                     ComptePrincipalOperationController::storeOperation($request->montant, 'versement');
                 //Actualisation du compte principal
                 Operation::create($request->all());
                 flashy()->success('Opération réussi');

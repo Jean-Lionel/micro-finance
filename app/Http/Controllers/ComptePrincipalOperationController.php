@@ -46,11 +46,17 @@ class ComptePrincipalOperationController extends Controller
      Type d'operation et le montant
     **/
 
-    public static function storeOpertation($montant, $typeOperation){
+    public static function storeOperation($montant, $typeOperation){
+
+        // dump($typeOperation);
+
+        // dd($montant);
 
         $typeOperation = strtolower($typeOperation);
         
-        ComptePrincipalOperation::create([$typeOperation => $montant]);
+         ComptePrincipalOperation::create([$typeOperation => $montant]);
+
+
 
         return true;
     }

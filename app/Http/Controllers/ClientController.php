@@ -23,10 +23,10 @@ class ClientController extends Controller
 
         //$clients = Client::sortable()->paginate(10);
 
+
         $search = \Request::get('search'); 
 
         
-
         $clients = Client::sortable()
         ->where('nom','like','%'.$search.'%')
         ->orWhere('prenom','like','%'.$search.'%')

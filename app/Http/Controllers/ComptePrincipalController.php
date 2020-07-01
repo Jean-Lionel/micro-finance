@@ -18,6 +18,8 @@ class ComptePrincipalController extends Controller
 
         //I get the last value of compte bank
 
+        $type_Operation = mb_strtoupper($type_Operation);
+
         $errors = '';
 
         $comptePrincipal = ComptePrincipal::latest()->first();
@@ -52,6 +54,16 @@ class ComptePrincipalController extends Controller
                 
             case 'REMBOURSEMENT':
                 $newValue = oparate($currentValue,$motant,'ADD');
+                break;
+
+            case 'DEPENSE':
+                $newValue = oparate($currentValue,$motant,'MOINS');
+                break;
+            case 'ADD':
+                $newValue = oparate($currentValue,$motant,'ADD');
+                break;
+            case 'MOINS':
+                $newValue = oparate($currentValue,$motant,'MOINS');
                 break;
 
             default:
