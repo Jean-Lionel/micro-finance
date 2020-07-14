@@ -49,7 +49,12 @@ Route::get('depense',function(){
 Route::get('client_by_compte_name','CompteController@getClientCompteName')->name('client_by_compte_name');
 Route::get('find_rapport','RapportsController@rapport')->name('rapport');
 Route::get('tenueMensuelle','TenueCompteController@tenueMensuelle')->name('tenueMensuelle');
+Route::get('historique_compte','CompteController@getHisotirique')->name('historique_compte');
 
 
 //Fin ajax router
+
+Route::resource('posts', 'PostController');
+
+//
 

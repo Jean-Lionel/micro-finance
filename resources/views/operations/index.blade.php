@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-	<div class="col-md-1 col-sm-12">
+	<div class="col-md-1 col-sm-12 badge-dark">
 		<p><a href="{{ route('operations.create')}}" class="text-lg-center white-color">Versement</a></p>
 		<p><a href="{{ route('operations.create')}}" class="text-lg-center white-color">Retrait</a></p>
 		

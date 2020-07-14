@@ -19,8 +19,8 @@ class OperationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index()
-     {
+    public function index()
+    {
 
         $search = \Request::get('search');
         $operations = Operation::sortable(['created_at'=>'desc'])
@@ -42,8 +42,8 @@ class OperationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function create()
-     {
+    public function create()
+    {
         //
         $operation = new Operation;
 
@@ -54,13 +54,14 @@ class OperationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response FormOperationRequest
      */
-     public function store(FormOperationRequest $request)
-     {
+    public function store(Request $request)
+    {
 
+        // dd($request->all());
 
-
+        // die();
         $compte = Compte::where('name','=',$request->compte_name)->firstOrFail();
 
         $current_sum = $compte->montant;
@@ -75,57 +76,69 @@ class OperationController extends Controller
 
                 
                 if($resp == 'OK'){
-                 
-                 $newValue = $current_sum - $request->montant;
-                 $compte->update(['montant' => $newValue]);
-                 ComptePrincipalOperationController::storeOperation($request->montant, 'retrait');
-                 Operation::create($request->all());
+
+                   $newValue = $current_sum - $request->montant;
+                   $compte->update(['montant' => $newValue]);
+                   ComptePrincipalOperationController::storeOperation($request->montant, 'retrait');
+                   Operation::create($request->all());
                  //Message
-                 successMessage();
-                 }else{
+                   successMessage();
+
+                   return response()->json(['success'=>'Opération réussi']);
+               }else{
                 //TO DO on ffiche pour le moment la reponse du compte principal
                 flashy()->error($resp);
 
-                 $operation = new Operation($request->all());
-                 
+                $operation = new Operation($request->all());
+                return response()->json(['error'=>$resp]);
+
                 return view('operations.create',compact('operation'));;
 
                 //return $resp;
             }
 
 
-            }else{
+        }else{
 
-                $operation = new Operation($request->all());
-                flashy()->error('Le solde demande est insuffisant sur vôtre compte');
-                return view('operations.create',compact('operation'));;
-            }
+            $operation = new Operation($request->all());
+            flashy()->error('Le solde demande est insuffisant sur vôtre compte');
 
+            return response()->json(['error'=> 'Le solde demande est insuffisant sur vôtre compte']);
+
+                 //if javascrpt is not activate
+
+            return view('operations.create',compact('operation'));
+
+                // return response()->json($operation);
         }
-        else if($request->type_operation == 'VERSEMENT'){
-            $newValue = $current_sum  + $request->montant;
+
+    }
+    else if($request->type_operation == 'VERSEMENT'){
+        $newValue = $current_sum  + $request->montant;
                 //Modification du compte principale
-                $resp = ComptePrincipalController::update($request->montant,'VERSEMENT');
+        $resp = ComptePrincipalController::update($request->montant,'VERSEMENT');
 
-                if($resp){
-                 $compte->update(['montant' => $newValue]);
+        if($resp){
+           $compte->update(['montant' => $newValue]);
                      //'retrait','versement'
-                     ComptePrincipalOperationController::storeOperation($request->montant, 'versement');
+           ComptePrincipalOperationController::storeOperation($request->montant, 'versement');
                 //Actualisation du compte principal
-                Operation::create($request->all());
-                flashy()->success('Opération réussi');
-                }else{
-                    flashy()->error($resp);
-                    dump($resp);
-                }
+           Operation::create($request->all());
+           flashy()->success('Opération réussi');
+           return response()->json(['success'=> 'Opération réussi']);
+       }else{
+        flashy()->error($resp);
+        return response()->json(['error'=> $resp]);
+        dump($resp);
+    }
 
-            }
+}
 
 
-            return $this->index();
+return $this->index();
 
 
-        }
+}
 
     /**
      * Display the specified resource.
@@ -133,8 +146,8 @@ class OperationController extends Controller
      * @param  \App\Models\Operation  $operation
      * @return \Illuminate\Http\Response
      */
-     public function show(Operation $operation)
-     {
+    public function show(Operation $operation)
+    {
         //
     }
 
@@ -144,8 +157,8 @@ class OperationController extends Controller
      * @param  \App\Models\Operation  $operation
      * @return \Illuminate\Http\Response
      */
-     public function edit(Operation $operation)
-     {
+    public function edit(Operation $operation)
+    {
 
         warningMessage('Action ne permise');
         //return view('operations.edit',compact('operation'));
@@ -160,8 +173,8 @@ class OperationController extends Controller
      * @param  \App\Models\Operation  $operation
      * @return \Illuminate\Http\Response
      */
-     public function update(FormOperationRequest $request, Operation $operation)
-     {
+    public function update(FormOperationRequest $request, Operation $operation)
+    {
         //
     }
 
@@ -171,8 +184,8 @@ class OperationController extends Controller
      * @param  \App\Models\Operation  $operation
      * @return \Illuminate\Http\Response
      */
-     public function destroy(Operation $operation)
-     {
+    public function destroy(Operation $operation)
+    {
         //
     }
 }

@@ -45,14 +45,16 @@
 			<td>{{ $compte->name }}</td>
 			<td>{{ numberFormat($compte->montant) }}</td>
 			<td>
-			{{-- 	<a href="{{ route('comptes.show',$compte) }}" class="btn btn-outline-info btn-sm">show</a> --}}
+				{{-- 	<a href="{{ route('comptes.show',$compte) }}" class="btn btn-outline-info btn-sm">show</a> --}}
 				<a href="{{ route('comptes.edit',$compte) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
-			
-					<form action="{{ route('comptes.destroy' , $compte) }}" style="display: inline;" method="POST">
+
+				<button class="btn-sm btn-info"  onclick="showHistory('{{$compte->name}}')">historique</button>
+
+					{{-- <form action="{{ route('comptes.destroy' , $compte) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
 					<button class="btn btn-outline-danger btn-sm">Supprime</button>
-				</form>
+				</form> --}}
 				
 				
 			</td>
@@ -67,6 +69,40 @@
 
 @endif
 
+{{-- 
+@include('comptes.historique');
+ --}}
+
+@endsection
+
+@section('javascript')
+
+<script>
+	function showHistory(name){
+
+			$.ajax({
+				url: '{{ route('historique_compte') }}',
+			
+				data: {compte_name: name},
+			})
+			.done(function(data) {
+				console.log(data)
+				console.log("success");
+			})
+			.fail(function() {
+				console.log("error");
+			})
+			.always(function() {
+				console.log("complete");
+			});
+			
+
+	}
+	
+
+
+	
+</script>
 
 
 @endsection

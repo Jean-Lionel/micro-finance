@@ -28,7 +28,7 @@
 
 @if($clients)
 
-<table class="table table-sm table-bordered table-inverse table-hover">
+<table class="table table-sm table-bordered table-striped table-inverse table-hover">
 	<thead>
 		<tr>
 			<th>No</th>

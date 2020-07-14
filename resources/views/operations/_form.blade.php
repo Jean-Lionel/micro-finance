@@ -6,16 +6,16 @@
 	<div class="col-md-10">
 		<h5 class="text-center">Enregistre une nouvel opération</h5>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 		<fieldset class="form-group">
-			<label for="compte_name">Numero du compte</label>
-			<input type="text" class="form-control {{$errors->has('compte_name') ? 'is-invalid' : 'is-valid' }}" id="compte_name" name="compte_name" value="{{ old('compte_name') ?? $operation->compte_name ?? 'COO-'}}">
+			<label for="compte_name">Saisir le numero du compte</label>
+			<input type="text" class="form-control {{$errors->has('compte_name') ? 'is-invalid' : 'is-valid' }}" id="compte_name" name="compte_name" value="{{ old('compte_name') ?? $operation->compte_name ? $operation->compte_nam : 'COO-'}}">
 
 			{!! $errors->first('compte_name', '<small class="help-block invalid-feedback">:message</small>') !!}
 
 		</fieldset>
 
-		<fieldset class="form-group">
+		<fieldset class="form-group hide">
 			<label for="montant">Montant</label>
 			<input type="text" class="form-control {{$errors->has('montant') ? 'is-invalid' : 'is-valid' }} number" id="montant"   name="montant" value="{{ old('montant') ?? $operation->montant }}">
 			{!! $errors->first('montant', '<small class="help-block invalid-feedback">:message</small>') !!}
@@ -23,7 +23,7 @@
 		
 	</div>
 
-	<div class="col-md-4">
+	<div class="col-md-4 hide">
 
 		<fieldset class="form-group">
 			<label for="operer_par">OPERER PAR </label>
@@ -40,7 +40,7 @@
 		
 	</div>
 
-	<div class="col-md-4">
+	<div class="col-md-4 hide">
 
 		<fieldset class="form-group">
 			<label for="type_operation">TYPE D'OPERATION</label>
@@ -72,15 +72,37 @@
 
 
 <script>
+	
+
+	function showContent(compte ="",name="",cni=""){
+
+		
+
+
+		$('#operer_par').val(name)
+		$('#type_operation').val('RETRAIT')
+		$('#cni').val(cni)
+		$('#compte_name').attr('disabled')
+
+		$('.hide').show()
+		
+
+	}
+
+
 
 	jQuery(document).ready(function() {
+		let hide = $('.hide').hide()
 
 		let compte_name = $('#compte_name')
+
+		
+		
 
 		//console.log(compte_name.val('bonjour'))
 
 		compte_name.on('blur',  function(event) {
-			 event.preventDefault();
+			event.preventDefault();
 			/* Act on the event */
 
 			$.ajax({
@@ -91,8 +113,16 @@
 			})
 			.done(function(data) {
 				
+				if(!data.error){
+					$('.client-info').html(client_information(data))
 
-				$('.client-info').html(client_information(data))
+				}else{
+					$('.client-info').html(`
+						<h5 class= "bg-danger">Numéro matricule est invalidé</h5>
+						`)
+				}
+
+				
 				// client_information(data.client);
 			})
 			.fail(function() {
@@ -105,69 +135,148 @@
 
 			
 		});
-		
-	});
-
-	let client_information = (data) => {
 
 
-		let html = `
+		let client_information = (data) => {
+
+
+
+			let html = `
 			<div class="information">
 
 			<div class="card-group">
-				<div class="card">
-				<img class="card-img-top" src="/img/client_images/${data.client.image}" width="50px" alt="image" style="width: 200px">
-				</div>
+			<div class="card">
+			<img class="card-img-top" src="/img/client_images/${data.client.image}" width="50px" alt="image" style="width: 200px">
+			</div>
 
-				<div class="card">
-					<b class="card-title">Nom : ${data.client.nom}</b>
-					<b class="card-title">prénom : ${data.client.prenom}</b>
-					<b class="card-title">C.N.I : ${data.client.cni}</b>
-					<b class="card-title">Date de Naissance :${data.client.date_naissance} </b>
-					
-				</div>
+			<div class="card">
+			<b class="card-title">Nom : ${data.client.nom}</b>
+			<b class="card-title">prénom : ${data.client.prenom}</b>
+			<b class="card-title">C.N.I : ${data.client.cni}</b>
+			<b class="card-title">Date de Naissance :${data.client.date_naissance} </b>
+
+			</div>
 			</div>
 			
-		</div>
+			</div>
+
+			<div class="mt-3">	
+			
+			<button class="btn btn-success user_compte" onClick="showContent(
+			'${data.compte.name}',
+			'${data.client.nom} ${data.client.prenom}','${data.client.cni}')" >Nyene compte</button>
 
 
-		<div class="card-columns">
+			<button class="btn btn-warning" onClick="showContent('${data.compte.name}')" > Uwatumwe</button>
+
+			</div>
+
+
+
+
+			<div class="card-columns">
 			<div class="card bg-primary">
-				<div class="card-body text-center">
-					<p class="card-title"> MONTANT </p>
-					<p class="card-text">#${data.compte.montant} FBU</p>
-				</div>
+			<div class="card-body text-center">
+			<p class="card-text">#${data.compte.montant} FBU</p>
 			</div>
-			<div class="card bg-warning">
-				<div class="card-body text-center">
-					<p class="card-text">Some text inside the second card</p>
-				</div>
 			</div>
-			<div class="card bg-success">
-				<div class="card-body text-center">
-					<p class="card-text">Some text inside the third card</p>
-				</div>
-			</div>
-			<div class="card bg-danger">
-				<div class="card-body text-center">
-					<p class="card-text">Some text inside the fourth card</p>
-				</div>
-			</div>
-			<div class="card bg-light">
-				<div class="card-body text-center">
-					<p class="card-text">Some text inside the fifth card</p>
-				</div>
-			</div>
-			<div class="card bg-info">
-				<div class="card-body text-center">
-					<p class="card-text">Some text inside the sixth card</p>
-				</div>
-			</div>
-		</div>
-		`
 
-		return html;
-	}
+
+			</div>
+			</div>
+
+
+			`
+
+
+			return html;
+		}
+
+
+
+		let save = $('button[type="submit"]')
+
+
+		save.on('click' , function(event){
+			event.preventDefault()
+
+
+			$.ajaxSetup({
+				headers: {
+					'X-CSRF-TOKEN': $('[name="_token"]').val()
+				}
+			});
+
+			let compte_name = $('#compte_name').val()
+			let montant = $('#montant').val()
+			let operer_par = $('#operer_par').val()
+			let type_operation = $('#type_operation').val()
+			let cni = $('#cni').val()
+
+			if(compte_name.trim() == "" ||
+			 montant.trim() == "" ||
+			 operer_par.trim() == "" ||
+			 type_operation.trim() == "" ||
+			 cni.trim() == "" 
+
+				){
+				swal.fire(
+					'error',
+					'Champs vide',
+					'error'
+					)
+
+				return ;
+
+			}
+
+
+			$.ajax({
+				url: '{{ route('operations.store')}}',
+				type: 'POST',
+
+				data: {
+					compte_name,
+					montant ,
+					operer_par,
+					type_operation,
+					cni,
+					
+				},
+			})
+			.done(function(response) {
+
+				let title = Object.keys(response)[0];
+				
+				let body = response.error ? response.error : response.success
+				
+
+				swal.fire(
+					title,
+					body,
+					title
+					)
+
+				if(title == 'success'){
+
+					$('#form_id').trigger("reset");
+					
+				}
+
+				console.log("success");
+			})
+			.fail(function() {
+				console.log("error");
+			})
+			.always(function() {
+				console.log("complete");
+			});
+
+		})
+
+		
+	});
+
 	
 </script>
 

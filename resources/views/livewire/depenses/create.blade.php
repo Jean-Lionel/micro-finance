@@ -10,7 +10,7 @@
 		<input type="hidden" wire:model="select_id">
 		<div class="input-group">
 			<div class="col-md-1">
-				Action 
+				Motif 
 			</div>
 			<div class="col-md-3">
 

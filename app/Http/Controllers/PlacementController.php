@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\ComptePrincipalController;
 use App\Http\Requests\FormPlacementRequest;
+use App\Models\PaiementPlacement;
 use App\Models\Placement;
 use Illuminate\Http\Request;
 use Illuminate\Routing\back;
+use Illuminate\Support\Carbon;
 
 class PlacementController extends Controller
 {
@@ -27,6 +29,15 @@ class PlacementController extends Controller
         ->orWhere('interet_total','like', '%'.$search.'%')
         ->orWhere('nbre_moi','like', '%'.$search.'%')
         ->paginate(20);
+
+        //dump(PaiementPlacement::payePlacementPaye(1));
+        $now = Carbon::now();
+
+        $placement_paye = Placement::where('date_fin','>=', $now )
+                                    ->where('date_placement','<',$now)
+                                     ->get();
+
+        PaiementPlacement::paimentMensuellePlacement($placement_paye);
 
         return view('placements.index',compact('placements','search'));
         
@@ -52,13 +63,18 @@ class PlacementController extends Controller
      */
      public function store(FormPlacementRequest $request)
      {
-        $interet_total = ($request->interet_total * $request->montant) / 100;
+        $interet_total =( ($request->interet_total * $request->montant) / 100) * $request->nbre_moi;
         $place_interet = $request->montant + $interet_total;
         $interet_moi = $interet_total / $request->nbre_moi;
 
         //Verification sur le compte principal
         $response = ComptePrincipalController::update($request->montant,'PLACEMENT');
 
+        //Date de fin pour le calculer la date de fin
+
+        $date_pl = Carbon::create($request->date_placement);
+
+        $date_fin = $date_pl->addMonths($request->nbre_moi);
 
         if($response  == 'OK'){
 
@@ -70,7 +86,8 @@ class PlacementController extends Controller
             'interet_total' => $interet_total,
             'interet_Moi' => $interet_moi,
             'place_interet' => $place_interet,
-            'date_placement' => $request->date_placement
+            'date_placement' => $request->date_placement,
+            'date_fin' => $date_fin,
             ]);
 
           successMessage();

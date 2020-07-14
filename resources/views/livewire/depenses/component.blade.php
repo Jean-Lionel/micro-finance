@@ -31,7 +31,7 @@
     		<th>ID</th>
     		<th>@sortablelink('action_name')</th>
     		<th>MONTANT</th>
-    		<th>ACTION</th>
+    		<th>Motif</th>
     	</tr>
 
     	@foreach($data as $row)

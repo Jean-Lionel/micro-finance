@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-md-6">
-		<form action="{{ route('operations.store')}}" method="POST">
+		<form action="{{ route('operations.store')}}" method="POST" id="form_id">
 
 			@include('operations._form',['btnTitle' => 'Enregistre'])
 

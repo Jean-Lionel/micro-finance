@@ -41,6 +41,7 @@
 					<th>@sortablelink('compte_name','COMPTE NO')</th>
 					<th>@sortablelink('montant','Montant') </th>
 					<th>@sortablelink('interet','Interet en %') </th>
+					<th>Interet en FBU </th>
 					<th>@sortablelink('total_a_rambourse','Taux à rembourse (FBU)') </th>
 					<th>@sortablelink('montant_restant','Montant restant (FBU)') </th>
 					<th>@sortablelink('periode','Periode') </th>
@@ -58,6 +59,7 @@
 					<td>{{ $placement->compte_name}}</td>
 					<td>{{ $placement->montant}}</td>
 					<td>{{ $placement->interet}}</td>
+					<td>{{ numberFormat($placement->total_a_rambourse - $placement->montant)}}</td>
 					<td>{{ $placement->total_a_rambourse}}</td>
 					<td>{{ $placement->montant_restant}}</td>
 					<td>{{ $placement->periode}}</td>

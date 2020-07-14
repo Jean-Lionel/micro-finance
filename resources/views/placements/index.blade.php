@@ -33,11 +33,12 @@
 
 			<th>No</th>
 			<th>@sortablelink('compte_name','COMPTE NO')</th>
-			<th>@sortablelink('montant','Montant') </th>
+			<th>@sortablelink('montant','Montant placé') </th>
 			<th>@sortablelink('nbre_moi','Periode (mois)') </th>
-			<th>@sortablelink('interet_total','Interet Total')</th>
+			<th>@sortablelink('interet_Moi','Intérêt Mensuelle') </th>
+			<th>@sortablelink('interet_total','Intérêt total')</th>
 			<th>@sortablelink('place_interet','Place et interet')</th>
-			<th>@sortablelink('created_at','Date') </th>
+			<th>@sortablelink('created_at','Date de placement') </th>
 
 			
 			<th>Action</th>
@@ -51,6 +52,7 @@
 			<td>{{ $placement->compte_name}}</td>
 			<td>{{ numberFormat($placement->montant)}}</td>
 			<td>{{ $placement->nbre_moi}}</td>
+			<td>{{ $placement->interet_Moi}}</td>
 			<td>{{ numberFormat($placement->interet_total)}}</td>
 			<td>{{ numberFormat($placement->place_interet)}}</td>
 			<td>{{ $placement->created_at}}</td>

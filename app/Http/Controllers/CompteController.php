@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Compte;
-use Illuminate\Http\Request;
-use App\Models\Client;
 use App\Http\Requests\FormCompteRequest;
+use App\Models\Client;
+use App\Models\Compte;
+use App\Models\Operation;
+use App\Models\PaiementPlacement;
+use App\Models\TenueCompte;
+use Illuminate\Http\Request;
 
 class CompteController extends Controller
 {
@@ -133,7 +136,36 @@ class CompteController extends Controller
         
         $compte = Compte::where('name','=',$compte_name)->first();
 
+        if($compte == null)
+            return response()->json(['error' => 'Invalide']);
+
+        // if(!$compte)
+        //    return response()->json(['error' => 'Invalide']);
+
+
         return response()->json(['client' => $compte->client,'compte'=>$compte]);
     
+    }
+
+
+    //Historique du compte
+    //
+
+    public function getHisotirique(){
+
+        $compte_name = \Request::get('compte_name');
+        $date_val = \Request::get('date_val');
+
+
+        $operations = Operation::where('compte_name','=',$compte_name)->get();
+        $paiment_placement = PaiementPlacement::where('compte_name','=',$compte_name)->get();
+        $tenus_comptes = TenueCompte::where('compte_name','=',$compte_name)->get();
+
+        return response()->json([
+            'operations' => $operations,
+            'paiement_placement' => $paiment_placement,
+            'tenus_comptes' => $tenus_comptes
+        ]);
+
     }
 }

@@ -7,11 +7,13 @@
 			<style>
 				.test{
 					
-					background: rgb(212,175,55);
+					/*background: rgb(212,175,55);*/
+					background: #b0a160;
 					box-shadow: 5px 10px #888888 
 				}
 				.test:hover {
-					background: rgb(255,223,0);
+					/*background: rgb(255,223,0);*/
+					background: #ecce6d;
 					cursor: pointer;
 					box-shadow: 5px 10px rgb(197,179,88);
 

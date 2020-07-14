@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>	Coopedi Manager</title>
+  <title>	Coopedi | Manager</title>
   {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -34,15 +34,21 @@
     }
 
     #nav-bar{
-      background: #027368;
+      /*background: #027368;*/
+      background: #5b8c85;
       /*background: #f66d9b;*/ 
     }
     body{
       
-      background: rgba(138, 138, 138,0.3);
-      background: #A7C8F2;
-      /*background: #6cb2eb;
-      opacity: 0.5;*/
+      /*background: rgba(138, 138, 138,0.3);*/
+      /*background: #A7C8F2;*/
+
+      /*font-size: 12px;*/
+
+      /*background: #434e52;*/
+      
+      /*background: #6cb2eb;*/
+      /*opacity: 0.5;*/
       /*background: rgba(167,200,242,1);*/
     }
   </style>

@@ -7,6 +7,10 @@
 
 
 </div>
+{{-- 
+<style>
+	color:#FFF;
+</style> --}}
 
 
 @push('scripts')

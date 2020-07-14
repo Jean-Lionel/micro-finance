@@ -14,10 +14,18 @@ class ReboursementDecouvertController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //   "montant" => "100000.0"
+    // "interet" => "8.0"
+    // "periode" => "3"
+    // "total_a_rambourse" => "124000.0"
+    // "montant_payer" => "0.0"
+    // "montant_restant" => "0.0"
+    // "paye" => "0"
     public function index()
     {
         $reboursementDecouverts = ReboursementDecouvert::sortable()->paginate(20);
-            
+
         return view('reboursementDecouverts.index', compact('reboursementDecouverts'));
     }
 
@@ -38,12 +46,12 @@ class ReboursementDecouvertController extends Controller
 
         $decouverts = 
         Decouvert::where('compte_name','=', $compte_name)
-                    ->where('paye','=',0)
-                    ->get();
+        ->where('paye','=',0)
+        ->get();
 
-                 
 
-         return response()->json(['decouverts'=> $decouverts]);
+
+        return response()->json(['decouverts'=> $decouverts]);
 
     }
 
@@ -58,23 +66,34 @@ class ReboursementDecouvertController extends Controller
 
        $decouvert = Decouvert::where('id',$request->decouvert_id)->firstOrFail();
 
+       $validate  = $request->validate([
+        'montant' => 'required',
+        'date_remboursement' => 'date|required']);
+
        if($decouvert){
-        
+
          $montant_r = $decouvert->montant_restant - $request->montant;
 
          if($montant_r >=0){
-             ReboursementDecouvert::create($request->all());
+             
+             $response = ComptePrincipalController::update($montant_r, 'ADD');
 
-             $decouvert->update(['montant_restant' => $montant_r ]);
+             if($response == 'OK'){
+                ReboursementDecouvert::create($request->all());
+                $decouvert->update(['montant_restant' => $montant_r ]);
 
-         }else{
+            }else{
+                errorMessage($response);
+            }
+
+        }else{
             return index();
-         }
-       }
-      
-
-       return $this->index();
+        }
     }
+
+
+    return $this->index();
+}
 
     /**
      * Display the specified resource.
@@ -84,7 +103,7 @@ class ReboursementDecouvertController extends Controller
      */
     public function show(ReboursementDecouvert $reboursementDecouvert)
     {
-        
+
     }
 
     /**
