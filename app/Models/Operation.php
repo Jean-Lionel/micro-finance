@@ -28,5 +28,10 @@ class Operation extends ParentModel
 
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 
 }

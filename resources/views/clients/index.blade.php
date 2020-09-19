@@ -34,7 +34,7 @@
 			<th>No</th>
 			<th>@sortablelink('nom','Nom')</th>
 			<th>@sortablelink('prenom','Prénom') </th>
-			<th>@sortablelink('cni','CNI')</th>
+			{{-- <th>@sortablelink('cni','CNI')</th> --}}
 			<th>Compte</th>
 			<th>@sortablelink('antenne','Antenne')</th>
 			<th>@sortablelink('date_naissance','Date de naissance')</th>
@@ -50,7 +50,7 @@
 			<td>{{$key + 1}}</td>
 			<td>{{ $client->nom}}</td>
 			<td>{{ $client->prenom}}</td>
-			<td>{{ $client->cni}}</td>
+			{{-- <td>{{ $client->cni}}</td> --}}
 			<td>
 				<ul>
 					@foreach ($client->comptes as $compte)

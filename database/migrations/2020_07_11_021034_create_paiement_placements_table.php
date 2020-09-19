@@ -16,7 +16,7 @@ class CreatePaiementPlacementsTable extends Migration
         Schema::create('paiement_placements', function (Blueprint $table) {
             $table->id();
             $table->string('compte_name');
-            $table->integer('placement_id');
+            $table->unsignedBigInteger('placement_id');
             $table->float('montant');
             $table->float('montant_restant');
             $table->foreign('placement_id')->references('id')->on('placements');

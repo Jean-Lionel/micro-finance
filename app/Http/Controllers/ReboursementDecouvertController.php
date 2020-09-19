@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ReboursementDecouvert;
-use App\Models\Decouvert;
-use Illuminate\Http\Request;
 use App\Http\Requests\FormRemboursementRequest;
+use App\Models\Decouvert;
+use App\Models\ReboursementDecouvert;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class ReboursementDecouvertController extends Controller
 {
@@ -24,9 +26,13 @@ class ReboursementDecouvertController extends Controller
     // "paye" => "0"
     public function index()
     {
-        $reboursementDecouverts = ReboursementDecouvert::sortable()->paginate(20);
+        $search = \Request::get('search'); 
 
-        return view('reboursementDecouverts.index', compact('reboursementDecouverts'));
+        $reboursementDecouverts = ReboursementDecouvert::sortable()
+            ->where('compte_name','like',$search.'%')
+            ->paginate(20);
+
+        return view('reboursementDecouverts.index', compact('reboursementDecouverts','search'));
     }
 
     /**
@@ -64,35 +70,63 @@ class ReboursementDecouvertController extends Controller
     public function store(Request $request)
     {
 
-       $decouvert = Decouvert::where('id',$request->decouvert_id)->firstOrFail();
 
-       $validate  = $request->validate([
-        'montant' => 'required',
-        'date_remboursement' => 'date|required']);
+    try {
+        $decouvert = Decouvert::where('id',$request->decouvert_id)->firstOrFail();
+        
+    } catch (\Exception $e) {
 
-       if($decouvert){
+        errorMessage("Vérifier que vous avez saisit des information correctes ");
 
-         $montant_r = $decouvert->montant_restant - $request->montant;
-
-         if($montant_r >=0){
-             
-             $response = ComptePrincipalController::update($montant_r, 'ADD');
-
-             if($response == 'OK'){
-                ReboursementDecouvert::create($request->all());
-                $decouvert->update(['montant_restant' => $montant_r ]);
-
-            }else{
-                errorMessage($response);
-            }
-
-        }else{
-            return index();
-        }
+        return back();
+        
     }
 
+   
 
-    return $this->index();
+     $validate  = $request->validate([
+        'montant' => 'required|numeric|max:'.$decouvert->montant_restant,
+        'date_remboursement' => 'date|required']
+    );
+
+
+     //dd($request->montant);
+
+     
+
+
+     try {
+
+        DB::beginTransaction();
+        ComptePrincipalController::store_info($request->montant, 'REMBOURSEMENT');
+
+        $montant_r = $decouvert->montant_restant - $request->montant;
+
+        //Si le montant Restant est egale a zero on Fait la mise jour de paye
+        $paye = $montant_r == 0 ? 1 : 0;
+
+        $decouvert->update([
+            'montant_restant' => $montant_r,
+            'paye' => $paye
+        ]);
+        ReboursementDecouvert::create($request->all());
+
+        ComptePrincipalOperationController::storeOperation($request->montant, 'reboursement',$request->compte_name);
+
+        DB::commit();
+        successMessage();
+         
+     } catch (\Exception $e) {
+
+        DB::rollback();
+
+        errorMessage($e->getMessage());
+
+        return back();
+         
+     }
+
+return $this->index();
 }
 
     /**

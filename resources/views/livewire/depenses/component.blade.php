@@ -29,9 +29,10 @@
     <table class="table table-bordered table-striped">
     	<tr>
     		<th>ID</th>
-    		<th>@sortablelink('action_name')</th>
-    		<th>MONTANT</th>
-    		<th>Motif</th>
+    		<th>@sortablelink('action_name', 'Action Réalisée')</th>
+    		<th>@sortablelink('montant','MONTANT')</th>
+            <th>@sortablelink('created_at','Date')</th>
+            <th>Action</th>
     	</tr>
 
     	@foreach($data as $row)
@@ -39,12 +40,13 @@
     		<td>{{ $row->id }}</td>
     		<td>{{ $row->action_name }}</td>
     		<td>{{ $row->montant }}</td>
+            <td>{{ $row->created_at }}</td>
 
     		<td>
               
-    			<button wire:click="edit({{ $row->id}})" class="btn btn-xs btn-warning">Modifier</button>
+    			{{-- <button wire:click="edit({{ $row->id}})" class="btn btn-xs btn-warning">Modifier</button>
     			<button wire:click="destroy({{$row->id}})"
-    				class="btn-xs btn-danger">Supprime</button>
+    				class="btn-xs btn-danger">Supprime</button> --}}
     		</td>
     	</tr>
 

@@ -9,14 +9,13 @@ class ComptePrincipalOperation extends Model
 {
 
 	protected $fillable = [
-	'retrait','versement','placement','decouvert','depense'];
+	'retrait','versement','compte_name','placement','decouvert','depense','reboursement','tenue_compte'];
 
 
 	public static function boot(){
 
 		parent::boot();
-
-
+		
 		self::creating(function($model){
 
 			$model->user_id = Auth::user()->id;

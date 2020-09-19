@@ -15,13 +15,18 @@ class CreateComptesTable extends Migration
     {
         Schema::create('comptes', function (Blueprint $table) {
             $table->id();
-            $table->integer('client_id');
+            $table->unsignedBigInteger('client_id');
             $table->string('name')->unique();
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+           
             $table->float('montant')->default(0);
-            $table->enum('type_compte',['COURANT','EPARGNE']);
+            $table->enum('type_compte',['COURANT','EPARGNE','']);
             $table->boolean('etat')->default(true);
+
             $table->timestamps();
+
+            
+
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
         });
     }
 

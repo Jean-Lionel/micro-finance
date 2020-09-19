@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\ComptePrincipalController;
+use App\Http\Controllers\ComptePrincipalOperationController;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class TenueCompte extends Model
 {
- protected $fillable = ['compte_name','montant'];
+   protected $fillable = ['compte_name','montant'];
 
- public function compte(){
+   public function compte(){
 
     return $this->belongsTo('App\Models\Compte');
 }
@@ -28,18 +32,34 @@ public static function  uniquePaid($compte_name){
             'montant' => ($compte->montant - TENU_COMPTE_MENSUELLE)
         ]);
 
+        
 
-        self::create([
+        try {
+            DB::beginTransaction();
+            self::create([
 
-            'compte_name' => $compte_name,
-            'montant' => TENU_COMPTE_MENSUELLE,
-        ]);
+                'compte_name' => $compte_name,
+                'montant' => TENU_COMPTE_MENSUELLE,
+            ]);
+
+            ComptePrincipalController::store_info(TENU_COMPTE_MENSUELLE, 'ADD');
+
+            ComptePrincipalOperationController::storeOperation(TENU_COMPTE_MENSUELLE,'tenue_compte',$compte_name);
+
+
+            DB::commit();
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+        }
 
     }else{
-       return $compte;
-   }
+     return $compte;
+ }
 
-   return 'SUCCESS';
+ return 'SUCCESS';
 }
 
 //Paiement de tout les comptes 
@@ -81,8 +101,8 @@ public static function tenueMensuelPaye($compte_name,$date_paiement = null){
 
     //dd($date_search);
 
-     $result = self::where('compte_name','=',$compte_name)
-                    ->where('created_at', 'LIKE', $date_search.'%' )->get();
+    $result = self::where('compte_name','=',$compte_name)
+    ->where('created_at', 'LIKE', $date_search.'%' )->get();
 
 
     return  $result->count() >0 ? true : false;

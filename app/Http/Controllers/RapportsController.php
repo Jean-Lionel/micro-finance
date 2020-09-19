@@ -20,18 +20,12 @@ class RapportsController extends Controller
 
 		// EOL;
 
-		
-
-
-
 		return view('rapports.index');
 	}
 
 	public function rapport(){
 
 		$searchDate = \Request::get('date_rapport');
-
-		// dump($request);
 
 		// $result = ComptePrincipalOperation::where('created_at','LIKE',$request.'%')->sum('depense');
 
@@ -40,7 +34,7 @@ class RapportsController extends Controller
 				->where('created_at','LIKE',$searchDate.'%')
                 ->select(
                 	DB::raw('SUM(retrait) as total_retrait'),
-                	DB::raw('SUM(depense) as total_depense'),
+                    DB::raw('SUM(depense) as total_depense'),
                 	DB::raw('SUM(versement) as total_versement'),
                 	DB::raw('SUM(depense) as total_depense'),
                 	DB::raw('SUM(placement) as total_placement'),

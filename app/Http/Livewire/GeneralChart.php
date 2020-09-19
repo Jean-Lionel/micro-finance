@@ -17,6 +17,7 @@ class GeneralChart extends Component
 	 public $placement = 0.0;
 	 public $tenue_compte = 0.0;
 	 public $depense = 0.0;
+	 public $remboursement = 0.0;
 
 
 	public function render()
@@ -30,6 +31,9 @@ class GeneralChart extends Component
 			$this->decouvert = ComptePrincipalOperation::all()->sum('decouvert');
 			$this->tenue_compte = TenueCompte::all()->sum('montant');
 			$this->depense = ComptePrincipalOperation::all()->sum('depense');
+			$this->remboursement = ComptePrincipalOperation::all()->sum('reboursement');
+
+
 		}
 
 	

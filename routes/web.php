@@ -51,6 +51,8 @@ Route::get('find_rapport','RapportsController@rapport')->name('rapport');
 Route::get('tenueMensuelle','TenueCompteController@tenueMensuelle')->name('tenueMensuelle');
 Route::get('historique_compte','CompteController@getHisotirique')->name('historique_compte');
 
+Route::get('operation_details', 'OperationController@operation_details')->name('operation_details');
+
 
 //Fin ajax router
 

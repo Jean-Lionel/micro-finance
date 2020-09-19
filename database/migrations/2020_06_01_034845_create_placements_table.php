@@ -16,14 +16,14 @@ class CreatePlacementsTable extends Migration
         Schema::create('placements', function (Blueprint $table) {
             $table->id();
             $table->float('montant');
-            $table->float('compte_name');
+            $table->string('compte_name');
             $table->integer('nbre_moi');
             $table->float('interet_total');
             $table->float('interet_Moi');
             $table->float('place_interet')->nullable();
             $table->date('date_placement');
             $table->date('date_fin');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

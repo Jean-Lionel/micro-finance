@@ -11,7 +11,7 @@
 			<input type="date" id="date_rapport" name="date_rapport" value="">
 		</form>
 		<h2 class="text-primary text-center"> RAPPORT JOURNALIERE </h2>
-		<button class="btn-info" id="btn_print">print_div</button>
+		<button class="btn-info" id="btn_print">Imprimer</button>
 
 		<div class="table-rapport" id="info-print">
 			
@@ -45,16 +45,16 @@
 				data: {date_rapport: date_r.val()},
 			})
 			.done(function(dta) {
-				console.log("success");
-				//console.log(dta.rapport)
+				
+				//
 
 				$('.table-rapport').html(loadRapportData(dta.rapport))
 			})
 			.fail(function() {
-				console.log("error");
+				
 			})
 			.always(function() {
-				console.log("complete");
+				
 			});
 			
 		});
@@ -66,6 +66,8 @@
 	function loadRapportData(data) {
 
 		let tbody = (data) => {
+
+			
 			let tbdy = ""
 
 			for (var i=0;i< data.length; i++) {
@@ -113,6 +115,15 @@
 		</table>
 
 		`
+
+		if(data[0].created_at == null){
+
+			return `<h2 class="text-center"> Pas de rapport disponible pour la date du 
+					${$('#date_rapport').val()}</h2>`
+
+		}
+
+
 		return table
 	}
 
@@ -133,16 +144,16 @@
 				
 			})
 			.done(function(data) {
-				console.log("success");
-				//console.log(data)
+				
+				//
 				$('.table-rapport').html(tenueHtml(data))
-				// console.log(tenueHtml(data))
+				
 			})
 			.fail(function() {
-				console.log("error");
+				
 			})
 			.always(function() {
-				console.log("complete");
+				
 			});
 			
 		});

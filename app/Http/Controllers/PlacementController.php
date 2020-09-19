@@ -9,6 +9,7 @@ use App\Models\Placement;
 use Illuminate\Http\Request;
 use Illuminate\Routing\back;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PlacementController extends Controller
 {
@@ -17,8 +18,8 @@ class PlacementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index()
-     {
+    public function index()
+    {
         $search = \Request::get('search');
 
 
@@ -33,9 +34,12 @@ class PlacementController extends Controller
         //dump(PaiementPlacement::payePlacementPaye(1));
         $now = Carbon::now();
 
+        //Rechercher des personnes dont les conditions de paiement sont respecter
+
         $placement_paye = Placement::where('date_fin','>=', $now )
-                                    ->where('date_placement','<',$now)
-                                     ->get();
+        ->where('date_placement','<',$now)
+        ->whereMonth('date_placement','<',$now->month)
+        ->get();
 
         PaiementPlacement::paimentMensuellePlacement($placement_paye);
 
@@ -48,8 +52,8 @@ class PlacementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function create()
-     {
+    public function create()
+    {
         $placement = new Placement;
 
         return view('placements.create', compact('placement'));
@@ -61,48 +65,57 @@ class PlacementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(FormPlacementRequest $request)
-     {
+    public function store(FormPlacementRequest $request)
+    {
         $interet_total =( ($request->interet_total * $request->montant) / 100) * $request->nbre_moi;
         $place_interet = $request->montant + $interet_total;
         $interet_moi = $interet_total / $request->nbre_moi;
 
+        //using Trasaction Methode
+
         //Verification sur le compte principal
-        $response = ComptePrincipalController::update($request->montant,'PLACEMENT');
+        //$response = ComptePrincipalController::update($request->montant,'PLACEMENT');
 
-        //Date de fin pour le calculer la date de fin
+        try {
+            DB::beginTransaction();
+            $date_pl = Carbon::create($request->date_placement);
 
-        $date_pl = Carbon::create($request->date_placement);
+            $date_fin = $date_pl->addMonths($request->nbre_moi);
 
-        $date_fin = $date_pl->addMonths($request->nbre_moi);
+            ComptePrincipalController::store_info($request->montant,'PLACEMENT');
+            ComptePrincipalOperationController::storeOperation($request->montant,'placement',$request->compte_name);
 
-        if($response  == 'OK'){
 
-        ComptePrincipalOperationController::storeOperation($request->montant,'placement');
-          Placement::create([
-            'montant' => $request->montant,
-            'compte_name' => $request->compte_name,
-            'nbre_moi' => $request->nbre_moi,
-            'interet_total' => $interet_total,
-            'interet_Moi' => $interet_moi,
-            'place_interet' => $place_interet,
-            'date_placement' => $request->date_placement,
-            'date_fin' => $date_fin,
+            Placement::create([
+                'montant' => $request->montant,
+                'compte_name' => $request->compte_name,
+                'nbre_moi' => $request->nbre_moi,
+                'interet_total' => $interet_total,
+                'interet_Moi' => $interet_moi,
+                'place_interet' => $place_interet,
+                'date_placement' => $request->date_placement,
+                'date_fin' => $date_fin,
             ]);
 
-          successMessage();
 
-          }else{
-            //Message d'erreur 
-           errorMessage($response);
+            DB::commit();
+
+            successMessage();
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+            errorMessage($e->getMessage());
 
             return back();
-          }
-      
+            
+        }
 
-      return $this->index();
-      
-  }
+
+        return $this->index();
+
+    }
 
     /**
      * Display the specified resource.
@@ -110,10 +123,10 @@ class PlacementController extends Controller
      * @param  \App\Placement  $placement
      * @return \Illuminate\Http\Response
      */
-     public function show(Placement $placement)
-     {
+    public function show(Placement $placement)
+    {
 
-     }
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -121,10 +134,10 @@ class PlacementController extends Controller
      * @param  \App\Placement  $placement
      * @return \Illuminate\Http\Response
      */
-     public function edit(Placement $placement)
-     {
-         return view('placements.edit',compact('placement'));
-     }
+    public function edit(Placement $placement)
+    {
+     return view('placements.edit',compact('placement'));
+ }
 
     /**
      * Update the specified resource in storage.
@@ -133,8 +146,8 @@ class PlacementController extends Controller
      * @param  \App\Placement  $placement
      * @return \Illuminate\Http\Response
      */
-     public function update(Request $request, Placement $placement)
-     {
+    public function update(Request $request, Placement $placement)
+    {
         //
     }
 
@@ -144,8 +157,8 @@ class PlacementController extends Controller
      * @param  \App\Placement  $placement
      * @return \Illuminate\Http\Response
      */
-     public function destroy(Placement $placement)
-     {
+    public function destroy(Placement $placement)
+    {
         //
     }
 }

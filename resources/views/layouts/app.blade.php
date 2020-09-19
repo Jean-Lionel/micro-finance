@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="/css/sweetalert2.min.css">
+  <link rel="stylesheet" href= "{{ asset('/css/decouvert_form.css')}}">
 
  
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
@@ -35,13 +36,17 @@
 
     #nav-bar{
       /*background: #027368;*/
+
       background: #5b8c85;
+      font-size: 12px;
+      font-family: sans-serif;
       /*background: #f66d9b;*/ 
+      
     }
     body{
       
       /*background: rgba(138, 138, 138,0.3);*/
-      /*background: #A7C8F2;*/
+      background: #ebeff5;
 
       /*font-size: 12px;*/
 
@@ -66,7 +71,7 @@
         <a class="p-2 {{set_active_router('comptes.index')}}" href="{{ route('comptes.index') }}"><i class="fa fa-book"></i> Situation</a>
         <a class="p-2 {{set_active_router('placements.index')}}" href="{{ route('placements.index') }}"><i class="fa fa-inbox"></i> Placement</a>
         <a class="p-2 {{set_active_router('decouverts.index')}}" href="{{ route('decouverts.index') }}"><i class="fa fa-tint"></i> Decouvert</a>
-        <a class="p-2 {{set_active_router('reboursement-decouverts.index')}}" href="{{ route('reboursement-decouverts.index') }}"><i class="fa fa-share"></i>Remboursement</a>
+       
 
         <a class="p-2 {{set_active_router('rapports')}}" href="{{ route('rapports.index') }}"><i class="fa fa-share"></i> Rapport</a>
       </nav>
@@ -74,7 +79,7 @@
 
       <li class="nav-item dropdown" style="list-style: none;">
         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-         <i class="fa fa-user"></i> {{ Auth::user()->name }} <span class="caret"></span>
+         <i class="fa fa-user"></i> {{ Auth::user()->full_name }} <span class="caret"></span>
        </a>
 
        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -112,8 +117,8 @@
 <script src="/js/sweetalert2.all.min.js"></script>
 <script src="/js/print.min.js"></script>
 
-<script src="/js/script.js">
-</script>
+<script src="/js/script.js"></script>
+<script src="/js/nombre_en_lettre.js"></script>
 @livewireScripts
 @yield('javascript')
 

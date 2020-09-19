@@ -67,22 +67,38 @@
 </div>
 
 
+
+
+
 @section('javascript')
 
 
 
 <script>
+
+	function isDoubleClicked(element) {
+    //if already clicked return TRUE to indicate this click is not allowed
+    if (element.data("isclicked")) return true;
+
+    //mark as clicked for 1 second
+    element.data("isclicked", true);
+    setTimeout(function () {
+        element.removeData("isclicked");
+    }, 1000);
+
+    //return FALSE to indicate this click was allowed
+    return false;
+}
+
+
 	
 
 	function showContent(compte ="",name="",cni=""){
 
-		
-
-
 		$('#operer_par').val(name)
-		$('#type_operation').val('RETRAIT')
+		// $('#type_operation').val('RETRAIT')
 		$('#cni').val(cni)
-		$('#compte_name').attr('disabled')
+		$('#compte_name').attr('disabled','true')
 
 		$('.hide').show()
 		
@@ -101,7 +117,7 @@
 
 		//console.log(compte_name.val('bonjour'))
 
-		compte_name.on('blur',  function(event) {
+		compte_name.on('keyup',  function(event) {
 			event.preventDefault();
 			/* Act on the event */
 
@@ -199,7 +215,15 @@
 
 		save.on('click' , function(event){
 			event.preventDefault()
+			if (isDoubleClicked($(this))) {
 
+				location.reload(); 
+
+				return;
+			}
+
+
+			console.log(event);
 
 			$.ajaxSetup({
 				headers: {
@@ -229,6 +253,9 @@
 				return ;
 
 			}
+
+
+
 
 
 			$.ajax({

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-md-4">
 
 		<form action="" id="formulaire" class="form-inline">
 			@csrf
@@ -15,39 +15,87 @@
 			</span>
 
 		</form>
+
+		<div class="modal-body">
+			<h5 id="montant_restant"></h5>
+			<form action="{{ route('reboursement-decouverts.store')}}" method="POST">
+				@csrf
+				<div class="row">
+					<div class="col-md-12">
+						<fieldset class="form-group">
+							{{-- <label for="compte_name">Numero du compte</label> --}}
+							<input type="hidden" class="form-control {{$errors->has('compte_name') ? 'is-invalid' : 'is-valid' }}" id="compte_name" name="compte_name"  value="{{ old('compte_name') ?? $reboursementDecouvert->compte_name}}">
+
+							{!! $errors->first('compte_name', '<small class="help-block invalid-feedback">:message</small>') !!}
+
+						</fieldset>
+						<fieldset class="form-group">
+							{{-- 	<label for="decouvert_id">Decouvert</label> --}}
+							<input type="hidden" class="form-control {{$errors->has('decouvert_id') ? 'is-invalid' : 'is-valid' }}" id="decouvert_id" name="decouvert_id" value="{{ old('decouvert_id') ?? $reboursementDecouvert->decouvert_id }}">
+
+							{!! $errors->first('decouvert_id', '<small class="help-block invalid-feedback">:message</small>') !!}
+
+						</fieldset>
+
+					</div>
+					<div class="col-md-12">
+						<fieldset class="form-group">
+							<label for="date_remboursement">Date de remboursement</label>
+							<input type="date" class="form-control {{$errors->has('date_remboursement') ? 'is-invalid' : 'is-valid' }}" id="date_remboursement" name="date_remboursement" value="{{ old('date_remboursement') ?? $reboursementDecouvert->date_remboursement }}">
+
+							{!! $errors->first('date_remboursement', '<small class="help-block invalid-feedback">:message</small>') !!}
+
+						</fieldset>
+
+					</div>
+					<div class="col-md-12">
+						<fieldset class="form-group">
+							<label for="montant">Montant</label>
+							<input type="text" class="form-control {{$errors->has('montant') ? 'is-invalid' : 'is-valid' }}" id="montant" name="montant" value="{{ old('montant') ?? $reboursementDecouvert->montant }}">
+
+							{!! $errors->first('montant', '<small class="help-block invalid-feedback">:message</small>') !!}
+
+						</fieldset>
+
+					</div>
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Enregistre</button>
+				</div>
+
+			</form>
+		</div>
 		
 	</div>
 
-	<div class="col-md-9" id="decouvert">
+	<div class="col-md-8" id="decouvert">
 		
 	</div>
 </div>
 
-	@include('reboursementDecouverts._form')
+
 @endsection
 
 
 @section('javascript')
 
 <script>
+
 	let remplireCase =  (compte_name,montant,decouvert_id,montant_restant,created_at) =>{
 
+		console.log(compte_name +' '+ montant);
 
-$('#exampleModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  //var recipient = button.data('whatever') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  modal.find('.modal-title').text('COMPTE No' + compte_name)
-  modal.find('.modal-body #compte_name').val(compte_name)
-  modal.find('.modal-body #decouvert_id').val(decouvert_id)
-  modal.find('#montant_restant').text('Montant restant '+montant_restant + ' FBU')
-})
-
-
+		$('.modal-title').text('COMPTE No' + compte_name)
+		$('#compte_name').val(compte_name)
+		$('#decouvert_id').val(decouvert_id)
+		$('#montant_restant').text('Montant restant '+montant_restant + ' FBU')
 
 	}
+
+
+
 
 	$(document).ready(function() {
 
@@ -101,7 +149,6 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 
 				// console.log(data[i])
 
-
 				let tr = 
 				`
 				<tr>
@@ -113,7 +160,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 				
 				<td>
 
-				<button type="button" onclick="remplireCase('${data[i].compte_name}',${data[i].montant},${data[i].id},${data[i].montant_restant},'${data[i].created_at}')" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" >Paye</button>
+				<button type="button" onclick="remplireCase('${data[i].compte_name}',${data[i].montant},${data[i].id},${data[i].montant_restant},'${data[i].created_at}')" class="btn btn-primary" class="paye" >Paye</button>
 
 				</td>
 				</tr>
@@ -134,11 +181,6 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 		
 	});
 	
-
-
-	
-
-
 </script>
 
-@endsection
+@stop

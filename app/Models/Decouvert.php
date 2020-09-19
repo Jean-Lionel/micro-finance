@@ -11,14 +11,15 @@ class Decouvert extends ParentModel
 
     protected $fillable = [
     'compte_name','montant','interet','total_a_rambourse','periode',
-    'montant_payer',
+    'montant_payer','paye',
 	'montant_restant'
     ];
     public $sortable = [
     'compte_name','montant','interet','total_a_rambourse',
     'created_at','periode',
     'montant_payer',
-	'montant_restant'];
+	'montant_restant',
+    'paye'];
 
     public static function boot(){
         parent::boot();

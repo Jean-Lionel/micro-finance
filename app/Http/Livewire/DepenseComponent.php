@@ -103,10 +103,10 @@ class DepenseComponent extends Component
     public function destroy($id)
     {
 
-        if($id){
-        	$depense = Depense::where('id',$id);
-        	$depense->delete();
-        }
+        // if($id){
+        // 	$depense = Depense::where('id',$id);
+        // 	$depense->delete();
+        // }
     }
 
 }

@@ -1,13 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<h1>Listes</h1>
+
+<div class="row">
+	<div class="col-md-6">
+		<h5 class="text-center">Tout les remboursements</h5>
+	</div>
+	<div class="col-md-6">
+		<form action="" class="navbar-form navbar-left">
+			<div class="input-group custom-search-form">
+				<input type="text" class="form-control" name="search" placeholder="Entre le numero du compte." value="{{$search}}">
+				<span class="input-group-btn">
+					<button class="btn btn-default-sm" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+
+			</div>
+		</form>
+	</div>
+</div>
 
 <a href="{{ route('reboursement-decouverts.create')}}" class="btn btn-info">Nouvel Decouvert</a>
 
 @if($reboursementDecouverts)
 
-<table class="table-bordered table-inverse table-hover table-sm">
+<table class="table table-reponsive table-bordered table-sm  table-hover table-striped">
 	<thead>
 		<tr>
 
@@ -16,8 +34,6 @@
 			<th>@sortablelink('compte_name','COMPTE NO')</th>
 			<th>@sortablelink('montant','Montant') </th>
 			<th>@sortablelink('interet','Taux en %') </th>
-			<th>Montant Restant </th>
-	
 			<th>@sortablelink('created_at','Date') </th>
 
 			
@@ -33,7 +49,7 @@
 			<td>{{ numberFormat($remboursementDecouvert->montant)}}</td>
 			<td>{{ numberFormat($remboursementDecouvert->decouvert->interet)}}</td>
 
-			<td>{{ numberFormat($remboursementDecouvert->decouvert->montant_restant - $remboursementDecouvert->decouvert->montant)}}</td>
+			{{-- <td>{{ numberFormat($remboursementDecouvert->decouvert->montant_restant - $remboursementDecouvert->montant)}}</td> --}}
 
 
 			
@@ -42,8 +58,8 @@
 			<td>
 				{{-- <a href="{{ route('reboursement-decouverts.show',$remboursementDecouvert) }}" class=" btn-sm btn-outline-info">show</a> --}}
 				<a href="{{ route('reboursement-decouverts.edit',$remboursementDecouvert) }}" class=" btn-sm btn-outline-dark">Modifier</a>
-			
-					<form action="{{ route('reboursement-decouverts.destroy' , $remboursementDecouvert) }}" style="display: inline;" method="POST">
+
+				<form action="{{ route('reboursement-decouverts.destroy' , $remboursementDecouvert) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
 					<button class="btn-sm btn-outline-danger">Delete</button>

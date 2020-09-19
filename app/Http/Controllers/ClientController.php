@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ComptePrincipalController;
 use App\Http\Requests\FormClientRequest;
 use App\Models\Client;
 use App\Models\Compte;
@@ -9,6 +10,7 @@ use App\Models\ComptePrincipal;
 use Faker\Provider\url;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -22,6 +24,10 @@ class ClientController extends Controller
     {
 
         //$clients = Client::sortable()->paginate(10);
+
+      // $result= ComptePrincipalController::store_info(100,'RETRAIT');
+
+      //   dd($result);
 
 
         $search = \Request::get('search'); 
@@ -68,19 +74,26 @@ class ClientController extends Controller
             # code...
             $imageName = time().'.'.$request->upload_image->extension();  
             $request->upload_image->move(public_path('img\client_images'), $imageName);
-    
+
         }
 
-        $client = Client::create($request->all()  + ['image' => $imageName ]);
         
-        Compte::create(
-            [
-                'montant' => 0,
-                'type_compte' => 'COURANT',
-                'client_id' => $client->id,
-                'name' => 'COO-'.$client->id
-            ]
-        );
+
+        DB::transaction(function() use($request, $imageName) {
+
+            $client = Client::create($request->all()  + ['image' => $imageName ]);
+
+            Compte::create(
+                [
+                    'montant' => 0,
+                    'type_compte' => 'COURANT',
+                    'client_id' => $client->id,
+                    'name' => 'COO-'.$client->id
+                ]
+            );
+      //
+        });
+
 
         successMessage();
 
@@ -101,8 +114,8 @@ class ClientController extends Controller
        //return $client->comptes;
 
 
-     return view('clients.show',compact('client'));
- }
+       return view('clients.show',compact('client'));
+   }
 
     /**
      * Show the form for editing the specified resource.

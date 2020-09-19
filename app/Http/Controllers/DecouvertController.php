@@ -7,6 +7,8 @@ use App\Http\Requests\FormDecouvertRequest;
 use App\Models\Decouvert;
 use Illuminate\Http\Request;
 use Illuminate\Routing\back;
+use Illuminate\Support\Facades\DB;
+use Exception;
 
 class DecouvertController extends Controller
 {
@@ -15,8 +17,8 @@ class DecouvertController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index()
-     {
+    public function index()
+    {
         //$decouverts = Decouvert::sortable()->paginate(10);
 
         $search = \Request::get('search'); 
@@ -41,8 +43,8 @@ class DecouvertController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function create()
-     {
+    public function create()
+    {
         $decouvert = new Decouvert;
 
         return view('decouverts.create',compact('decouvert'));
@@ -54,36 +56,49 @@ class DecouvertController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-     public function store(FormDecouvertRequest $request)
-     {
+    public function store(FormDecouvertRequest $request)
+    {
         //Calculer de l'interet total
         $total_a_rambourse = 
         $request->montant + ((($request->montant * $request->interet)/100) *  $request->periode);
 
-        $response = ComptePrincipalController::update($request->montant, 'DECOUVERT');
 
-        // dd($response);
+        try {
+            DB::beginTransaction();
+    // database queries here
 
-        if($response == "OK"){
+            ComptePrincipalController::store_info($request->montant, 'DECOUVERT');
 
             Decouvert::create([
-            'compte_name' => $request->compte_name,
-            'montant' => $request->montant,
-            'interet' => $request->interet,
-            'periode' => $request->periode,
-            'total_a_rambourse' => $total_a_rambourse,
-            'montant_restant' => $total_a_rambourse
+                'compte_name' => $request->compte_name,
+                'montant' => $request->montant,
+                'interet' => $request->interet,
+                'periode' => $request->periode,
+                'total_a_rambourse' => $total_a_rambourse,
+                'montant_restant' => $total_a_rambourse
             ]);
 
-            ComptePrincipalOperationController::storeOperation($request->montant, 'DECOUVERT');
+            ComptePrincipalOperationController::storeOperation($request->montant, 'DECOUVERT',$request->compte_name);
 
+            DB::commit();
             successMessage();
+        } catch (\Exception $e) {
+    // Woopsy
+            DB::rollBack();
+             errorMessage("Opération échoué car ".$e->getMessage());
 
-        }else{
-            errorMessage($response);
-
-            return back();
         }
+
+        // if($response == "OK"){
+
+
+        //     
+
+        // }else{
+        //     
+
+        //     return back();
+        // }
 
         
 
@@ -97,8 +112,8 @@ class DecouvertController extends Controller
      * @param  \App\Model\Decouvert  $decouvert
      * @return \Illuminate\Http\Response
      */
-     public function show(Decouvert $decouvert)
-     {
+    public function show(Decouvert $decouvert)
+    {
         //
     }
 
@@ -108,8 +123,8 @@ class DecouvertController extends Controller
      * @param  \App\Model\Decouvert  $decouvert
      * @return \Illuminate\Http\Response
      */
-     public function edit(Decouvert $decouvert)
-     {
+    public function edit(Decouvert $decouvert)
+    {
         return view('decouverts.edit', compact('decouvert'));
     }
 
@@ -120,23 +135,25 @@ class DecouvertController extends Controller
      * @param  \App\Model\Decouvert  $decouvert
      * @return \Illuminate\Http\Response
      */
-     public function update(FormDecouvertRequest $request, Decouvert $decouvert)
-     {
-        $total_a_rambourse = 
-        $request->montant + 
-        ((($request->montant * $request->interet)/100) * $request->periode);
+    public function update(FormDecouvertRequest $request, Decouvert $decouvert)
+    {
+        // $total_a_rambourse = 
+        // $request->montant + 
+        // ((($request->montant * $request->interet)/100) * $request->periode);
 
-        $decouvert->update(
-            [
-            'compte_name' => $request->compte_name,
-            'montant' => $request->montant,
-            'interet' => $request->interet,
-            'periode' => $request->periode,
-            'total_a_rambourse' => $total_a_rambourse ,
-            'montant_restant' => $total_a_rambourse
-            ]
+        // $decouvert->update(
+        //     [
+        //         'compte_name' => $request->compte_name,
+        //         'montant' => $request->montant,
+        //         'interet' => $request->interet,
+        //         'periode' => $request->periode,
+        //         'total_a_rambourse' => $total_a_rambourse ,
+        //         'montant_restant' => $total_a_rambourse
+        //     ]
 
-            );
+        // );
+
+        errorMessage("On ne peut pas Modifier une decouvert qu'a déjà attribué  ");
 
         return $this->index();
     }
@@ -147,8 +164,8 @@ class DecouvertController extends Controller
      * @param  \App\Model\Decouvert  $decouvert
      * @return \Illuminate\Http\Response
      */
-     public function destroy(Decouvert $decouvert)
-     {
+    public function destroy(Decouvert $decouvert)
+    {
         //
     }
 }

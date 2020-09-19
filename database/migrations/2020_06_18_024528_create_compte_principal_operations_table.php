@@ -20,9 +20,12 @@ class CreateComptePrincipalOperationsTable extends Migration
             $table->float('placement')->default(0);
             $table->float('decouvert')->default(0);
             $table->float('reboursement')->default(0);
+            $table->float('tenue_compte')->default(0);
             $table->float('depense')->default(0);
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('compte_name')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            
             $table->timestamps();
         });
     }

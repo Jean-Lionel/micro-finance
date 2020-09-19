@@ -21,6 +21,7 @@ class OperationController extends Controller
      */
     public function index()
     {
+       
 
         $search = \Request::get('search');
         $operations = Operation::sortable(['created_at'=>'desc'])
@@ -56,89 +57,110 @@ class OperationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response FormOperationRequest
      */
-    public function store(Request $request)
-    {
 
-        // dd($request->all());
+    public function store(Request $request){
 
-        // die();
-        $compte = Compte::where('name','=',$request->compte_name)->firstOrFail();
+        try {
+             $compte = Compte::where('name','=',$request->compte_name)->firstOrFail();
+            
+        } catch (\Exception $e) {
 
-        $current_sum = $compte->montant;
+             return response()->json(['error'=> "Vérifier le numéro de compte"]);
+            
+        }
 
-        if($request->type_operation == 'RETRAIT'){
+       
 
-            if($current_sum > $request->montant){
-                //Modification du compte client
-                //Actualisation du compte principal de banque
-                $resp = ComptePrincipalController::update($request->montant,'RETRAIT');
-                //Response du compte principal
+        if($compte){
 
-                
-                if($resp == 'OK'){
+            if($request->type_operation == 'RETRAIT'){
+                //TODO
 
-                   $newValue = $current_sum - $request->montant;
-                   $compte->update(['montant' => $newValue]);
-                   ComptePrincipalOperationController::storeOperation($request->montant, 'retrait');
-                   Operation::create($request->all());
-                 //Message
-                   successMessage();
+                //Verification que le montant est suffisant sur le compte en question
 
-                   return response()->json(['success'=>'Opération réussi']);
-               }else{
-                //TO DO on ffiche pour le moment la reponse du compte principal
-                flashy()->error($resp);
+                if($compte->montant > $request->montant){
 
-                $operation = new Operation($request->all());
-                return response()->json(['error'=>$resp]);
+                    try {
 
-                return view('operations.create',compact('operation'));;
+                        DB::beginTransaction();
 
-                //return $resp;
+                        
+                            
+                          ComptePrincipalController::store_info($request->montant, 'RETRAIT');
+                        
+
+                        $new_monant = $compte->montant - abs($request->montant);
+
+                        $compte->update(['montant' => $new_monant]);
+
+                        ComptePrincipalOperationController::storeOperation($request->montant, 'retrait',$compte->name );
+
+                        Operation::create($request->all());
+
+                        DB::commit();
+
+                        return response()->json(['success'=>'Opération réussi']);
+
+                    } catch (\Exception $e) {
+
+                        DB::rollback();
+
+                        return response()->json(['error'=>$e->getMessage()]);
+
+
+                    }
+
+                }else{
+                     return response()->json(['error'=> 'Le solde demande est insuffisant sur vôtre compte']);
+                }
+
+
             }
 
 
-        }else{
+            if($request->type_operation == 'VERSEMENT'){
 
-            $operation = new Operation($request->all());
-            flashy()->error('Le solde demande est insuffisant sur vôtre compte');
 
-            return response()->json(['error'=> 'Le solde demande est insuffisant sur vôtre compte']);
+                    try {
 
-                 //if javascrpt is not activate
+                        DB::beginTransaction();
 
-            return view('operations.create',compact('operation'));
+                        ComptePrincipalController::store_info($request->montant, 'VERSEMENT');
 
-                // return response()->json($operation);
+                        $new_monant = $compte->montant + abs($request->montant);
+
+                        $compte->update(['montant' => $new_monant]);
+
+                        ComptePrincipalOperationController::storeOperation($request->montant, 'VERSEMENT',$compte->name);
+
+                        Operation::create($request->all());
+
+                        DB::commit();
+
+                        return response()->json(['success'=>'Opération réussi']);
+
+                    } catch (\Exception $e) {
+
+                        DB::rollback();
+
+                        return response()->json(['error'=>$e->getMessage()]);
+
+
+                    }
+
+                
+
+            }
+
+
+
+
+
         }
 
+
+
     }
-    else if($request->type_operation == 'VERSEMENT'){
-        $newValue = $current_sum  + $request->montant;
-                //Modification du compte principale
-        $resp = ComptePrincipalController::update($request->montant,'VERSEMENT');
-
-        if($resp){
-           $compte->update(['montant' => $newValue]);
-                     //'retrait','versement'
-           ComptePrincipalOperationController::storeOperation($request->montant, 'versement');
-                //Actualisation du compte principal
-           Operation::create($request->all());
-           flashy()->success('Opération réussi');
-           return response()->json(['success'=> 'Opération réussi']);
-       }else{
-        flashy()->error($resp);
-        return response()->json(['error'=> $resp]);
-        dump($resp);
-    }
-
-}
-
-
-return $this->index();
-
-
-}
 
     /**
      * Display the specified resource.
@@ -149,6 +171,7 @@ return $this->index();
     public function show(Operation $operation)
     {
         //
+
     }
 
     /**
@@ -160,7 +183,7 @@ return $this->index();
     public function edit(Operation $operation)
     {
 
-        warningMessage('Action ne permise');
+        warningMessage('Action non permise');
         //return view('operations.edit',compact('operation'));
 
         return back();
@@ -177,6 +200,26 @@ return $this->index();
     {
         //
     }
+
+    public function operation_details()
+    {
+       $op_id = \Request::get('id');
+
+       $operation = Operation::where('id','=',$op_id)->first();
+
+        // $user = User::where('id','=',$operation->user_id);
+
+        // dump($operation);
+
+
+
+       return $operation ? response()->json(
+        [
+            'operation'=> $operation ,
+            'user' => $operation->user
+
+        ]) : response()->json(['error'=> 'ivalid id']) ;
+   }
 
     /**
      * Remove the specified resource from storage.

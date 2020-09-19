@@ -22,13 +22,16 @@ class CompteController extends Controller
         //$comptes = Compte::sortable()->paginate(10);
          $search = \Request::get('search');
 
-         $comptes = Compte::sortable()
+          $comptes  = null;
+         if($search){
+            $comptes = Compte::sortable()
                             ->where('client_id','like', '%'.$search.'%')
                             ->orWhere('montant','like', '%'.$search.'%')
                             ->orWhere('name','like', '%'.$search.'%')
                             ->orWhere('type_compte','like', '%'.$search.'%')
-                            ->paginate(10);
+                            ->paginate(1);
 
+         }
 
         
         return view('comptes.index', compact('comptes','search'));
@@ -161,11 +164,22 @@ class CompteController extends Controller
         $paiment_placement = PaiementPlacement::where('compte_name','=',$compte_name)->get();
         $tenus_comptes = TenueCompte::where('compte_name','=',$compte_name)->get();
 
+        $compte = Compte::where('name','=',$compte_name)->first();
+
+        if(!$compte)
+            return response()->json(['error'=>'Invalide compte name']);
+
+        
+
         return response()->json([
             'operations' => $operations,
             'paiement_placement' => $paiment_placement,
-            'tenus_comptes' => $tenus_comptes
+            'tenus_comptes' => $tenus_comptes,
+            'client' => $compte->client
         ]);
 
     }
+
+
+    
 }

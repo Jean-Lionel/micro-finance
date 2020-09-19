@@ -23,7 +23,7 @@ class CreateDecouvertsTable extends Migration
             $table->float('montant_payer')->default(0);
             $table->float('montant_restant');
             $table->boolean('paye')->default(false);
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
