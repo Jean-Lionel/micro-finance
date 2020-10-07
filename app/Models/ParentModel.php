@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 
 /**
@@ -10,6 +11,8 @@ use Kyslik\ColumnSortable\Sortable;
  */
 class ParentModel extends Model
 {
+
 	
 	 use Sortable;
+	 use SoftDeletes;
 }

@@ -5,11 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class ComptePrincipalOperation extends Model
+class ComptePrincipalOperation extends ParentModel
 {
 
+	// annulation_versement`, `annulation_retrait
+
 	protected $fillable = [
-	'retrait','versement','compte_name','placement','decouvert','depense','reboursement','tenue_compte'];
+	'retrait','versement','compte_name','placement','decouvert','depense','reboursement','tenue_compte','annulation_versement','annulation_retrait','paiment_placement'];
+
+	
+	//annulation_versement
+        //annulation_versement
 
 
 	public static function boot(){
@@ -19,6 +25,8 @@ class ComptePrincipalOperation extends Model
 		self::creating(function($model){
 
 			$model->user_id = Auth::user()->id;
+
+			// dd($model);
 		});
 	}
 }

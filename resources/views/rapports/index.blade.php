@@ -45,6 +45,10 @@
 				data: {date_rapport: date_r.val()},
 			})
 			.done(function(dta) {
+
+				console.log(dta);
+
+
 				
 				//
 
@@ -74,11 +78,15 @@
 				let tr = `
 
 				<tr>
-				<td>${data[i].depense}</td>
-				<td>${data[i].total_retrait}</td>
-				<td>${data[i].total_versement}</td>		
+				<td>${data[i].total_depense}</td>
+				<td>${data[i].total_retrait - data[i].total_annulation_retrait}</td>
+				<td>${data[i].total_versement - data[i].total_annulation_versement}</td>		
+				<td>${data[i].total_decouvert}</td>		
 				<td>${data[i].total_reboursement}</td>			
 				<td>${data[i].total_placement}</td>			
+				<td>${data[i].total_paiment_placement}</td>			
+				<td>${data[i].total_annulation_versement}</td>			
+				<td>${data[i].total_annulation_retrait}</td>			
 				<td>${data[i].created_at}</td>			
 				</tr>
 				`
@@ -90,7 +98,11 @@
 			return tbdy
 		}
 
+
+
 		let body = tbody(data)
+
+		  // `decouvert`, `reboursement`, `tenue_compte`, `annulation_versement`, `annulation_retrait`, `paiment_placement`, `depense`
 		// body...
 		let table = `
 
@@ -101,8 +113,13 @@
 		<th>Depense</th>
 		<th>Retrait</th>
 		<th>Versement</th>
+		<th>Decouvert</th>
 		<th>Remboursement</th>
-		<th>Placement</th>	
+		
+		<th>Placement</th>
+		<th>Paiment des Placement</th>
+		<th>Annulation des versements</th>
+		<th>Annulation des Retrait</th>
 		<th>Date</th>	
 		</tr>
 		</thead>

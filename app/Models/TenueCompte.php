@@ -8,7 +8,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class TenueCompte extends Model
+class TenueCompte extends ParentModel
 {
    protected $fillable = ['compte_name','montant'];
 

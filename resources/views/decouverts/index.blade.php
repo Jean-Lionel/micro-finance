@@ -61,11 +61,11 @@
 				<tr>
 					<td>{{$key + 1}}</td>
 					<td>{{ $placement->compte_name}}</td>
-					<td>{{ $placement->montant}}</td>
-					<td>{{ $placement->interet}}</td>
+					<td>{{ numberFormat($placement->montant)}}</td>
+					<td>{{ numberFormat($placement->interet)}}</td>
 					<td>{{ numberFormat($placement->total_a_rambourse - $placement->montant)}}</td>
-					<td>{{ $placement->total_a_rambourse}}</td>
-					<td>{{ $placement->montant_restant}}</td>
+					<td>{{ numberFormat($placement->total_a_rambourse)}}</td>
+					<td>{{ numberFormat($placement->montant_restant)}}</td>
 					<td>{{ $placement->periode}}</td>
 					<td>
 						@if ($placement->paye == 1)

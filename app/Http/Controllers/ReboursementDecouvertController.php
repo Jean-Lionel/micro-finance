@@ -85,7 +85,7 @@ class ReboursementDecouvertController extends Controller
    
 
      $validate  = $request->validate([
-        'montant' => 'required|numeric|max:'.$decouvert->montant_restant,
+        'montant' => 'required|numeric|max:'.$decouvert->montant_restant.'|min:0',
         'date_remboursement' => 'date|required']
     );
 

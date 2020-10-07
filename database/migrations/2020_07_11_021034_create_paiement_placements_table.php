@@ -17,10 +17,11 @@ class CreatePaiementPlacementsTable extends Migration
             $table->id();
             $table->string('compte_name');
             $table->unsignedBigInteger('placement_id');
-            $table->float('montant');
-            $table->float('montant_restant');
+            $table->decimal('montant',60,2);
+            $table->decimal('montant_restant',60,2);
             $table->foreign('placement_id')->references('id')->on('placements');
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

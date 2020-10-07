@@ -12,12 +12,12 @@
 			</div>
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item">Nom et prénom :<b>{{ $client->nom}}  {{ $client->prenom}} </b></li>
-				<li class="list-group-item">Antenne :<b>{{ $client->antanne}} </b></li>
+				<li class="list-group-item">Antenne :<b>{{ $client->antenne}} </b></li>
 
-				<li class="list-group-item">Nom de l'Association :<b>{{ $client->nom_association}} </b></li>
+			{{-- 	<li class="list-group-item">Nom de l'Association :<b>{{ $client->nom_association}} </b></li> --}}
 				<li class="list-group-item">Nationalité :<b>{{ $client->nationalite}} </b></li>
 				<li class="list-group-item">CNI :<b>{{ $client->cni}} </b></li>
-				<li class="list-group-item">Date et Lieu de délivrance :<b>{{ $client->date_delivrance}} </b></li>	
+				{{-- <li class="list-group-item">Date et Lieu de délivrance :<b>{{ $client->date_delivrance}} </b></li> --}}	
 				<li class="list-group-item">Lieu et Date de naissance : <b>{{ $client->date_naissance}} </b></li>
 				<li class="list-group-item">Etat civil : <b>{{ $client->etat_civil}} </b>
 

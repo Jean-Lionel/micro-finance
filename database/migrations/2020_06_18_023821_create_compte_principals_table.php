@@ -15,8 +15,9 @@ class CreateComptePrincipalsTable extends Migration
     {
         Schema::create('compte_principals', function (Blueprint $table) {
             $table->id();
-            $table->float('montant');
+            $table->unsignedBigInteger('montant');
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

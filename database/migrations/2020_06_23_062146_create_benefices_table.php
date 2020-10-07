@@ -16,8 +16,9 @@ class CreateBeneficesTable extends Migration
         Schema::create('benefices', function (Blueprint $table) {
             $table->id();
             $table->string('type_revenue');
-            $table->float('montant');
+            $table->decimal('montant',60,2);
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

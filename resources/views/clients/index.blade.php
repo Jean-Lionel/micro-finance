@@ -12,10 +12,10 @@
 
 				<input type="text" id="search" class="form-control col-md-8 " name="search" placeholder="Search..." value="{{$search}}" >
 				
-					<button class="btn btn-default-sm" type="submit">
-						<i class="fa fa-search"></i>
-					</button>
-			
+				<button class="btn btn-default-sm" type="submit">
+					<i class="fa fa-search"></i>
+				</button>
+
 
 			</div>
 		</form>
@@ -63,13 +63,13 @@
 			<td>{{ $client->date_naissance}}</td>
 			<td>{{ $client->created_at}}</td>
 			<td>
-				<a href="{{ route('clients.show',$client) }}" class="btn btn-outline-info btn-sm">show</a>
+				<a href="{{ route('clients.show',$client) }}" class="btn btn-outline-info btn-sm">Afficher</a>
 				<a href="{{ route('clients.edit',$client) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 
-				<form action="{{ route('clients.destroy' , $client) }}" style="display: inline;" method="POST">
+				<form class="form-delete" action="{{ route('clients.destroy' , $client) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
-					<button class="btn btn-outline-danger btn-sm" onclick="swal('HELLO')">Delete</button>
+					<button class="btn btn-outline-danger btn-sm delete_client">Supprimer</button>
 				</form>
 
 
@@ -93,36 +93,50 @@
 @section('javascript')
 
 <script>
-	jQuery(document).ready(function() {
-		let search = $('#search')
 
-		// search.keyup(function(event) {
-		// 	/* Act on the event */
-		// 	event.preventDefault()
+	// let button = document.querySelector('.delete_client')
 
-		// 	$.ajax({
-		// 		url: '{{ url('clients') }}',
-		// 		type: 'GET',
+	// button.on('click', function(e){
+
+	// 	// e.preventDefault()
+	// 	// console.log("Je suis cool");
+
+	// });
+
+
+	jQuery(document).ready(function($) {
+
+
+		$('.delete_client').on('click',  function(event) {
+			 event.preventDefault();
+			// console.log("je suis cool");
+
+			let form = $(this).parent()
+			//console.log(form);
+
+
+			swal.fire({
+				title: "Vous êtes sûr",
+				text: "Une fois le client est supprimé ça sera difficile de le recuperer",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#DD6B55',
+				confirmButtonText: 'Oui, Je suis sûr',
+				cancelButtonText: "Non , Annuler",
+				closeOnConfirm: false,
+				closeOnCancel: false
+			}).then(function(isConfirm){
 				
-		// 		data: {search: search.val()},
-		// 	})
-		// 	.done(function() {
+				if(isConfirm.value){
 
-		// 		//$('.table').hide()
-		// 		console.log("success");
-		// 	})
-		// 	.fail(function() {
-		// 		console.log("error");
-		// 	})
-		// 	.always(function() {
-		// 		console.log("complete");
-		// 		//$('.table').show()
+					form.submit();
+				}
+			})
+			});
 
-		// 	});
-			
-		// });
+	})
 
-	});
+	
 </script>
 
 @stop

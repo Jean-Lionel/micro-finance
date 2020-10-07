@@ -211,8 +211,9 @@ class ComptePrincipalController extends Controller
 
     public static function store_info($motant, $type_Operation)
     {
-        $response = self::check_update_is_valide($motant, $type_Operation);
 
+        $response = self::check_update_is_valide($motant, $type_Operation);
+        //dd($response); MOIS MOINS 
         if(is_array($response))
         {
             if($response['day'] == 'TODAY'){

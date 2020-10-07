@@ -18,7 +18,7 @@ class CreateComptesTable extends Migration
             $table->unsignedBigInteger('client_id');
             $table->string('name')->unique();
            
-            $table->float('montant')->default(0);
+            $table->decimal('montant',65,2)->default(0);
             $table->enum('type_compte',['COURANT','EPARGNE','']);
             $table->boolean('etat')->default(true);
 
@@ -27,6 +27,7 @@ class CreateComptesTable extends Migration
             
 
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

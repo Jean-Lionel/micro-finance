@@ -16,8 +16,9 @@ class CreateDepensesTable extends Migration
         Schema::create('depenses', function (Blueprint $table) {
             $table->id();
             $table->string('action_name');
-            $table->float('montant');
+            $table->decimal('montant',60,2);
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

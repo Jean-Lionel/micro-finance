@@ -37,7 +37,7 @@
 			<th>@sortablelink('created_at','Date') </th>
 
 			
-			<th>Action</th>
+			{{-- <th>Action</th> --}}
 		</tr>
 	</thead>
 	<tbody>
@@ -57,13 +57,13 @@
 			<td>{{ $remboursementDecouvert->created_at}}</td>
 			<td>
 				{{-- <a href="{{ route('reboursement-decouverts.show',$remboursementDecouvert) }}" class=" btn-sm btn-outline-info">show</a> --}}
-				<a href="{{ route('reboursement-decouverts.edit',$remboursementDecouvert) }}" class=" btn-sm btn-outline-dark">Modifier</a>
+				{{-- <a href="{{ route('reboursement-decouverts.edit',$remboursementDecouvert) }}" class=" btn-sm btn-outline-dark">Modifier</a>
 
 				<form action="{{ route('reboursement-decouverts.destroy' , $remboursementDecouvert) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
 					<button class="btn-sm btn-outline-danger">Delete</button>
-				</form>
+				</form> --}}
 				
 				
 			</td>

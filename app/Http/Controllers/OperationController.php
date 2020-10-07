@@ -9,8 +9,9 @@ use App\Http\Requests\FormOperationRequest;
 use App\Models\Compte;
 use App\Models\Operation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class OperationController extends Controller
 {
@@ -19,24 +20,38 @@ class OperationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-       
+
 
         $search = \Request::get('search');
-        $operations = Operation::sortable(['created_at'=>'desc'])
-        ->where('compte_name', 'like', '%'.$search.'%')
-        ->orWhere('operer_par', 'like', '%'.$search.'%')
-        ->orWhere('montant', 'like', '%'.$search.'%')
-        ->orWhere('type_operation', 'like', '%'.$search.'%')
-        ->orWhere('user_id', 'like', '%'.$search.'%')
-        ->orWhere('cni', 'like', '%'.$search.'%')
-        ->paginate(10);
 
-        //dd($operations);
+        if(Gate::allows('is-admin')){
+            $operations = Operation::sortable(['created_at'=>'desc'])
+            ->where('compte_name', 'like', '%'.$search.'%')
+            ->orWhere('operer_par', 'like', '%'.$search.'%')
+            ->orWhere('montant', 'like', '%'.$search.'%')
+            ->orWhere('type_operation', 'like', '%'.$search.'%')
+            ->orWhere('user_id', 'like', '%'.$search.'%')
+            ->orWhere('cni', 'like', '%'.$search.'%')
+            ->paginate(10);
 
-        return view('operations.index',compact('operations','search'));
-    }
+        }
+
+        if(Gate::denies('is-admin')){
+
+         $operations = Operation::sortable(['created_at'=>'desc'])
+         ->where('compte_name', 'like', '%'.$search.'%')
+         ->where('user_id','=', Auth::user()->id)
+         ->paginate(10);
+
+     }
+
+        // dd($operations);
+
+     return view('operations.index',compact('operations','search'));
+ }
 
     /**
      * Show the form for creating a new resource.
@@ -58,109 +73,165 @@ class OperationController extends Controller
      * @return \Illuminate\Http\Response FormOperationRequest
      */
 
-    public function store(Request $request){
+    public function isAutorized($request)
+    {
 
-        try {
-             $compte = Compte::where('name','=',$request->compte_name)->firstOrFail();
-            
-        } catch (\Exception $e) {
+         // dump(Gate::denies('is-admin'));
 
-             return response()->json(['error'=> "Vérifier le numéro de compte"]);
-            
+
+
+        if(Gate::denies('is-admin')){
+
+
+            //dump(Gate::allows('is-versement-user'));
+
+         if(Gate::denies('is-retrait-user') && ($request->type_operation == 'RETRAIT')){
+
+            return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
+
         }
 
-       
+        if(Gate::denies('is-versement-user') && ($request->type_operation == 'VERSEMENT')){
+            return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
+        }
 
-        if($compte){
+    }
 
-            if($request->type_operation == 'RETRAIT'){
+
+
+}
+
+public function store(Request $request){
+
+    //Verfication des autorisation
+
+
+
+   if(Gate::denies('is-admin')){
+            //dump(Gate::allows('is-versement-user'));
+
+     if(Gate::denies('is-retrait-user') && ($request->type_operation == 'RETRAIT')){
+
+        return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
+
+    }
+
+    if(Gate::denies('is-versement-user') && ($request->type_operation == 'VERSEMENT')){
+        return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
+    }
+
+}
+
+
+
+    //FIN
+
+
+
+
+
+try {
+ $compte = Compte::where('name','=',$request->compte_name)->firstOrFail();
+
+} catch (\Exception $e) {
+
+ return response()->json(['error'=> "Vérifier le numéro de compte"]);
+
+}
+
+
+
+if($compte){
+
+    if($request->type_operation == 'RETRAIT'){
                 //TODO
 
                 //Verification que le montant est suffisant sur le compte en question
 
-                if($compte->montant > $request->montant){
+        if($compte->montant > abs($request->montant)){
 
-                    try {
+            try {
 
-                        DB::beginTransaction();
+                DB::beginTransaction();
 
-                        
-                            
-                          ComptePrincipalController::store_info($request->montant, 'RETRAIT');
-                        
+                ComptePrincipalController::store_info(abs($request->montant), 'RETRAIT');
 
-                        $new_monant = $compte->montant - abs($request->montant);
+                $new_monant = $compte->montant - abs($request->montant);
 
-                        $compte->update(['montant' => $new_monant]);
+                $compte->update(['montant' => $new_monant]);
 
-                        ComptePrincipalOperationController::storeOperation($request->montant, 'retrait',$compte->name );
+                ComptePrincipalOperationController::storeOperation(abs($request->montant), 'retrait',$compte->name );
 
-                        Operation::create($request->all());
+                $request->montant = abs($request->montant);
 
-                        DB::commit();
+                Operation::create($request->all());
 
-                        return response()->json(['success'=>'Opération réussi']);
+                DB::commit();
 
-                    } catch (\Exception $e) {
+                return response()->json(['success'=>'Opération réussi']);
 
-                        DB::rollback();
+            } catch (\Exception $e) {
 
-                        return response()->json(['error'=>$e->getMessage()]);
+                DB::rollback();
 
-
-                    }
-
-                }else{
-                     return response()->json(['error'=> 'Le solde demande est insuffisant sur vôtre compte']);
-                }
+                return response()->json(['error'=>$e->getMessage()]);
 
 
             }
 
-
-            if($request->type_operation == 'VERSEMENT'){
-
-
-                    try {
-
-                        DB::beginTransaction();
-
-                        ComptePrincipalController::store_info($request->montant, 'VERSEMENT');
-
-                        $new_monant = $compte->montant + abs($request->montant);
-
-                        $compte->update(['montant' => $new_monant]);
-
-                        ComptePrincipalOperationController::storeOperation($request->montant, 'VERSEMENT',$compte->name);
-
-                        Operation::create($request->all());
-
-                        DB::commit();
-
-                        return response()->json(['success'=>'Opération réussi']);
-
-                    } catch (\Exception $e) {
-
-                        DB::rollback();
-
-                        return response()->json(['error'=>$e->getMessage()]);
+        }else{
+         return response()->json(['error'=> 'Le solde demande est insuffisant sur vôtre compte']);
+     }
 
 
-                    }
-
-                
-
-            }
+ }
 
 
+ if($request->type_operation == 'VERSEMENT'){
 
 
+    try {
 
-        }
+        DB::beginTransaction();
 
+        ComptePrincipalController::store_info(abs($request->montant), 'VERSEMENT');
+
+        $new_monant = $compte->montant + abs($request->montant);
+
+        $compte->update(['montant' => $new_monant]);
+
+        ComptePrincipalOperationController::storeOperation(abs($request->montant), 'VERSEMENT',$compte->name);
+
+        $request->montant = abs($request->montant);
+
+        Operation::create($request->all());
+
+        DB::commit();
+
+        return response()->json(['success'=>'Opération réussi']);
+
+    } catch (\Exception $e) {
+
+        DB::rollback();
+
+        return response()->json(['error'=>$e->getMessage()]);
 
 
     }
+
+
+
+}
+
+
+
+
+
+}
+
+
+
+}
 
     /**
      * Display the specified resource.
@@ -182,12 +253,73 @@ class OperationController extends Controller
      */
     public function edit(Operation $operation)
     {
+        if(Gate::denies('is-admin')){
 
-        warningMessage('Action non permise');
-        //return view('operations.edit',compact('operation'));
+            errorMessage("Vous n'êtes pas autorisé a faire cette action");
 
-        return back();
+            return $this->index();
+
+        }
+
+
+
+
+        try {
+            DB::begintransaction();
+
+            $compte = Compte::where('name',$operation->compte_name)->firstOrFail();
+
+
+            $type_operation = $operation->type_operation;
+
+            if($type_operation == 'VERSEMENT'){
+
+                   // `annulation_versement`, `annulation_retrait`
+
+                ComptePrincipalController::store_info(abs($operation->montant), 'MOINS');
+                ComptePrincipalOperationController::storeOperation(abs($operation->montant), 'annulation_versement',$operation->compte_name);
+
+                $operation->delete();
+                $compte->montant = $compte->montant - abs($operation->montant);
+
+
+                $compte->save();
+
+            }
+
+            if($type_operation == 'RETRAIT'){
+             ComptePrincipalController::store_info(abs($operation->montant), 'ADD');
+             ComptePrincipalOperationController::storeOperation(abs($operation->montant), 'annulation_retrait',$operation->compte_name);
+
+             $operation->delete();
+
+             $compte->montant = $compte->montant + abs($operation->montant);
+             $compte->save();
+
+
+         }
+
+         successMessage();
+
+
+         DB::commit();
+
+     } catch (\Exception $e) {
+
+        DB::rollback();
+
+            // dd($e);
+
+        errorMessage($e->getMessage());
+
     }
+
+
+
+    return $this->index();
+
+
+}
 
     /**
      * Update the specified resource in storage.

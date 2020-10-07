@@ -15,9 +15,10 @@ class CreateTenueComptesTable extends Migration
     {
         Schema::create('tenue_comptes', function (Blueprint $table) {
             $table->id();
-            $table->float('montant')->dafault(0);
+            $table->decimal('montant',60,2)->dafault(0);
             $table->string('compte_name');
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }  
 

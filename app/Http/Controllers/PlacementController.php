@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\back;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 class PlacementController extends Controller
 {
@@ -23,7 +24,7 @@ class PlacementController extends Controller
         $search = \Request::get('search');
 
 
-        $placements = Placement::sortable()
+        $placements = Placement::sortable(['created_at'=>'desc'])
         ->where('montant','like', '%'.$search.'%')
         ->orWhere('compte_name','like', '%'.$search.'%')
         ->orWhere('date_placement','like', '%'.$search.'%')
@@ -34,12 +35,18 @@ class PlacementController extends Controller
         //dump(PaiementPlacement::payePlacementPaye(1));
         $now = Carbon::now();
 
+        // dump(Carbon::today());
+        // dd($now);
+
         //Rechercher des personnes dont les conditions de paiement sont respecter
 
-        $placement_paye = Placement::where('date_fin','>=', $now )
+        $placement_paye = Placement::where('date_fin','>=', Carbon::today() )
         ->where('date_placement','<',$now)
         ->whereMonth('date_placement','<',$now->month)
+        ->where('status','NON PAYE')
         ->get();
+
+         //dd($placement_paye);
 
         PaiementPlacement::paimentMensuellePlacement($placement_paye);
 
@@ -76,17 +83,21 @@ class PlacementController extends Controller
         //Verification sur le compte principal
         //$response = ComptePrincipalController::update($request->montant,'PLACEMENT');
 
+
+
         try {
             DB::beginTransaction();
             $date_pl = Carbon::create($request->date_placement);
 
             $date_fin = $date_pl->addMonths($request->nbre_moi);
+            
+                    //dd($request->montant);
 
             ComptePrincipalController::store_info($request->montant,'PLACEMENT');
             ComptePrincipalOperationController::storeOperation($request->montant,'placement',$request->compte_name);
 
 
-            Placement::create([
+            $placement = Placement::create([
                 'montant' => $request->montant,
                 'compte_name' => $request->compte_name,
                 'nbre_moi' => $request->nbre_moi,
@@ -96,6 +107,8 @@ class PlacementController extends Controller
                 'date_placement' => $request->date_placement,
                 'date_fin' => $date_fin,
             ]);
+
+            // dd($placement);
 
 
             DB::commit();
@@ -125,6 +138,32 @@ class PlacementController extends Controller
      */
     public function show(Placement $placement)
     {
+
+        
+        //$placement->status = 'NON PAYE';
+
+
+        try {
+            DB::beginTransaction();
+
+             ComptePrincipalController::store_info($placement->montant,'MOINS');
+            ComptePrincipalOperationController::storeOperation($placement->montant,'paiment_placement',$placement->compte_name);
+
+            $placement->status = 'DEJA PAYE';
+
+            $placement->save();
+
+            DB::commit();
+
+            successMessage();
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+            errorMessage($e->getMessage());
+            
+        }
+
+        return back();
 
     }
 

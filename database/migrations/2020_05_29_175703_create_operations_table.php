@@ -19,10 +19,11 @@ class CreateOperationsTable extends Migration
             $table->enum('type_operation',['RETRAIT','VERSEMENT']);
             $table->string('operer_par');
             $table->string('cni');
-            $table->float('montant');
+            $table->decimal('montant',65,2);
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->softDeletes('deleted_at', 0);
           
         });
     }

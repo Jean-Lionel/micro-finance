@@ -31,6 +31,25 @@ Route::resource('tenuecomptes','TenueCompteController');
 Route::resource('rapports','RapportsController');
 
 Route::resource('reboursement-decouverts','ReboursementDecouvertController');
+
+Route::namespace('Controllers')->prefix('app')->group(function(){
+
+});
+
+
+//Admin Router
+
+Route::namespace('Admin')->prefix('admin')
+->middleware('can:manager-user')->group(function(){
+	Route::resource('users', 'UsersController');
+
+});
+
+
+
+//Fin admin Router
+
+
 Route::get('find_decouvert', 'ReboursementDecouvertController@ajaxfindDecouvert')->name('find_decouvert');
 
 Auth::routes();
@@ -57,6 +76,9 @@ Route::get('operation_details', 'OperationController@operation_details')->name('
 //Fin ajax router
 
 Route::resource('posts', 'PostController');
+
+
+
 
 //
 

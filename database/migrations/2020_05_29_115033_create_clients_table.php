@@ -57,6 +57,7 @@ class CreateClientsTable extends Migration
             $table->string('image')->nullable();
            
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

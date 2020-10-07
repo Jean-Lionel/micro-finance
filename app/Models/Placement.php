@@ -12,14 +12,15 @@ class Placement extends ParentModel
 	'montant','compte_name',
 	'nbre_moi','interet_total',
 	'interet_Moi','place_interet',
-	'date_placement','user_id','date_fin'
+	'date_placement','user_id','date_fin','status'
 	];
 
 	public $sortable = [
 	'montant','compte_name',
 	'nbre_moi','interet_total',
 	'interet_Moi','place_interet',
-	'date_placement','user_id','date_fin'
+	'date_placement','user_id','date_fin','status',
+	'created_at'
 	];
 
 	public static function boot(){

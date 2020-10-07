@@ -16,16 +16,17 @@ class CreateDecouvertsTable extends Migration
         Schema::create('decouverts', function (Blueprint $table) {
             $table->id();
             $table->string('compte_name');
-            $table->float('montant');
-            $table->float('interet');
+            $table->decimal('montant',60,2);
+            $table->decimal('interet',60,2);
             $table->integer('periode');
-            $table->float('total_a_rambourse');
-            $table->float('montant_payer')->default(0);
-            $table->float('montant_restant');
+            $table->decimal('total_a_rambourse',60,2);
+            $table->decimal('montant_payer',60,2)->default(0);
+            $table->decimal('montant_restant',60,2);
             $table->boolean('paye')->default(false);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

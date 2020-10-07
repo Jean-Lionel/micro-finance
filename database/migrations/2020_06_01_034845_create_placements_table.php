@@ -15,17 +15,20 @@ class CreatePlacementsTable extends Migration
     {
         Schema::create('placements', function (Blueprint $table) {
             $table->id();
-            $table->float('montant');
+            $table->decimal('montant',65,2);
             $table->string('compte_name');
             $table->integer('nbre_moi');
-            $table->float('interet_total');
-            $table->float('interet_Moi');
-            $table->float('place_interet')->nullable();
+            $table->decimal('interet_total',65,2);
+            $table->decimal('interet_Moi',65,2);
+            $table->decimal('place_interet',65,2)->nullable();
             $table->date('date_placement');
             $table->date('date_fin');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('status')->default('NON PAYE');
             $table->timestamps();
+
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

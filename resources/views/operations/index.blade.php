@@ -61,7 +61,11 @@
 					<td>{{ $operation->created_at}}</td>
 					<td>
 						<!-- <a href="{{ route('operations.show',$operation) }}" class="btn btn-outline-info">show</a> -->
-						<a href="{{ route('operations.edit',$operation) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
+						@can('is-admin')
+						    {{-- expr --}}
+						    <a href="{{ route('operations.edit',$operation) }}" class="btn btn-outline-dark btn-sm delete_operation">Annuler</a>
+						@endcan
+						
 
 						<button class="btn btn-outline-info btn-sm imprimer" onclick="printBordereau({{$operation->id}})">Imprimer</button>
 
@@ -95,6 +99,48 @@
 
 
 @section('javascript')
+
+<script>
+
+	jQuery(document).ready(function($) {
+
+
+		$('.delete_operation').on('click',  function(event) {
+			 event.preventDefault();
+			// console.log("je suis cool");
+
+			let element = $(this)
+			//console.log(form);
+
+
+			swal.fire({
+				title: "Vous êtes sûr",
+				text: "Une fois le client est supprimé ça sera difficile de le recuperer",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: '#DD6B55',
+				confirmButtonText: 'Oui, Je suis sûr',
+				cancelButtonText: "Non , Annuler",
+				closeOnConfirm: false,
+				closeOnCancel: false
+			}).then(function(isConfirm){
+
+
+				
+				if(isConfirm.value){
+
+					let url = element.attr('href');
+
+					$(location).attr('href',url);
+				
+				}
+			})
+			});
+
+	})
+
+
+</script>
 
 <script>
 
@@ -150,27 +196,77 @@
 	
 </head>
 <body>
+
+
 	<div>
 	<button onclick="printJS('borderaeau_print','html')">Imprimer</button>
 	</div>
 
 	<div class="main-content" id="borderaeau_print">
+
 		<header>
 			<span>COPDI</span>
-			<span>CAPITAL SOCIAL : </span>
-			<span>Tél : </span>
-			<span>Addresse : </span>
-			<span>NIF : </span>
+			<span>Coopérative pour le Développement "<b>INEZA IWACU</b>"</span>
+			<span>NIF : 4001068602</span>
+			<span>RC : 11900/18</span>
+			<span>Adresse : Q. Muramvya, 1<sup>er</sup> AV. N° 60</span>
 		</header>
 
 		<section>
 			<p>
 			************************************************************ <br>
-			 <span>VERSEMENT EN ESPECES BORDEREAU No :  ${operation.id} </span> <br>
+			 <span>${operation.type_operation} EN ESPECES BORDEREAU No :  ${operation.id} </span> <br>
 			*************************************************************
 			</p>
 
-			<p>du : ${operation.created_at}</p>
+			<p>du : ${ new Date(operation.created_at).toLocaleString()}</p>
+			<p>
+				Compte No : ${operation.compte_name}
+				<br>
+				Verse par : ${operation.operer_par}
+			</p>
+
+			<p>
+
+			Montant Total : ${operation.montant} FBU <br>
+
+
+			<span> Soit :  <b>${NumberToLetter(operation.montant)} FBU </b></span>
+
+			</p>
+
+		</section>
+
+		<footer>
+		
+			Guichet : Kinama <br>
+			Caissier : ${user.first_name+' '+ user.last_name}
+			<div>
+
+				<span>Signature Caissier : </span> <br>
+				<hr>
+				<span>Signature du deposant : </span>
+			</div>
+		</footer>
+
+		<hr>
+
+		<header>
+			<span>COPDI</span>
+			<span>Coopérative pour le Développement "<b>INEZA IWACU</b>"</span>
+			<span>NIF : 4001068602</span>
+			<span>RC : 11900/18</span>
+			<span>Adresse : Q. Muramvya, 1<sup>er</sup> AV. N° 60</span>
+		</header>
+
+		<section>
+			<p>
+			************************************************************ <br>
+			 <span>${operation.type_operation} EN ESPECES BORDEREAU No :  ${operation.id} </span> <br>
+			*************************************************************
+			</p>
+
+			<p>du : ${ new Date(operation.created_at).toLocaleString()}</p>
 			<p>
 				Compte No : ${operation.compte_name}
 				<br>
@@ -196,13 +292,15 @@
 			<div>
 
 				<span>Signature Caissier : </span> <br>
-				<hr>
+				
 				<span>Signature du deposant : </span>
 			</div>
 
 			<hr>
 		</footer>
 	</div>
+
+
 	
 </body>
 </html>

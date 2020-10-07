@@ -18,6 +18,8 @@ class GeneralChart extends Component
 	 public $tenue_compte = 0.0;
 	 public $depense = 0.0;
 	 public $remboursement = 0.0;
+	 public $annulation_versement = 0.0;
+	 public $annulation_retrait = 0.0;
 
 
 	public function render()
@@ -32,6 +34,11 @@ class GeneralChart extends Component
 			$this->tenue_compte = TenueCompte::all()->sum('montant');
 			$this->depense = ComptePrincipalOperation::all()->sum('depense');
 			$this->remboursement = ComptePrincipalOperation::all()->sum('reboursement');
+			$this->annulation_versement = ComptePrincipalOperation::all()->sum('annulation_versement');
+			$this->annulation_retrait = ComptePrincipalOperation::all()->sum('annulation_retrait');
+
+			$this->versement = $this->versement - $this->annulation_versement;
+			$this->retrait = $this->retrait - $this->annulation_retrait;
 
 
 		}

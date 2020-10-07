@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name','user_name','role' ,'email', 'password',
+        'first_name','user_name','last_name' ,'email', 'password',
     ];
 
     /**
@@ -41,5 +41,33 @@ class User extends Authenticatable
     {
         return $this->first_name .' '. $this->last_name;
         
+    }
+
+    // public function getIdAttribute(){
+    //     return $this->id;
+    // }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role');
+    }
+
+    public function isAdmin()
+    {
+        return $this->roles()->where('name','ADMIN')->first();
+    }
+
+    public function hasAnyRoles(array $roles)
+    {
+        return $this->roles()->whereIn('name',$roles)->first();
+    }
+
+    public function isRetraitUser()
+    {
+        return $this->roles()->where('name','RETRAIT')->first();
+    }
+
+    public function isVersementUser(){
+        return $this->roles()->where('name','VERSEMENT')->first();
     }
 }

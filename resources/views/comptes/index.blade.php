@@ -39,7 +39,13 @@
 		@foreach($comptes as $key=> $compte)
 		<tr>
 			<td>{{$key + 1}}</td>
-			<td>{{ $compte->client->nom .' '.$compte->client->prenom}}</td>
+			<td>
+
+				@if ($compte->client)
+					{{ $compte->client->nom .' '.$compte->client->prenom ?? ''}}</td>
+				@endif
+
+				
 			<td>{{ $compte->name }}</td>
 			<td>{{ numberFormat($compte->montant) }}</td>
 			<td>

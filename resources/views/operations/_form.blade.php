@@ -50,8 +50,18 @@
 					{{ old('type_operation') ?? $operation->type_operation ?? 'choississez une opération' }}
 
 				</option>
-				<option value="VERSEMENT">VERSEMENT</option>
-				<option value="RETRAIT">RETRAIT</option>
+
+				@canany(['is-versement-user', 'is-admin'])
+				    {{-- expr --}}
+				    <option value="VERSEMENT">VERSEMENT</option>
+				@endcanany
+
+				@canany(['is-retrait-user', 'is-admin'], Model::class)
+				    {{-- expr --}}
+				    <option value="RETRAIT">RETRAIT</option>
+				@endcanany
+				
+				
 			</select>
 			{!! $errors->first('type_operation', '<small class="help-block invalid-feedback">:message</small>') !!}
 		</fieldset>
@@ -217,7 +227,7 @@
 			event.preventDefault()
 			if (isDoubleClicked($(this))) {
 
-				location.reload(); 
+				
 
 				return;
 			}
@@ -288,6 +298,11 @@
 
 					$('#form_id').trigger("reset");
 					
+				}
+
+				if(response.success){
+					window.location.replace("{{ route('operations.index') }}");
+
 				}
 
 				console.log("success");

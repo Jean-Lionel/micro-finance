@@ -8,6 +8,8 @@ use App\Models\Client;
 use App\Models\Compte;
 use App\Models\ComptePrincipal;
 use Faker\Provider\url;
+
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,11 +31,18 @@ class ClientController extends Controller
 
       //   dd($result);
 
+        //if (Gate::allows('edit-settings')) {
+            // The current user can't update the post...
+
+
+           // return "Je suis cool";
+        //}
+
 
         $search = \Request::get('search'); 
 
         
-        $clients = Client::sortable()
+        $clients = Client::sortable(['created_at' => 'DESC'])
         ->where('nom','like','%'.$search.'%')
         ->orWhere('prenom','like','%'.$search.'%')
         ->orWhere('cni','like','%'.$search.'%')
@@ -113,6 +122,8 @@ class ClientController extends Controller
 
        //return $client->comptes;
 
+        //dd($client);
+
 
        return view('clients.show',compact('client'));
    }
@@ -153,6 +164,8 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         $client->delete();
+
+        successMessage();
 
         return back();
     }

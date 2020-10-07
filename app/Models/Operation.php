@@ -22,7 +22,11 @@ class Operation extends ParentModel
     	parent::boot();
 
     	self::creating(function($model){
+
             $model->user_id = Auth::user()->id;
+
+            $model->montant = abs($model->montant);
+
 
             });
 
@@ -30,7 +34,7 @@ class Operation extends ParentModel
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
 
