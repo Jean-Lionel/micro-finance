@@ -24,17 +24,17 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{$depense}}</td>
-						<td>{{$retrait}}</td>
-						<td>{{$versement}}</td>
-						<td>{{$placement}}</td>
-						<td>{{$decouvert}}</td>
-						<td>{{$currentMontant}}</td>
-						<td>{{$tenue_compte}}</td>
+						<td>{{number_format($depense)}}</td>
+						<td>{{number_format($retrait)}}</td>
+						<td>{{number_format($versement)}}</td>
+						<td>{{number_format($placement)}}</td>
+						<td>{{number_format($decouvert)}}</td>
+						<td>{{number_format($currentMontant)}}</td>
+						<td>{{number_format($tenue_compte)}}</td>
 						
-						<td>{{$remboursement}}</td>
-						<td>{{$annulation_versement}}</td>
-						<td>{{$annulation_retrait}}</td>
+						<td>{{number_format($remboursement)}}</td>
+						<td>{{number_format($annulation_versement)}}</td>
+						<td>{{number_format($annulation_retrait)}}</td>
 					
 						
 					</tr>

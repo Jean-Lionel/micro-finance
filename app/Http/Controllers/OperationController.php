@@ -23,6 +23,14 @@ class OperationController extends Controller
 
     public function index()
     {
+        // $sum = Operation::where('type_operation','=','VERSEMENT')->sum('montant');
+        // $retrait = Operation::where('type_operation','=','RETRAIT')->sum('montant');
+
+        // dump($sum);
+        // dump($retrait);
+        
+
+        // dd('FIN');
 
 
         $search = \Request::get('search');

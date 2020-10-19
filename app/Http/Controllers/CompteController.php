@@ -24,12 +24,8 @@ class CompteController extends Controller
 
           $comptes  = null;
          if($search){
-            $comptes = Compte::sortable()
-                            ->where('client_id','like', '%'.$search.'%')
-                            ->orWhere('montant','like', '%'.$search.'%')
-                            ->orWhere('name','like', '%'.$search.'%')
-                            ->orWhere('type_compte','like', '%'.$search.'%')
-                            ->paginate(1);
+            $comptes = Compte::Where('name','like', '%'.$search)
+                                ->paginate(3);
 
          }
 

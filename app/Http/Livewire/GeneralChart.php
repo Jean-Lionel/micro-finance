@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\ComptePrincipal;
 use App\Models\ComptePrincipalOperation;
 use App\Models\TenueCompte;
+use App\Models\Operation;
 use Livewire\Component;
 
 class GeneralChart extends Component
@@ -27,8 +28,10 @@ class GeneralChart extends Component
 		if(ComptePrincipal::all()->count() > 0){
 
 			$this->currentMontant = ComptePrincipal::latest()->first()->montant;
-			$this->retrait = ComptePrincipalOperation::all()->sum('retrait');
-			$this->versement = ComptePrincipalOperation::all()->sum('versement');
+
+			$this->versement = Operation::where('type_operation','=','VERSEMENT')->sum('montant');
+       		 $this->retrait = Operation::where('type_operation','=','RETRAIT')->sum('montant');
+			
 			$this->placement = ComptePrincipalOperation::all()->sum('placement');
 			$this->decouvert = ComptePrincipalOperation::all()->sum('decouvert');
 			$this->tenue_compte = TenueCompte::all()->sum('montant');
@@ -36,10 +39,6 @@ class GeneralChart extends Component
 			$this->remboursement = ComptePrincipalOperation::all()->sum('reboursement');
 			$this->annulation_versement = ComptePrincipalOperation::all()->sum('annulation_versement');
 			$this->annulation_retrait = ComptePrincipalOperation::all()->sum('annulation_retrait');
-
-			$this->versement = $this->versement - $this->annulation_versement;
-			$this->retrait = $this->retrait - $this->annulation_retrait;
-
 
 		}
 

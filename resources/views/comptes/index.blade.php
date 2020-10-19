@@ -8,7 +8,7 @@
 	<div class="col-md-4 col-sm-6">
 		<form action="" class="navbar-form navbar-left">
 			<div class="input-group custom-search-form">
-				<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search ?? ''}}">
+				<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search ?? 'COO-'}}">
 				<span class="input-group-btn">
 					<button class="btn btn-default-sm" type="submit">
 						<i class="fa fa-search"></i>
@@ -67,8 +67,8 @@
 		@endforeach
 	</tbody>
 </table>
-
-{{ $comptes->links()}}
+{{-- 
+{{ $comptes->links()}} --}}
 
 
 @endif

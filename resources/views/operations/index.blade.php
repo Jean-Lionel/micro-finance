@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col-md-8">
 
-				<p class="text-center">Tout les opérations</p>	
+				{{-- <p class="text-center">Tout les opérations</p>	 --}}
 			</div>
 			<div class="col-md-4 col-sm-6">
 				<form action="" class="navbar-form navbar-left">
@@ -219,7 +219,7 @@
 			*************************************************************
 			</p>
 
-			<p>du : ${ new Date(operation.created_at).toLocaleString()}</p>
+			<p>du : ${ new Date(operation.created_at).toLocaleString('en-GB',{ timeZone: 'Africa/Bujumbura' })}</p>
 			<p>
 				Compte No : ${operation.compte_name}
 				<br>
@@ -266,7 +266,7 @@
 			*************************************************************
 			</p>
 
-			<p>du : ${ new Date(operation.created_at).toLocaleString()}</p>
+			<p>du : ${ new Date(operation.created_at).toLocaleString('en-GB',{ timeZone: 'Africa/Bujumbura' })}</p>
 			<p>
 				Compte No : ${operation.compte_name}
 				<br>
