@@ -74,6 +74,11 @@
 	</div>
 
 
+
+
+
+
+
 </div>
 
 
@@ -85,6 +90,11 @@
 
 
 <script>
+
+	const formatNumber = (number) => {
+			return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'FBU' }).format(number)
+		}
+
 
 	function isDoubleClicked(element) {
     //if already clicked return TRUE to indicate this click is not allowed
@@ -165,6 +175,7 @@
 
 		let client_information = (data) => {
 
+			console.log(data);
 
 
 			let html = `
@@ -172,7 +183,7 @@
 
 			<div class="card-group">
 			<div class="card">
-			<img class="card-img-top" src="/img/client_images/${data.client.image}" width="50px" alt="image" style="width: 200px">
+			<img class="card-img-top" src="/img/client_images/${data.client.image}" width="50px" alt="image" style="width: auto">
 			</div>
 
 			<div class="card">
@@ -180,6 +191,41 @@
 			<b class="card-title">prénom : ${data.client.prenom}</b>
 			<b class="card-title">C.N.I : ${data.client.cni}</b>
 			<b class="card-title">Date de Naissance :${data.client.date_naissance} </b>
+
+			<h5 class="text-center"><u><b>Les mandataires </b></u></h5>
+
+				<ul class="list-group">
+					<li class="list-group-item">
+					<ul class="list-inline">
+						<li class="list-inline-item"><b>1. </b> ${data.client.signateur_1_nom_prenom}</li>
+						<li class="list-inline-item"> C.N.I: ${data.client.signateur_1_cni}</li>
+						<li class="list-inline-item">TEL : ${data.client.signateur_1_tel}</li>
+					</ul>
+
+					</li>
+					<li class="list-group-item">
+						<ul class="list-inline">
+							<li class="list-inline-item"><b>2. </b> ${data.client.signateur_2_nom_prenom} </li>
+							<li class="list-inline-item">C.N.I: ${data.client.signateur_2_cni}</li>
+							<li class="list-inline-item">TEL: ${data.client.signateur_2_tel}</li>
+						</ul>
+					</li>
+					<li class="list-group-item">
+
+						<ul class="list-inline">
+							<li class="list-inline-item"><b>3. </b> ${data.client.signateur_3_nom_prenom} </li>
+							<li class="list-inline-item">C.N.I: ${data.client.signateur_3_cni}</li>
+							<li class="list-inline-item">TEL: ${data.client.signateur_3_tel}</li>
+						</ul>
+
+					</li>
+				</ul>
+
+
+					
+
+
+
 
 			</div>
 			</div>
@@ -195,15 +241,14 @@
 
 			<button class="btn btn-warning" onClick="showContent('${data.compte.name}')" > Uwatumwe</button>
 
+
+
 			</div>
-
-
-
 
 			<div class="card-columns">
 			<div class="card bg-primary">
 			<div class="card-body text-center">
-			<p class="card-text">#${data.compte.montant} FBU</p>
+			<p class="card-text">#${formatNumber(data.compte.montant)} FBU</p>
 			</div>
 			</div>
 

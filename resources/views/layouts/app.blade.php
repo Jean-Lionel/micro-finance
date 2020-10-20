@@ -130,7 +130,7 @@
 <!-- Compiled and minified JavaScript -->
  {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> --}}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+<script src="/js/Chart.bundle.min.js"></script>
 
 <script src="/js/sweetalert2.all.min.js"></script>
 <script src="/js/print.min.js"></script>

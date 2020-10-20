@@ -102,6 +102,10 @@
 
 <script>
 
+	const formatNumber = (number) => {
+			return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'FBU' }).format(number)
+		}
+
 	jQuery(document).ready(function($) {
 
 
@@ -228,7 +232,7 @@
 
 			<p>
 
-			Montant Total : ${operation.montant} FBU <br>
+			Montant Total : ${formatNumber(operation.montant)} <br>
 
 
 			<span> Soit :  <b>${NumberToLetter(operation.montant)} FBU </b></span>
@@ -275,7 +279,7 @@
 
 			<p>
 
-			Montant Total : ${operation.montant} FBU <br>
+			Montant Total : ${formatNumber(operation.montant)} <br>
 
 
 			<span> Soit :  <b>${NumberToLetter(operation.montant)} FBU </b></span>
