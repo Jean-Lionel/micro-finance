@@ -21,6 +21,7 @@ class PlacementController extends Controller
      */
     public function index()
     {
+
         $search = \Request::get('search');
 
 
