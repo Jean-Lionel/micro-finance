@@ -36,20 +36,42 @@ class TenueCompteController extends Controller
 
 		// $test = TenueCompte::tenueMensuelPaye('COO-2');
 
-		$clients = function ($compteError){
-			$c = [];
-			foreach ($compteError as $value) {
-				$c[] = $value->client;
-			}
-			return $c;
-		};
+		// $clients = function ($compteError){
+		// 	$c = [];
+		// 	foreach ($compteError as $value) {
+		// 		$c[] = $value->client;
+		// 	}
+		// 	return $c;
+		// };
 
-		return response()->json([
+		// return response()->json(
+
+		// 	[
+		// 		'compte_error' => $compteError, 
+		// 		'client' => $clients($compteError),
+		// 		'montant_total_mensuel'=>$montantTotal 
+
+		// 	]
+		// );
+
+		$data =  [
 			'compte_error' => $compteError, 
-			'client' => $clients($compteError),
-			'montant_total_mensuel'=>$montantTotal ]);
+			// 'client' => $clients($compteError),
+			'montant_total_mensuel'=>$montantTotal 
+
+		];
+
+		
+		return view('rapports.unpaid',
+			[
+				'compte_error' => $compteError, 
+				'montant_total_mensuel'=>$montantTotal 
+			]
+
+		);
 
 	}
+
 
 
 }

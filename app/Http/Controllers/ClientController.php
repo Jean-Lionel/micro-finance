@@ -125,8 +125,8 @@ class ClientController extends Controller
         //dd($client);
 
 
-       return view('clients.show',compact('client'));
-   }
+     return view('clients.show',compact('client'));
+ }
 
     /**
      * Show the form for editing the specified resource.
@@ -163,7 +163,26 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        $client->delete();
+
+
+
+
+        try {
+            DB::beginTransaction();
+
+            $client->delete();
+
+            foreach ($client->comptes as $compte) {
+                $compte->delete();
+            }
+            DB::commit();
+
+            
+        } catch (\Exception $e) {
+              DB::rollback();
+        }
+
+
 
         successMessage();
 
