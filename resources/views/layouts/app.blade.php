@@ -73,6 +73,16 @@
 
          <a class="p-2  {{set_active_router('operations.index')}}" href="{{ route('operations.index') }}"><i class="fa fa-expand"></i> Operation</a>
 
+         @can('is-register-client')
+
+         @cannot('is-admin')
+
+         <a class="p-2  {{set_active_router('clients.index')}}" href="{{ route('clients.index') }}"><i class="fa fa-wheelchair-alt"></i> Client</a>
+
+         @endcannot
+
+         @endcan
+
         @can('is-admin')
             {{-- expr --}}
         

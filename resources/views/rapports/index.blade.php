@@ -9,7 +9,7 @@
 	<div class="col-md-2">
 		<ul>
 			<li class="list-unstyled"><a href="depense" class="">Depense</a></li>
-			<!-- <li class="list-unstyled"><a href="#" id="tenue_compte">Tenue de compte</a></li> -->
+			<li class="list-unstyled"><a href="route('tenue_compte')" id="tenue_compte">Tenue de compte</a></li>
 		</ul>
 	</div>
 

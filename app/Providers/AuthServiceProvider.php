@@ -49,6 +49,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isVersementUser();
          });
 
+         Gate::define('is-register-client', function($user){
+            return $user->isRegisterClient();
+         });
+
 
          Gate::define('manager-user', function($user){
             return $user->hasAnyRoles(['ADMIN']);

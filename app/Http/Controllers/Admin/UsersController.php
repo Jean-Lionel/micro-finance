@@ -89,7 +89,7 @@ class UsersController extends Controller
             return $this->index();
         }
         $roles = Role::all();
-        return view('admin.users.edit', compact('user','roles'));
+        return view('Admin.users.edit', compact('user','roles'));
     }
 
     /**

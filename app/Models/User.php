@@ -70,4 +70,9 @@ class User extends Authenticatable
     public function isVersementUser(){
         return $this->roles()->where('name','VERSEMENT')->first();
     }
+
+
+    public function isRegisterClient(){
+         return $this->roles()->where('name','ENREGISTREMENT DES CLIENTS')->first();
+    }
 }

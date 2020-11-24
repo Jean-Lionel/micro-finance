@@ -28,5 +28,10 @@ class RoleSeeder extends Seeder
         	'name' => 'RETRAIT'
 
         ]);
+
+        Role::create([
+            'name' => 'ENREGISTREMENT DES CLIENTS'
+
+        ]);
     }
 }

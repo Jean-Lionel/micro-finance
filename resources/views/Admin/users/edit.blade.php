@@ -100,7 +100,7 @@
                         @foreach ($roles as $role)
                         {{-- expr --}}
 
-                        <div class="form-group form-check col">
+                        <div class="form-group form-check col-md-6">
 
                             <input class="ml-3" type="checkbox" class="form-check-input" name="roles[]" value="{{ $role->id}}" id="{{$role->id}}" 
 

@@ -96,8 +96,11 @@
 			data: {compte_name: name},
 		})
 		.done(function(data) {
+			if(data){
+				showPrintButton(true)
+			}
 			
-			showPrintButton(true)
+			
 			
 			let table_generate =  generateEmployeHistory(data)
 
@@ -118,12 +121,14 @@
 
 	function generateEmployeHistory(data){
 
+	
 		const operations = data.operations;
 		const paiement_placement = data.paiement_placement ;
 		const tenus_comptes = data.tenus_comptes;
 		const client = data.client;
 
-		const compte_name = data.operations[0].compte_name;
+		const compte_name = data.compte_name;
+		
 
 
 		let table_paiement_placement = '';

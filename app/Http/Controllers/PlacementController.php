@@ -44,7 +44,7 @@ class PlacementController extends Controller
         //Rechercher des personnes dont les conditions de paiement sont respecter
 
         $placement_paye = Placement::where('date_fin','>=', Carbon::today() )
-        ->where('date_placement','<',$now)
+        ->whereDate('date_placement','<',$now)
         ->whereMonth('date_placement','<',$now->month)
         ->where('status','NON PAYE')
         ->get();
@@ -197,9 +197,7 @@ class PlacementController extends Controller
     public function update(FormPlacementRequest $request, Placement $placement)
     {
         //Enlever le montant sur le compte principal
-        //Modi
-
-
+        //Modifier
 
         try {
 

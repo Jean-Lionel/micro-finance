@@ -158,6 +158,8 @@ class CompteController extends Controller
 
         $operations = Operation::where('compte_name','=',$compte_name)->get();
         $paiment_placement = PaiementPlacement::where('compte_name','=',$compte_name)->get();
+
+       
         $tenus_comptes = TenueCompte::where('compte_name','=',$compte_name)->get();
 
         //$placement = TenueCompte::where('compte_name','=',$compte_name)->get();
@@ -173,7 +175,8 @@ class CompteController extends Controller
             'operations' => $operations,
             'paiement_placement' => $paiment_placement,
             'tenus_comptes' => $tenus_comptes,
-            'client' => $compte->client ? $compte->client : "" 
+            'client' => $compte->client ? $compte->client : "",
+            'compte_name' =>  $compte_name 
         ]);
 
     }
