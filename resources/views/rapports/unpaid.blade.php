@@ -51,7 +51,7 @@
 		</tbody>
 	</table>
 
-	{{ $compte_error->links()}} 
+	
 {{-- 
 	@foreach($data['compte_error'] as $compte)
 
