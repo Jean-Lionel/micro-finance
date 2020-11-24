@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\ComptePrincipalController;
 use App\Http\Requests\FormPlacementRequest;
+use App\Models\ComptePrincipal;
+use App\Models\ComptePrincipalOperation;
 use App\Models\PaiementPlacement;
 use App\Models\Placement;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\back;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Exception;
 
 class PlacementController extends Controller
 {
@@ -75,7 +77,7 @@ class PlacementController extends Controller
      */
     public function store(FormPlacementRequest $request)
     {
-        $interet_total =( ($request->interet_total * $request->montant) / 100) * $request->nbre_moi;
+        $interet_total =( ($request->interet * $request->montant) / 100) * $request->nbre_moi;
         $place_interet = $request->montant + $interet_total;
         $interet_moi = $interet_total / $request->nbre_moi;
 
@@ -103,6 +105,7 @@ class PlacementController extends Controller
                 'compte_name' => $request->compte_name,
                 'nbre_moi' => $request->nbre_moi,
                 'interet_total' => $interet_total,
+                'interet' => $request->interet,
                 'interet_Moi' => $interet_moi,
                 'place_interet' => $place_interet,
                 'date_placement' => $request->date_placement,
@@ -137,17 +140,21 @@ class PlacementController extends Controller
      * @param  \App\Placement  $placement
      * @return \Illuminate\Http\Response
      */
-    public function show(Placement $placement)
+    public function show()
     {
 
-        
+
         //$placement->status = 'NON PAYE';
 
+    }
+
+    public function finaliser(Placement $placement)
+    {
 
         try {
             DB::beginTransaction();
 
-             ComptePrincipalController::store_info($placement->montant,'MOINS');
+            ComptePrincipalController::store_info($placement->montant,'MOINS');
             ComptePrincipalOperationController::storeOperation($placement->montant,'paiment_placement',$placement->compte_name);
 
             $placement->status = 'DEJA PAYE';
@@ -166,6 +173,7 @@ class PlacementController extends Controller
 
         return back();
 
+        
     }
 
     /**
@@ -176,8 +184,8 @@ class PlacementController extends Controller
      */
     public function edit(Placement $placement)
     {
-     return view('placements.edit',compact('placement'));
- }
+       return view('placements.edit',compact('placement'));
+   }
 
     /**
      * Update the specified resource in storage.
@@ -186,9 +194,83 @@ class PlacementController extends Controller
      * @param  \App\Placement  $placement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Placement $placement)
+    public function update(FormPlacementRequest $request, Placement $placement)
     {
-        //
+        //Enlever le montant sur le compte principal
+        //Modi
+
+
+
+        try {
+
+            DB::beginTransaction();
+
+            $interet_total =( ($request->interet * $request->montant) / 100) * $request->nbre_moi;
+            $place_interet = $request->montant + $interet_total;
+            $interet_moi = $interet_total / $request->nbre_moi;
+
+            $date_pl = Carbon::create($request->date_placement);
+
+            $date_fin = $date_pl->addMonths($request->nbre_moi);
+
+           //Modification de l'operation sur le compte principal
+
+
+            $compte_principalOp = ComptePrincipalOperation::where('compte_name','=',$placement->compte_name)
+            ->where('placement', '=',$placement->montant)
+            ->whereDate('created_at','=',$placement->created_at)->first();
+
+
+            if($compte_principalOp){
+                ComptePrincipalController::store_info($compte_principalOp->placement, 'MOINS');
+
+                ComptePrincipalController::store_info($request->montant, 'ADD');
+
+                $compte_principalOp->update([
+                    'placement' => $request->montant
+                ]);
+
+
+                $placement->update([
+
+                 'montant' => $request->montant,
+                 'nbre_moi' => $request->nbre_moi,
+                 'interet_total' => $interet_total,
+                 'interet' => $request->interet,
+                 'interet_Moi' => $interet_moi,
+                 'place_interet' => $place_interet,
+                 'date_placement' => $request->date_placement,
+                 'date_fin' => $date_fin,
+
+
+             ]);
+
+
+            }
+
+
+
+            DB::commit();
+
+            successMessage();
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+
+
+            errorMessage($e->getMessage());
+
+            return back();
+            
+        }
+
+
+        return $this->index();
+
+
+
     }
 
     /**

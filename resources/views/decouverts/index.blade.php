@@ -51,8 +51,7 @@
 					<th>@sortablelink('paye','Statut') </th>
 					<th>@sortablelink('created_at','Date') </th>
 
-
-					{{-- <th>Action</th> --}}
+					 <th>Action</th> 
 				</tr>
 			</thead>
 			<tbody>
@@ -80,9 +79,10 @@
 					<td>{{ $placement->created_at}}</td>
 					<td>
 						{{-- <a href="{{ route('decouverts.show',$placement) }}" class="btn btn-outline-info">show</a> --}}
-						{{-- <a href="{{ route('decouverts.edit',$placement) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
+						 <a href="{{ route('decouverts.edit',$placement) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 
-						<form action="{{ route('decouverts.destroy' , $placement) }}" style="display: inline;" method="POST">
+						{{--
+							<form action="{{ route('decouverts.destroy' , $placement) }}" style="display: inline;" method="POST">
 							{{ csrf_field() }}
 							{{ method_field('DELETE') }}
 							<button class="btn btn-outline-danger btn-sm">Delete</button>

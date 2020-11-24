@@ -21,7 +21,7 @@
 	</div>
 </div>
 
-<a href="{{ route('reboursement-decouverts.create')}}" class="btn btn-info">Nouvel Decouvert</a>
+<a href="{{ route('reboursement-decouverts.create')}}" class="btn btn-info">Ramboursement</a>
 
 @if($reboursementDecouverts)
 

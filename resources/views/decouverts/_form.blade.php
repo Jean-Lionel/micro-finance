@@ -15,6 +15,8 @@
 
 		</fieldset>
 
+		<input type="hidden" name="old_montant" value="$decouvert->montant ?? 0">
+
 		<fieldset class="form-group">
 			<label for="montant">Montant</label>
 			<input type="text" class="form-control {{$errors->has('montant') ? 'is-invalid' : 'is-valid' }}" id="montant"   name="montant" value="{{ old('montant') ?? $decouvert->montant }}">

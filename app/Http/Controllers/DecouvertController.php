@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\ComptePrincipalController;
 use App\Http\Requests\FormDecouvertRequest;
+use App\Models\ComptePrincipalOperation;
 use App\Models\Decouvert;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\back;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Exception;
 
 class DecouvertController extends Controller
 {
@@ -62,7 +64,6 @@ class DecouvertController extends Controller
         $total_a_rambourse = 
         $request->montant + ((($request->montant * $request->interet)/100) *  $request->periode);
 
-
         try {
             DB::beginTransaction();
     // database queries here
@@ -85,20 +86,9 @@ class DecouvertController extends Controller
         } catch (\Exception $e) {
     // Woopsy
             DB::rollBack();
-             errorMessage("Opération échoué car ".$e->getMessage());
+            errorMessage("Opération échoué car ".$e->getMessage());
 
         }
-
-        // if($response == "OK"){
-
-
-        //     
-
-        // }else{
-        //     
-
-        //     return back();
-        // }
 
         
 
@@ -137,6 +127,69 @@ class DecouvertController extends Controller
      */
     public function update(FormDecouvertRequest $request, Decouvert $decouvert)
     {
+        //TODO
+        //Ajouter le montant sur le compte principal
+
+        //Enelever le nouveau Montant 
+
+        //Modifier le Decouvert 
+
+        //Modifier sur le compte principal operation
+
+
+
+
+        try {
+
+          DB::beginTransaction();
+
+          $total_a_rambourse = 
+          $request->montant + ((($request->montant * $request->interet)/100) *  $request->periode);
+
+        // Compter Principal Operation 
+        //SELECT `montant`,`compte_name`,`created_at` FROM `decouverts` WHERE compte_name like 'coo-1'
+
+          $compte_principal_op = ComptePrincipalOperation::where('compte_name','=', $request->compte_name)
+          ->where('decouvert','=',$decouvert->montant)
+          ->whereDate('created_at','=',$decouvert->created_at)
+          ->first();
+
+          if($compte_principal_op){
+             //Ajout du montant sur le compte principal
+
+            ComptePrincipalController::store_info($compte_principal_op->decouvert, 'ADD');
+
+            $compte_principal_op->update([
+                        'decouvert' => $request->montant
+                    ]);
+
+            ComptePrincipalController::store_info($request->montant, 'DECOUVERT');
+            $decouvert->update(
+                [
+                'montant' => $request->montant,
+                'interet' => $request->interet,
+                'periode' => $request->periode,
+                'total_a_rambourse' => $total_a_rambourse,
+                'montant_restant' => $total_a_rambourse
+
+            ]);
+
+          }
+
+          DB::commit();
+          successMessage();
+
+      } catch (\Exception $e) {
+
+         DB::rollBack();
+         errorMessage("Opération échoué car ".$e->getMessage());
+
+     }
+
+
+
+
+
         // $total_a_rambourse = 
         // $request->montant + 
         // ((($request->montant * $request->interet)/100) * $request->periode);
@@ -153,10 +206,10 @@ class DecouvertController extends Controller
 
         // );
 
-        errorMessage("On ne peut pas Modifier une decouvert qu'a déjà attribué  ");
+     // errorMessage("On ne peut pas Modifier une decouvert qu'a déjà attribué  ");
 
-        return $this->index();
-    }
+     return $this->index();
+ }
 
     /**
      * Remove the specified resource from storage.

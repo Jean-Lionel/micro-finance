@@ -32,10 +32,10 @@
 		</fieldset>
 
 		<fieldset class="form-group">
-			<label for="interet_total">Interêt total en %</label>
-			<input type="text" class="form-control {{$errors->has('interet_total') ? 'is-invalid' : 'is-valid' }}" id="interet_total" name="interet_total" value="{{ old('interet_total') ?? $placement->interet_total ?? 8 }}">
+			<label for="interet">Interêt total en %</label>
+			<input type="text" class="form-control {{$errors->has('interet') ? 'is-invalid' : 'is-valid' }}" id="interet" name="interet" value="{{ old('interet') ?? $placement->interet ?? 8 }}">
 
-			{!! $errors->first('interet_total', '<small class="help-block invalid-feedback">:message</small>') !!}
+			{!! $errors->first('interet', '<small class="help-block invalid-feedback">:message</small>') !!}
 
 		</fieldset>
 		

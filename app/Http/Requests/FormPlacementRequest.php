@@ -27,7 +27,7 @@ class FormPlacementRequest extends FormRequest
              'montant' => 'required|numeric|min:0',
              'compte_name' => 'required|exists:comptes,name',
              'date_placement' => 'required|date',
-             'interet_total' => 'required|numeric|min:5|max:80',
+             'interet' => 'required|numeric|min:5|max:80',
              'nbre_moi' => 'required|numeric|min:1',
         ];
     }

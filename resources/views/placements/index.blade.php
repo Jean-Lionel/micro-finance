@@ -26,7 +26,7 @@
 
 @if($placements)
 
-<table class="table table-bordered table-responsive table-sm  table-hover">
+<table class="table table-bordered  table-sm  table-hover">
 	<thead>
 		<tr style="font-size: 0.9rem;">
 
@@ -35,6 +35,7 @@
 			<th>@sortablelink('compte_name','COMPTE NO')</th>
 			<th>@sortablelink('montant','Montant placé') </th>
 			<th>@sortablelink('nbre_moi','Periode (mois)') </th>
+			<th>@sortablelink('interet','Interet %') </th>
 			<th>@sortablelink('interet_Moi','Intérêt Mensuelle') </th>
 			<th>@sortablelink('interet_total','Intérêt total')</th>
 			<th>@sortablelink('place_interet','Place avec intérêt')</th>
@@ -55,6 +56,7 @@
 			<td>{{ $placement->compte_name}}</td>
 			<td>{{ numberFormat($placement->montant)}}</td>
 			<td>{{ $placement->nbre_moi}}</td>
+			<td>{{ $placement->interet}}</td>
 			<td>{{ $placement->interet_Moi}}</td>
 			<td>{{ numberFormat($placement->interet_total)}}</td>
 			<td>{{ numberFormat($placement->place_interet)}}</td>
@@ -77,16 +79,22 @@
 				<div class="d-flex justify-content-between">
 					@if ($placement->status == 'NON PAYE')
 						{{-- expr --}}
-						<a href="{{ route('placements.show',$placement) }}" class="btn btn-sm btn-warning">Finaliser</a>
+						<a href="{{ route('finaliser',$placement) }}" class="btn btn-sm btn-warning">Finaliser</a>
+
+						 <a href="{{ route('placements.edit',$placement) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 					@endif
 					
 					@if ($placement->status == 'DEJA PAYE')
 					<button class="btn btn-sm btn-outline-info">Imprimer</button> 
 					@endif
+
+					
+				
 				</div>
 				
 
-				{{-- <a href="{{ route('placements.edit',$placement) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
+
+				 {{--
 			
 					<form action="{{ route('placements.destroy' , $placement) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}

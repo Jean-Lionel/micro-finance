@@ -63,6 +63,9 @@ Route::get('depense',function(){
 	return view('depenses.depenses');
 });
 
+
+Route::get('finaliser/{placement}','PlacementController@finaliser')->name('finaliser');
+
 //ajax Router
 
 Route::get('client_by_compte_name','CompteController@getClientCompteName')->name('client_by_compte_name');

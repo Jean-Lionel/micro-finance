@@ -19,6 +19,7 @@ class CreatePlacementsTable extends Migration
             $table->string('compte_name');
             $table->integer('nbre_moi');
             $table->decimal('interet_total',65,2);
+            $table->decimal('interet',65,2);
             $table->decimal('interet_Moi',65,2);
             $table->decimal('place_interet',65,2)->nullable();
             $table->date('date_placement');
