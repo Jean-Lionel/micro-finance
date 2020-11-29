@@ -9,7 +9,7 @@
 	<div class="col-md-4">
 		<fieldset class="form-group">
 			<label for="compte_name">Numero du compte</label>
-			<input type="text" class="form-control {{$errors->has('compte_name') ? 'is-invalid' : 'is-valid' }}" id="compte_name" name="compte_name" value="{{ old('compte_name') ?? $placement->compte_name??'COO-' }}">
+			<input type="text" class="form-control {{$errors->has('compte_name') ? 'is-invalid' : 'is-valid' }}" id="compte_name" name="compte_name" value="{{ old('compte_name') ?? $placement->compte_name??'P-' }}">
 
 			{!! $errors->first('compte_name', '<small class="help-block invalid-feedback">:message</small>') !!}
 
@@ -82,19 +82,27 @@
 			/* Act on the event */
 
 			$.ajax({
-				url: '{{ route('client_by_compte_name') }}',
+				url: '{{ route('client_by_compte_placement_name') }}',
 				type: 'GET',
 				dataType: 'json',
 				data: {compte_name: compte_name.val()},
 			})
 			.done(function(data) {
-				
 
-				$('.client-info').html(client_information(data))
-				// client_information(data.client);
+				if(!data.error){
+					$('.client-info').html(client_information(data))
+
+				}else{
+					$('.client-info').html(`
+						<h5 class= "bg-danger">Numéro matricule est invalidé</h5>
+						`)
+				}
+
+
+				
 			})
-			.fail(function() {
-				console.log("error");
+			.fail(function(e) {
+				console.log(e);
 			})
 			.always(function() {
 				console.log("complete");
@@ -113,15 +121,14 @@
 			<div class="information">
 
 			<div class="card-group">
-				<div class="card">
-				<img class="card-img-top" src="/img/client_images/${data.client.image}" width="50px" alt="image" style="width: 200px">
-				</div>
+				
 
 				<div class="card">
 					<b class="card-title">Nom : ${data.client.nom}</b>
 					<b class="card-title">prénom : ${data.client.prenom}</b>
 					<b class="card-title">C.N.I : ${data.client.cni}</b>
-					<b class="card-title">Date de Naissance :${data.client.date_naissance} </b>
+					<b class="card-title">Telephone :${data.client.telephone} </b>
+					<b class="card-title">Addresse :${data.client.addresse} </b>
 					
 				</div>
 			</div>

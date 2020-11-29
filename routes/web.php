@@ -69,6 +69,9 @@ Route::get('finaliser/{placement}','PlacementController@finaliser')->name('final
 //ajax Router
 
 Route::get('client_by_compte_name','CompteController@getClientCompteName')->name('client_by_compte_name');
+
+Route::get('client_by_compte_placement_name','ComptePlacementController@getClientCompteName')->name('client_by_compte_placement_name');
+
 Route::get('find_rapport','RapportsController@rapport')->name('rapport');
 Route::get('tenueMensuelle','TenueCompteController@tenueMensuelle')->name('tenueMensuelle');
 Route::get('historique_compte','CompteController@getHisotirique')->name('historique_compte');
@@ -83,5 +86,7 @@ Route::resource('posts', 'PostController');
 
 
 
-//
+//Route pour le placement
+
+Route::resource('placement-client','PlacementClientController');
 

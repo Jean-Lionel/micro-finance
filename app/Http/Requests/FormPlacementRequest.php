@@ -25,7 +25,7 @@ class FormPlacementRequest extends FormRequest
     {
         return [
              'montant' => 'required|numeric|min:0',
-             'compte_name' => 'required|exists:comptes,name',
+             'compte_name' => 'required|exists:compte_placements,name',
              'date_placement' => 'required|date',
              'interet' => 'required|numeric|min:5|max:80',
              'nbre_moi' => 'required|numeric|min:1',

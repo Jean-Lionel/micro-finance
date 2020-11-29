@@ -8,6 +8,7 @@ use App\Models\ComptePrincipal;
 use App\Models\ComptePrincipalOperation;
 use App\Models\PaiementPlacement;
 use App\Models\Placement;
+use App\Models\PlacementCompteOperation;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\back;
@@ -36,22 +37,22 @@ class PlacementController extends Controller
         ->paginate(20);
 
         //dump(PaiementPlacement::payePlacementPaye(1));
-        $now = Carbon::now();
+        // $now = Carbon::now();
 
         // dump(Carbon::today());
         // dd($now);
 
         //Rechercher des personnes dont les conditions de paiement sont respecter
 
-        $placement_paye = Placement::where('date_fin','>=', Carbon::today() )
-        ->whereDate('date_placement','<',$now)
-        ->whereMonth('date_placement','<',$now->month)
-        ->where('status','NON PAYE')
-        ->get();
+        // $placement_paye = Placement::where('date_fin','>=', Carbon::today() )
+        // ->whereDate('date_placement','<',$now)
+        // ->whereMonth('date_placement','<',$now->month)
+        // ->where('status','NON PAYE')
+        // ->get();
 
          //dd($placement_paye);
 
-        PaiementPlacement::paimentMensuellePlacement($placement_paye);
+        // PaiementPlacement::paimentMensuellePlacement($placement_paye);
 
         return view('placements.index',compact('placements','search'));
         
@@ -112,7 +113,16 @@ class PlacementController extends Controller
                 'date_fin' => $date_fin,
             ]);
 
-            // dd($placement);
+            PlacementCompteOperation::create([
+
+                'type_operation' => 'PLACEMENT',
+                'compte_name' => $request->compte_name,
+                'montant' => $request->montant,
+                'placement' => ''
+
+            ]);
+
+           //  dd($placement->attributes());
 
 
             DB::commit();
