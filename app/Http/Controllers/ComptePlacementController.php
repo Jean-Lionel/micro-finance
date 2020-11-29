@@ -12,7 +12,7 @@ class ComptePlacementController extends Controller
     {
         $compte_name = \Request::get('compte_name');
 
-        $compte = ComptePlacement::where('name','like','%'.$compte_name.'%')->first();
+        $compte = ComptePlacement::where('name','like','%'.$compte_name)->first();
 
         if(!$compte){
             return response()->json(['error'=>'Numero invalide']);

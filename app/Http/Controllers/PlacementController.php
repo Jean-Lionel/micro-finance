@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\ComptePrincipalController;
 use App\Http\Requests\FormPlacementRequest;
+use App\Models\ComptePlacement;
 use App\Models\ComptePrincipal;
 use App\Models\ComptePrincipalOperation;
 use App\Models\PaiementPlacement;
@@ -118,13 +119,17 @@ class PlacementController extends Controller
                 'type_operation' => 'PLACEMENT',
                 'compte_name' => $request->compte_name,
                 'montant' => $request->montant,
-                'placement' => ''
+                'placement' => $placement->id
 
             ]);
 
+            $compte_placement = ComptePlacement::where('name','=',$request->compte_name)->firstOrFail();
+
+            $compte_placement->update(['montant' =>($compte_placement->montant + abs($place_interet)) ]);
+
            //  dd($placement->attributes());
 
-
+            
             DB::commit();
 
             successMessage();
