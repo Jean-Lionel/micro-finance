@@ -79,7 +79,13 @@
 					<td>{{ $placement->created_at}}</td>
 					<td>
 						{{-- <a href="{{ route('decouverts.show',$placement) }}" class="btn btn-outline-info">show</a> --}}
-						 <a href="{{ route('decouverts.edit',$placement) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
+
+						@if ($placement->paye ==0)
+
+							 <a href="{{ route('decouverts.edit',$placement) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
+
+						@endif
+					
 
 						{{--
 							<form action="{{ route('decouverts.destroy' , $placement) }}" style="display: inline;" method="POST">

@@ -77,9 +77,11 @@
 				
 
 				<div class="d-flex justify-content-between">
-					@if ($placement->status == 'NON PAYE')
-						{{-- expr --}}
-						{{-- <a href="{{ route('finaliser',$placement) }}" class="btn btn-sm btn-warning">Finaliser</a> --}}
+
+					...
+				{{-- 	@if ($placement->status == 'NON PAYE')
+						
+						<a href="{{ route('finaliser',$placement) }}" class="btn btn-sm btn-warning">Finaliser</a>
 
 						 <a href="{{ route('placements.edit',$placement) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 					@endif
@@ -87,7 +89,7 @@
 					@if ($placement->status == 'DEJA PAYE')
 					<button class="btn btn-sm btn-outline-info">Imprimer</button> 
 					@endif
-
+ --}}
 					
 				
 				</div>
