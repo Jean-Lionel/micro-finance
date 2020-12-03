@@ -22,7 +22,7 @@
 </div>
 
 
-<a href="{{ route('placementPaiement.create')}}" class="btn btn-info">Nouvel placement</a>
+<a href="{{ route('placementPaiement.create')}}" class="btn btn-info">Nouvel paiment</a>
 
 @if($placement_paiments)
 
@@ -50,7 +50,7 @@
 			<td>{{ $placement->compte_name}}</td>
 			<td>{{ $placement->montant}}</td>
 			<td>{{ date('Y-m-d', strtotime($placement->date_paiment))}}</td>
-			<td>@dump( $placement->compte)</td>
+			<td>{{ $placement->placement->montant_restant ?? "" }} </td>
 			
 			
 		</tr>

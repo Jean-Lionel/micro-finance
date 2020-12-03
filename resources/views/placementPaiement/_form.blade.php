@@ -2,12 +2,16 @@
 @csrf
 
 <div class="row">
-	{{ $errors }}
+	{{-- {{ $errors }} --}}
 	
-	<div class="col-md-10">
+	<div class="col-md-12">
 		<h5 class="text-center">Paiment des placements</h5>
+
+		<span id="same_info" style="background: gold"></span>
 	</div>
-	<div class="col-md-4">
+
+	<div class="col-md-6">
+		
 		<fieldset class="form-group">
 			<label for="compte_name">Numero du compte</label>
 			<input type="text" class="form-control {{$errors->has('compte_name') ? 'is-invalid' : 'is-valid' }}" id="compte_name" name="compte_name" value="{{ old('compte_name') ?? $placement_paiment->compte_name??'P-' }}">
@@ -22,7 +26,9 @@
 			{!! $errors->first('montant', '<small class="help-block invalid-feedback">:message</small>') !!}
 		</fieldset>
 
-		<input type="hidden" value="" id="client_id" name="client_id">
+		<input type="hidden" value="{{ old('client_id') ?? "" }}" id="client_id" name="client_id">
+		<input type="hidden" value="{{ old('placement_id') ?? "" }}" id="placement_id" name="placement_id">
+		<input type="hidden" value="{{ old('montant_restant') ?? "" }}" id="montant_restant" name="montant_restant">
 
 		<div class="form-group">
 			<button type="submit" class="btn btn-pill btn-outline-primary btn-block"> {{ $btnTitle}}</button>
@@ -33,7 +39,7 @@
 		
 	</div>
 
-	<div class="col-md-4">
+	<div class="col-md-6">
 
 		<fieldset class="form-group">
 			<label for="montant">Date de paiement</label>
@@ -55,6 +61,16 @@
 
 <script>
 
+	function remplireData(data,montant_restant){
+		// console.log(data)
+		$('#placement_id').val(data);
+		$('#montant_restant').val(montant_restant);
+
+		$("#same_info").html(`Placement N° ${data} | Montant Restant : # ${montant_restant} FBU`)
+		console.log($('#placement_id').val())
+
+	}
+
 	jQuery(document).ready(function() {
 
 		let compte_name = $('#compte_name')
@@ -72,15 +88,20 @@
 				data: {compte_name: compte_name.val()},
 			})
 			.done(function(data) {
-
+			
 				if(!data.error){
 
 					$('#client_id').val(data.client.id);
+					$('.client-placement').html(loadPlacement(data.placements))
 					$('.client-info').html(client_information(data))
 
 				}else{
 					$('.client-info').html(`
-						<h5 class= "bg-danger">Numéro matricule est invalidé</h5>
+						<h5 class= "bg-danger">Numéro matricule est invalide</h5>
+						`)
+
+					$('.client-placement').html(`
+						<h5 class= "bg-danger">Numéro matricule est invalide</h5>
 						`)
 				}
 				
@@ -99,7 +120,6 @@
 	});
 
 	let client_information = (data) => {
-
 
 		let html = `
 			<div class="information">
@@ -132,6 +152,49 @@
 		`
 
 		return html;
+	}
+
+
+
+	function loadPlacement(placements){
+
+		let table = `<table class="table table-hover">
+			<thead>
+			<tr>
+			<th>No du compte</th>
+			<th>Montant</th>
+			<th>Placement No</th>
+			<th>Date du placment</th>
+			<th>Montant restant</th>
+
+			<th>Action</th>
+			</tr>
+			</thead>
+			<tbody>
+			
+			`;
+
+			for (var i = 0; i < placements.length; i++) {
+				let tr = `<tr>
+				<td>${placements[i].compte_name}</td>
+				<td>${placements[i].montant}</td>
+				<td>${placements[i].id}</td>
+				<td>${placements[i].date_placement}</td>
+				<td>${placements[i].montant_restant}</td>
+				<td><button onclick="remplireData(${placements[i].id}, ${placements[i].montant_restant})">Payé</button></td></td>
+				</tr>
+				`
+
+				table += tr;
+			}
+
+
+			table += `</tbody>
+
+			</table>`;
+
+
+		return table;
 	}
 	
 </script>

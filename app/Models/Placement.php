@@ -13,7 +13,7 @@ class Placement extends ParentModel
 	'nbre_moi','interet_total',
 	'interet_Moi','place_interet',
 	'date_placement','user_id','date_fin','status',
-	'interet'
+	'interet','montant_restant'
 	];
 
 	public $sortable = [

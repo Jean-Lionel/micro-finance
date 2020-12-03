@@ -19,6 +19,7 @@ class CreatePlacementPaimentsTable extends Migration
             $table->dateTime('date_paiment')->useCurrent();
             $table->string('compte_name');
             $table->unsignedBigInteger('compte_placement_id');
+            $table->unsignedBigInteger('placement_id');
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

@@ -22,6 +22,7 @@ class CreatePlacementsTable extends Migration
             $table->decimal('interet',65,2);
             $table->decimal('interet_Moi',65,2);
             $table->decimal('place_interet',65,2)->nullable();
+            $table->decimal('montant_restant',65,2)->nullable();
             $table->date('date_placement');
             $table->date('date_fin');
             $table->unsignedBigInteger('user_id');

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ComptePrincipalOperationController;
 use App\Models\ComptePlacement;
+use App\Models\Placement;
+use App\Models\PlacementCompteOperation;
 use App\Models\PlacementPaiment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,11 +51,22 @@ user_id
      */
     public function store(Request $request)
     {
+       // dd($request->placement_id, $request->montant_restant);
+
+     try {
+         $compte = ComptePlacement::where('name','=',$request->compte_name)->firstOrFail();
+
+         $placement = Placement::find($request->placement_id);
+         
+     } catch (\Exception $e) {
+        errorMessage("Le compte n'existe pas. Réessayez");
+         return back();
+     }
 
         $request->validate([
             'compte_name' => 'required|exists:compte_placements,name',
             'client_id' => 'required|exists:placement_clients,id',
-            'montant' => 'required|numeric|min:0',
+            'montant' => 'required|numeric|min:0|max:'. $placement->montant_restant,
             'date_paiment' => 'required|date',
 
         ]);
@@ -61,10 +75,10 @@ user_id
         try {
             DB::beginTransaction();
 
-            $compte = ComptePlacement::where('name','=',$request->compte_name)->firstOrFail();
+         
             // dd( $compte->id);
 
-            if($compte->montant > $request->montant){
+            if($compte->montant >= $request->montant){
 
              ComptePrincipalController::store_info(abs($request->montant), 'MOINS');
 
@@ -90,15 +104,26 @@ user_id
 
             ]);
 
+            $placement->update([
+                'montant_restant' => ($placement->montant_restant - $request->montant),
+
+                'status' => ($placement->montant_restant - $request->montant == 0 ? 'DEJA PAYE': 'NON PAYE' ) 
+
+            ]);
+
              DB::commit();
 
         }else{
             errorMessage("Error le montant sur ce compte est insufisant");
+
+            return back();
         }
       
         } catch (\Exception $e) {
 
             DB::rollBack();
+            errorMessage($e->getMessage());
+            return back();
            
         }
 

@@ -110,6 +110,7 @@ class PlacementController extends Controller
                 'interet' => $request->interet,
                 'interet_Moi' => $interet_moi,
                 'place_interet' => $place_interet,
+                'montant_restant' => $place_interet,
                 'date_placement' => $request->date_placement,
                 'date_fin' => $date_fin,
             ]);
@@ -252,6 +253,7 @@ class PlacementController extends Controller
                  'interet' => $request->interet,
                  'interet_Moi' => $interet_moi,
                  'place_interet' => $place_interet,
+                 'montant_restant' => $place_interet,
                  'date_placement' => $request->date_placement,
                  'date_fin' => $date_fin,
 

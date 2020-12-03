@@ -9,7 +9,7 @@ class PlacementPaiment extends ParentModel
 {
     //
 
-    protected $fillable = ['montant','date_paiment','compte_name','compte_placement_id','client_id','user_id'];
+    protected $fillable = ['montant','date_paiment','compte_name','compte_placement_id','client_id','user_id','placement_id'];
 
 
     public static function boot(){
@@ -24,7 +24,9 @@ class PlacementPaiment extends ParentModel
     	return $this->belongsTo('App\Models\ComptePlacement','compte_placement_id');
     }
 
+    public function placement(){
+        return $this->belongsTo('App\Models\Placement','placement_id');
 
-
+    }
 
 }

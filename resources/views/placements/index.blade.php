@@ -4,7 +4,15 @@
 
 <div class="row">
 	<div class="col-md-8">
-		<h1>Tout les placements</h1>	
+		<div class="row">
+			<div class="col-md-6">
+				<h1>Tout les placements</h1>	
+			</div>
+			<div class="col-md-6">
+				<a class="p-2 {{set_active_router('placement-client')}}" href="{{ route('placement-client.index') }}">Compte des place</a>
+				<a class="p-2 {{set_active_router('placementPaiement')}}" href="{{ route('placementPaiement.index') }}">Paiment des placements</a>
+			</div>
+		</div>
 	</div>
 	<div class="col-md-4 col-sm-6">
 		<form action="" class="navbar-form navbar-left">
@@ -41,7 +49,7 @@
 			<th>@sortablelink('place_interet','Place avec intérêt')</th>
 			<th>@sortablelink('date_placement','Date de placement') </th>
 			<th>@sortablelink('date_fin','Fin') </th>
-			<th>@sortablelink('created_at',"Date d'enregistrement") </th>
+			<th>@sortablelink('montant_restant',"Montant Restant") </th>
 			<th>@sortablelink('status',"STATUS") </th>
 
 			
@@ -62,7 +70,7 @@
 			<td>{{ numberFormat($placement->place_interet)}}</td>
 			<td>{{ $placement->date_placement}}</td>
 			<td>{{ $placement->date_fin}}</td>
-			<td>{{ $placement->created_at}}</td>
+			<td>{{ $placement->montant_restant}}</td>
 			<td>
 
 				@if ($placement->status == 'DEJA PAYE')
