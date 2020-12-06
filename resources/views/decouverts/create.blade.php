@@ -6,12 +6,12 @@
 <div class="row">
 
 	<div class="col-md-3">
-		<div  id="search_form">
+		{{-- <div  id="search_form">
 			<label for="search_v" class="text-justify text-uppercase text-primary">Entre le numéro du compte</label>
 			<input type="text" id="search_v"  class="form-control" placeholder="Entre le numéro du compte">
 			<input type="submit"  value="ok" id="search_compte">
 		</div>
-
+ --}}
 		<div class="form-save">
 			<form action="{{ route('decouverts.store')}}" method="POST">
 				@include('decouverts._form',['btnTitle' => 'Enregistre'])
@@ -21,9 +21,9 @@
 	</div>
 
 	<div class="col-md-8 client-info">
-		<button id="print_button" class="btn-info">Imprimer</button>
+		{{-- <button id="print_button" class="btn-info">Imprimer</button>
 		<button id="btn_save_decouvert" class="btn-outline-danger">Enregistre</button>
-		@include('decouverts.formulaire')
+		@include('decouverts.formulaire') --}}
 		
 	</div>
 	

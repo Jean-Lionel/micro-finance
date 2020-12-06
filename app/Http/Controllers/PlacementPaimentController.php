@@ -56,7 +56,7 @@ user_id
      try {
          $compte = ComptePlacement::where('name','=',$request->compte_name)->firstOrFail();
 
-         $placement = Placement::find($request->placement_id);
+         $placement = Placement::where('id',$request->placement_id)->firstOrFail();
          
      } catch (\Exception $e) {
         errorMessage("Le compte n'existe pas. Réessayez");

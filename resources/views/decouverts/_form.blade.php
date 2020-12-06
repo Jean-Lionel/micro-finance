@@ -4,7 +4,7 @@
 <div class="row">
 	
 	<div class="col-md-12">
-		<h5 class="text-left">Enregistre une nouvel decouvert</h5>
+		<h5 class="text-left">Enregistrer une nouvel decouvert</h5>
 	</div>
 	<div class="col-md-12">
 		<fieldset class="form-group">

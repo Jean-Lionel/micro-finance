@@ -66,10 +66,11 @@
 		$('#placement_id').val(data);
 		$('#montant_restant').val(montant_restant);
 
-		$("#same_info").html(`Placement N° ${data} | Montant Restant : # ${montant_restant} FBU`)
+		$("#same_info").html(`Placement N° ${data} | Montant Restant : # ${_formatNumber(montant_restant)} FBU`)
 		console.log($('#placement_id').val())
 
 	}
+
 
 	jQuery(document).ready(function() {
 
@@ -144,7 +145,7 @@
 			<div class="card bg-primary">
 				<div class="card-body text-center">
 					<p class="card-title"> MONTANT </p>
-					<p class="card-text">#${data.compte.montant} FBU</p>
+					<p class="card-text">#${_formatNumber(data.compte.montant)} FBU</p>
 				</div>
 			</div>
 		
@@ -158,12 +159,15 @@
 
 	function loadPlacement(placements){
 
+		// console.log(placements)
+
 		let table = `<table class="table table-hover">
 			<thead>
 			<tr>
 			<th>No du compte</th>
 			<th>Montant</th>
 			<th>Placement No</th>
+			<th>Interêt Mensuel</th>
 			<th>Date du placment</th>
 			<th>Montant restant</th>
 
@@ -177,10 +181,11 @@
 			for (var i = 0; i < placements.length; i++) {
 				let tr = `<tr>
 				<td>${placements[i].compte_name}</td>
-				<td>${placements[i].montant}</td>
+				<td>${_formatNumber(placements[i].montant)}</td>
 				<td>${placements[i].id}</td>
+				<td>${_formatNumber(placements[i].interet_Moi)}</td>
 				<td>${placements[i].date_placement}</td>
-				<td>${placements[i].montant_restant}</td>
+				<td>${_formatNumber(placements[i].montant_restant)}</td>
 				<td><button onclick="remplireData(${placements[i].id}, ${placements[i].montant_restant})">Payé</button></td></td>
 				</tr>
 				`

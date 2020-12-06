@@ -33,5 +33,11 @@ class RoleSeeder extends Seeder
             'name' => 'ENREGISTREMENT DES CLIENTS'
 
         ]);
+
+
+        Role::create([
+            'name' => 'PAIEMENT DES INTERET SUR LES PLACEMENT'
+
+        ]);
     }
 }
