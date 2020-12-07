@@ -75,4 +75,9 @@ class User extends Authenticatable
     public function isRegisterClient(){
          return $this->roles()->where('name','ENREGISTREMENT DES CLIENTS')->first();
     }
+
+    public function isRetraitInteretPlacement()
+    {
+        return $this->roles()->where('name','RETRAIT DES INTERET SUR LES PLACEMENTS')->first();
+    }
 }
