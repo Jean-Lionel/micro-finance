@@ -30,7 +30,7 @@ class SessionTimeout
 
       $absence = $now->diffInMinutes($last_seen);
 
-      dump(config('session.lifetime'));
+      // dump(config('session.lifetime'));
 
     // If user has been inactivity longer than the allowed inactivity period
       if ($absence > config('session.lifetime')) {

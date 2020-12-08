@@ -54,19 +54,9 @@
 			
 			<td>{{ $client->getCompteNameById($client->id) }}</td>			
 			
-
-			<td>
-				{{-- <ul>
-					@foreach ($client->comptes as $compte)
-
-					<li>{{$compte->name  }}</li>
-					@endforeach
-				</ul> --}}
-			</td>
-		
 			<td>{{ $client->created_at}}</td>
 			<td>
-		
+				@can('is-admin')
 				<a href="{{ route('placement-client.edit',$client) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 
 				<form class="form-delete" action="{{ route('placement-client.destroy' , $client) }}" style="display: inline;" method="POST">
@@ -75,8 +65,12 @@
 					<button class="btn btn-outline-danger btn-sm delete_client">Supprimer</button>
 				</form>
 
+				@endcan
+
 
 			</td>
+
+
 		</tr>
 
 		@endforeach

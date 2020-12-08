@@ -58,5 +58,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAnyRoles(['ADMIN']);
 
          });
+
+
+         Gate::define('placement-manager', function($user){
+            return $user->isRetraitInteretPlacement();
+         });
     }
 }

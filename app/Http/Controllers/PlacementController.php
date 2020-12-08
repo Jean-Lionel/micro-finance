@@ -14,7 +14,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\back;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PlacementController extends Controller
 {
@@ -23,8 +25,21 @@ class PlacementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+
+       // dump(Gate::allows('is-admin'));
+       // dump(Gate::denies('placement-manager'));
+
+       //  dump(Gate::authorize('placement-manager'));
+
+
+       // dd();
+
+    }
     public function index()
     {
+
 
         $search = \Request::get('search');
 
@@ -56,7 +71,7 @@ class PlacementController extends Controller
         // PaiementPlacement::paimentMensuellePlacement($placement_paye);
 
         return view('placements.index',compact('placements','search'));
-        
+
     }
 
     /**

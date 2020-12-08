@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             'first_name' => 'IRADUKUNDA',
             'last_name' =>'Gretta',
             'user_name'  => 'utilisateur',
-            
+              
             'email' => 'versement@coopdi.com', 
             'password' => Hash::make('versement'),
 
@@ -44,6 +44,8 @@ class UserSeeder extends Seeder
         $adminRole = Role::where('name','ADMIN')->first();
         $versementRole = Role::where('name','VERSEMENT')->first();
         $retraitRole = Role::where('name','RETRAIT')->first();
+        $save_user = Role::where('name','ENREGISTREMENT DES CLIENTS')->first();
+        $user_placement = Role::where('name','RETRAIT DES INTERET SUR LES PLACEMENTS')->first();
 
 
         $admin->roles()->attach($adminRole);

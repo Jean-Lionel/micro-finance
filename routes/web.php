@@ -24,6 +24,11 @@ Route::resource('comptes','CompteController');
 
 Route::get('comptes/ajouter/{id}', 'CompteController@createCompte')->name('create_compte');
 
+
+
+
+
+
 Route::resource('placements','PlacementController');
 Route::resource('decouverts','DecouvertController');
 Route::resource('tenuecomptes','TenueCompteController');

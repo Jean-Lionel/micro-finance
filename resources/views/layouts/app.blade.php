@@ -83,6 +83,12 @@
 
          @endcan
 
+         @can('placement-manager')
+
+            <a class="p-2 {{set_active_router('placements.index')}}" href="{{ route('placements.index') }}"><i class="fa fa-inbox"></i> Placement</a>
+
+         @endcan
+
         @can('is-admin')
             {{-- expr --}}
         

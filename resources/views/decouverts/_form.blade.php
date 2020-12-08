@@ -109,7 +109,7 @@
 	});
 
 	let client_information = (data) => {
-
+		// console.log(data.client)
 
 		let html = `
 		<div class="information">
@@ -124,21 +124,11 @@
 		<b class="card-title">prénom : ${data.client.prenom}</b>
 		<b class="card-title">C.N.I : ${data.client.cni}</b>
 		<b class="card-title">Date de Naissance :${data.client.date_naissance} </b>
+		<b class="card-title">Téléphone :${data.client.telephone} </b>
 
 		</div>
 		</div>
 
-		</div>
-
-
-		<div class="card-columns">
-		<div class="card bg-primary">
-		<div class="card-body text-center">
-		<p class="card-title"> MONTANT </p>
-		<p class="card-text">#${data.compte.montant} FBU</p>
-		</div>
-		</div>
-		</div>
 		</div>
 		`
 

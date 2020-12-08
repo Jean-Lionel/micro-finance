@@ -9,7 +9,7 @@
 				<h1>Tout les placements</h1>	
 			</div>
 			<div class="col-md-6">
-				<a class="p-2 {{set_active_router('placement-client')}}" href="{{ route('placement-client.index') }}">Compte des place</a>
+				<a class="p-2 {{set_active_router('placement-client')}}" href="{{ route('placement-client.index') }}">Compte des placements</a>
 				<a class="p-2 {{set_active_router('placementPaiement')}}" href="{{ route('placementPaiement.index') }}">Paiment des placements</a>
 			</div>
 		</div>
@@ -82,38 +82,13 @@
 
 			</td>
 			<td>
-				
-
-				<div class="d-flex justify-content-between">
-
-					...
-				{{-- 	@if ($placement->status == 'NON PAYE')
-						
-						<a href="{{ route('finaliser',$placement) }}" class="btn btn-sm btn-warning">Finaliser</a>
-
-						 <a href="{{ route('placements.edit',$placement) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
-					@endif
-					
-					@if ($placement->status == 'DEJA PAYE')
-					<button class="btn btn-sm btn-outline-info">Imprimer</button> 
-					@endif
- --}}
-					
-				
-				</div>
-				
-
-
-				 {{--
-			
-					<form action="{{ route('placements.destroy' , $placement) }}" style="display: inline;" method="POST">
-					{{ csrf_field() }}
-					{{ method_field('DELETE') }}
-					<button class="btn btn-outline-danger btn-sm">Delete</button>
-				</form> --}}
-				
-				
+				@can('is-admin')
+				<a href="{{ route('placements.edit', $placement) }}" class="btn-success btn btn-sm">Modifier</a>
+				@endcan
 			</td>
+				
+
+			
 		</tr>
 
 		@endforeach

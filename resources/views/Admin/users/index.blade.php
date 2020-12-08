@@ -53,7 +53,17 @@
                                 <td> {{ $user->email }}</td>
 
                                 <td>
-                                    {{ implode(',', $user->roles()->get()->pluck('name')->toArray())}}
+                                  {{--   {{ implode(',', $user->roles()->get()->pluck('name')->toArray())}} --}}
+
+                                    <ul class="list-group-item-info">
+
+                                        @foreach($user->roles()->get() as $role)
+                                        <li>
+                                            {{ $role->name }}
+                                        </li>
+                                        
+                                          @endforeach
+                                    </ul>
                                     
                                 </td>
                                 <td>

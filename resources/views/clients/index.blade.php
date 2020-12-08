@@ -66,11 +66,15 @@
 				<a href="{{ route('clients.show',$client) }}" class="btn btn-outline-info btn-sm">Afficher</a>
 				<a href="{{ route('clients.edit',$client) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 
+				@can('is-admin')
+
 				<form class="form-delete" action="{{ route('clients.destroy' , $client) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
 					<button class="btn btn-outline-danger btn-sm delete_client">Supprimer</button>
 				</form>
+
+				@endcan
 
 
 			</td>
