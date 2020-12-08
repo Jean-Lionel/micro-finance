@@ -10,7 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 class PlacementClient extends ParentModel
 {
 
-	protected $fillable = ['nom', 'prenom','cni','telephone','addresse'];
+	
+
+
+
+
+	protected $fillable = ['nom', 'prenom','cni','telephone','addresse', 'mandataire_name' ,'mandataire_telephone','mandataire_cni','mandataire_addresse'];
 
 
 

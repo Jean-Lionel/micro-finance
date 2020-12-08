@@ -22,6 +22,10 @@ class CreatePlacementClientsTable extends Migration
             $table->string('cni')->nullable();
             $table->string('telephone')->nullable();
             $table->string('addresse')->nullable();
+            $table->string('mandataire_name')->nullable();
+            $table->string('mandataire_telephone')->nullable();
+            $table->string('mandataire_cni')->nullable();
+            $table->string('mandataire_addresse')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

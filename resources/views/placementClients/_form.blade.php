@@ -37,6 +37,7 @@
 				</fieldset>
 			</div>
 
+
 			<div class="col-md-6">
 				
 				<fieldset class="form-group">
@@ -46,8 +47,7 @@
 				</fieldset>
 			</div>
 
-
-			<div class="col-md-6">
+					<div class="col-md-6">
 				
 				<fieldset class="form-group">
 					<label for="addresse">Addresse</label>
@@ -55,6 +55,53 @@
 					{!! $errors->first('addresse', '<small class="help-block invalid-feedback">:message</small>') !!}
 				</fieldset>
 			</div>
+
+			<div class="col-md-12">
+				<h5>INFORMATION DU MANDATAIRE</h5>
+				<hr>
+			</div>
+
+
+			<div class="col-md-6">
+				
+				<fieldset class="form-group">
+					<label for="mandataire_name">Nom et prénom du mandataire</label>
+					<input type="text" class="form-control  {!! $errors->has('mandataire_name') ? 'is-invalid' : 'is-valid' !!}" id="mandataire_name"   name="mandataire_name" value="{{ old('mandataire_name') ?? $client->mandataire_name }}" >
+					{!! $errors->first('mandataire_name', '<small class="help-block invalid-feedback">:message</small>') !!}
+				</fieldset>
+			</div>
+
+			<div class="col-md-6">
+				
+				<fieldset class="form-group">
+					<label for="mandataire_cni">C.N.I</label>
+					<input type="text" class="form-control  {!! $errors->has('mandataire_cni') ? 'is-invalid' : 'is-valid' !!}" id="mandataire_cni"   name="mandataire_cni" value="{{ old('mandataire_cni') ?? $client->mandataire_cni }}" >
+					{!! $errors->first('mandataire_cni', '<small class="help-block invalid-feedback">:message</small>') !!}
+				</fieldset>
+			</div>
+
+
+			<div class="col-md-6">
+				
+				<fieldset class="form-group">
+					<label for="mandataire_telephone">Téléphone</label>
+					<input type="text" class="form-control  {!! $errors->has('mandataire_telephone') ? 'is-invalid' : 'is-valid' !!}" id="mandataire_telephone"   name="mandataire_telephone" value="{{ old('mandataire_telephone') ?? $client->mandataire_telephone }}" >
+					{!! $errors->first('mandataire_telephone', '<small class="help-block invalid-feedback">:message</small>') !!}
+				</fieldset>
+			</div>
+
+
+			<div class="col-md-6">
+				
+				<fieldset class="form-group">
+					<label for="mandataire_addresse">Addresse</label>
+					<input type="text" class="form-control  {!! $errors->has('mandataire_addresse') ? 'is-invalid' : 'is-valid' !!}" id="mandataire_addresse"   name="mandataire_addresse" value="{{ old('mandataire_addresse') ?? $client->mandataire_addresse }}" >
+					{!! $errors->first('mandataire_addresse', '<small class="help-block invalid-feedback">:message</small>') !!}
+				</fieldset>
+			</div>
+
+
+	
 
 			<div class="col-md-6">
 				

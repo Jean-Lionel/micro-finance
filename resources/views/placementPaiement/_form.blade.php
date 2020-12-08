@@ -125,20 +125,45 @@
 		let html = `
 			<div class="information">
 
-			<div class="card-group">
-				
 
-				<div class="card">
-					<b class="card-title">Nom : ${data.client.nom}</b>
-					<b class="card-title">prénom : ${data.client.prenom}</b>
-					<b class="card-title">C.N.I : ${data.client.cni}</b>
-					<b class="card-title">Telephone :${data.client.telephone} </b>
-					<b class="card-title">Addresse :${data.client.addresse} </b>
-					
-				</div>
-			</div>
-			
-		</div>
+
+
+
+			<div class="row">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">INFORMATION DU CLIENT</h5>
+         <ul class="list-group list-group-flush">
+   			<li class="list-group-item">Nom : ${data.client.nom}</li>
+    		<li class="list-group-item">prénom : ${data.client.prenom}</li>
+    		<li class="list-group-item">C.N.I : ${data.client.cni}</li>
+    		<li class="list-group-item">Téléphone :${data.client.telephone} </li>
+    		<li class="list-group-item">Addresse :${data.client.addresse}</li>
+  	</ul>
+      
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">INFORMATION DU MANDATAIRE</h5>
+
+        <ul class="list-group list-group-flush">
+   			<li class="list-group-item">Nom et prénom : ${data.client.mandataire_name}</li>
+    	
+    		<li class="list-group-item">C.N.I : ${data.client.mandataire_cni}</li>
+    		<li class="list-group-item">Téléphone :${data.client.mandataire_telephone} </li>
+    		<li class="list-group-item">Addresse :${data.client.mandataire_addresse}</li>
+  	</ul>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
 		<div class="card-columns">
