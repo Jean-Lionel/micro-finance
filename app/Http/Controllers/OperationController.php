@@ -156,21 +156,21 @@ if($compte){
 
                 //Verification que le montant est suffisant sur le compte en question
 
-        if($compte->montant > abs($request->montant)){
+        if($compte->montant > $request->montant){
 
             try {
 
                 DB::beginTransaction();
 
-                ComptePrincipalController::store_info(abs($request->montant), 'RETRAIT');
+                ComptePrincipalController::store_info($request->montant, 'RETRAIT');
 
-                $new_monant = $compte->montant - abs($request->montant);
+                $new_monant = $compte->montant - $request->montant;
 
                 $compte->update(['montant' => $new_monant]);
 
-                ComptePrincipalOperationController::storeOperation(abs($request->montant), 'retrait',$compte->name );
+                ComptePrincipalOperationController::storeOperation($request->montant, 'retrait',$compte->name );
 
-                $request->montant = abs($request->montant);
+                $request->montant = $request->montant;
 
                 Operation::create($request->all());
 
@@ -202,15 +202,15 @@ if($compte){
 
         DB::beginTransaction();
 
-        ComptePrincipalController::store_info(abs($request->montant), 'VERSEMENT');
+        ComptePrincipalController::store_info($request->montant, 'VERSEMENT');
 
-        $new_monant = $compte->montant + abs($request->montant);
+        $new_monant = $compte->montant + $request->montant;
 
         $compte->update(['montant' => $new_monant]);
 
-        ComptePrincipalOperationController::storeOperation(abs($request->montant), 'VERSEMENT',$compte->name);
+        ComptePrincipalOperationController::storeOperation($request->montant, 'VERSEMENT',$compte->name);
 
-        $request->montant = abs($request->montant);
+        $request->montant = $request->montant;
 
         Operation::create($request->all());
 

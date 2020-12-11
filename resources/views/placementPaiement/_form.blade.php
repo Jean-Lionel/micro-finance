@@ -89,6 +89,8 @@
 				data: {compte_name: compte_name.val()},
 			})
 			.done(function(data) {
+
+				console.log(data)
 			
 				if(!data.error){
 
@@ -102,7 +104,7 @@
 						`)
 
 					$('.client-placement').html(`
-						<h5 class= "bg-danger">Numéro matricule est invalide</h5>
+						<h5 class= "bg-danger">Numéro de compte est invalide</h5>
 						`)
 				}
 				
@@ -196,7 +198,7 @@
 			<th>Date du placment</th>
 			<th>Montant restant</th>
 
-			<th>Action</th>
+			<th>choisissez l'intérêt à retirer</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -206,12 +208,12 @@
 			for (var i = 0; i < placements.length; i++) {
 				let tr = `<tr>
 				<td>${placements[i].compte_name}</td>
-				<td>${_formatNumber(placements[i].montant)}</td>
+				<td>${_formatNumber(placements[i].place_interet)}</td>
 				<td>${placements[i].id}</td>
 				<td>${_formatNumber(placements[i].interet_Moi)}</td>
 				<td>${placements[i].date_placement}</td>
 				<td>${_formatNumber(placements[i].montant_restant)}</td>
-				<td><button onclick="remplireData(${placements[i].id}, ${placements[i].montant_restant})">Payé</button></td></td>
+				<td><button onclick="remplireData(${placements[i].id}, ${placements[i].montant_restant})">Retirer</button></td></td>
 				</tr>
 				`
 

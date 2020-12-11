@@ -22,7 +22,7 @@ class PlacementClientController extends Controller
 
         $search = \Request::get('search'); 
 
-        $clients = PlacementClient::sortable(['created_at' => 'DESC'])
+        $clients = PlacementClient::sortable()->latest()
         ->where('nom','like','%'.$search.'%')
         ->orWhere('prenom','like','%'.$search.'%')
         ->orWhere('cni','like','%'.$search.'%')
@@ -144,7 +144,25 @@ class PlacementClientController extends Controller
      */
     public function destroy(PlacementClient $placementClient)
     {
-        $placementClient->delete();
+       
+
+        try {
+            DB::begintransaction();
+
+             
+            ComptePlacement::find($placementClient->id)->delete();
+
+
+             $placementClient->delete();
+
+            DB::commit();
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+            
+        }
+
+
 
         return $this->index();
     }

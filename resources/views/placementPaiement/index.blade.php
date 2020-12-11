@@ -48,9 +48,9 @@
 		<tr>
 			<td>{{$key + 1}}</td>
 			<td>{{ $placement->compte_name}}</td>
-			<td>{{ $placement->montant}}</td>
+			<td>{{ numberFormat($placement->montant)}}</td>
 			<td>{{ date('Y-m-d', strtotime($placement->date_paiment))}}</td>
-			<td>{{ $placement->placement->montant_restant ?? "" }} </td>
+			<td>{{ numberFormat($placement->placement->montant_restant) ?? "" }} </td>
 			
 			
 		</tr>

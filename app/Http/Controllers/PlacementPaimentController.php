@@ -75,9 +75,7 @@ user_id
         try {
             DB::beginTransaction();
 
-         
-            // dd( $compte->id);
-
+            // dd($compte->montant);
             if($compte->montant >= $request->montant){
 
              ComptePrincipalController::store_info(abs($request->montant), 'MOINS');
@@ -99,14 +97,18 @@ user_id
                 'type_operation' => 'PAIMENT DE PLACEMENT',
                 'compte_name' => $compte->name,
                 'montant' => $request->montant,
-                'placement' => 'jean lionel'
+                'placement' =>  $placement->id
 
 
             ]);
 
-            $placement->update([
-                'montant_restant' => ($placement->montant_restant - $request->montant),
+            $placement = Placement::where('id',$request->placement_id)->firstOrFail();
 
+            $rest = $placement->montant_restant - $request->montant;
+
+
+            $placement->update([
+                'montant_restant' =>  $rest,
                 'status' => ($placement->montant_restant - $request->montant == 0 ? 'DEJA PAYE': 'NON PAYE' ) 
 
             ]);

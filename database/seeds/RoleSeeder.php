@@ -39,5 +39,10 @@ class RoleSeeder extends Seeder
             'name' => 'PAIEMENT DES INTERET SUR LES PLACEMENT'
 
         ]);
+
+        Role::create([
+            'name' => 'GESTION DES DECOUVERTS'
+
+        ]);
     }
 }

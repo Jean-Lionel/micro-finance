@@ -89,6 +89,16 @@
 
          @endcan
 
+         @can('decouvert-manager')
+
+           @cannot('is-admin')
+
+           <a class="p-2 {{set_active_router('decouverts.index')}}" href="{{ route('decouverts.index') }}"><i class="fa fa-tint"></i> Decouvert</a>
+
+           @endcannot
+
+         @endcan
+
         @can('is-admin')
             {{-- expr --}}
         

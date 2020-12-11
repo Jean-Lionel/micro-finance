@@ -25,7 +25,7 @@ class DecouvertController extends Controller
 
         $search = \Request::get('search'); 
 
-        $decouverts = Decouvert::sortable()
+        $decouverts = Decouvert::sortable()->latest()
         ->where('compte_name','like','%'.$search.'%')
         ->orWhere('montant','like','%'.$search.'%')
         ->orWhere('interet','like','%'.$search.'%')

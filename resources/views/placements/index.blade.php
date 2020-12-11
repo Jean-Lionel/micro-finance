@@ -70,8 +70,9 @@
 			<td>{{ numberFormat($placement->place_interet)}}</td>
 			<td>{{ $placement->date_placement}}</td>
 			<td>{{ $placement->date_fin}}</td>
-			<td>{{ $placement->montant_restant}}</td>
+			<td>{{ numberFormat( $placement->montant_restant) }}</td>
 			<td>
+
 
 				@if ($placement->status == 'DEJA PAYE')
 				{{-- expr --}}

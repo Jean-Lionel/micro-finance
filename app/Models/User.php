@@ -78,6 +78,13 @@ class User extends Authenticatable
 
     public function isRetraitInteretPlacement()
     {
-        return $this->roles()->where('name','RETRAIT DES INTERET SUR LES PLACEMENTS')->first();
+        return $this->roles()->where('name','PAIEMENT DES INTERET SUR LES PLACEMENT')->first();
+    }
+
+    public function isDecouvert()
+    {
+
+        return $this->roles()->where('name', 'GESTION DES DECOUVERTS')->first();
+
     }
 }

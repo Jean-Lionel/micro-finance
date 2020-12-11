@@ -63,5 +63,11 @@ class AuthServiceProvider extends ServiceProvider
          Gate::define('placement-manager', function($user){
             return $user->isRetraitInteretPlacement();
          });
+
+         Gate::define('decouvert-manager', function($user){
+
+            return $user->isDecouvert();
+
+         });
     }
 }

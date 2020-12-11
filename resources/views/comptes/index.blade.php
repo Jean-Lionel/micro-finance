@@ -267,7 +267,7 @@
 
 		<div class="table_info">
 		<div>
-		<h3 class="text-center"> Opération effectuer sur votre compte</h3>
+		<h3 class="text-center"> Historique du compte </h3>
 		${table_operation}
 		</div>
 		<hr>

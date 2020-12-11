@@ -292,6 +292,19 @@
 			let type_operation = $('#type_operation').val()
 			let cni = $('#cni').val()
 
+
+			if(montant <= 0 || isNaN(montant)){
+
+				swal.fire(
+					'error',
+					'Vérifier le montant saisit',
+					'error'
+					)
+
+				return;
+
+			}
+
 			if(compte_name.trim() == "" ||
 			 montant.trim() == "" ||
 			 operer_par.trim() == "" ||
