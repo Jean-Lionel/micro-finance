@@ -59,11 +59,11 @@
 				@can('is-admin')
 				<a href="{{ route('placement-client.edit',$client) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 
-				<form class="form-delete" action="{{ route('placement-client.destroy' , $client) }}" style="display: inline;" method="POST">
+				{{-- <form class="form-delete" action="{{ route('placement-client.destroy' , $client) }}" style="display: inline;" method="POST">
 					{{ csrf_field() }}
 					{{ method_field('DELETE') }}
 					<button class="btn btn-outline-danger btn-sm delete_client">Supprimer</button>
-				</form>
+				</form> --}}
 
 				@endcan
 
