@@ -6,10 +6,12 @@
 
 <div class="row">
 	
-	<div class="col-md-2">
+	<div class="col-md-12">
 		<ul>
 			{{-- <li class="list-unstyled"><a href="depense" class="">Depense</a></li> --}}
-			<li class="list-unstyled"><a href="{{route('tenueMensuelle') }}" >Tenue de compte</a></li>
+			<li class="list-unstyled"><a href="{{route('tenueMensuelle') }}" >Tenue de compte</a></li
+				>
+			<li class="list-unstyled"><a href="{{route('user_oparation') }}" >Activité des utilisateurs</a></li>
 		</ul>
 	</div>
 

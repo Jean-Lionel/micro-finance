@@ -8,6 +8,7 @@ use App\Http\Controllers\ComptePrincipalOperationController;
 use App\Http\Requests\FormOperationRequest;
 use App\Models\Compte;
 use App\Models\Operation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +29,7 @@ class OperationController extends Controller
 
         // dump($sum);
         // dump($retrait);
-        
+
 
         // dd('FIN');
 
@@ -49,17 +50,28 @@ class OperationController extends Controller
 
         if(Gate::denies('is-admin')){
 
-         $operations = Operation::sortable(['created_at'=>'desc'])
-         ->where('compte_name', 'like', '%'.$search.'%')
-         ->where('user_id','=', Auth::user()->id)
-         ->paginate(10);
+           $operations = Operation::sortable(['created_at'=>'desc'])
+           ->where('compte_name', 'like', '%'.$search.'%')
+           ->where('user_id','=', Auth::user()->id)
+           ->paginate(10);
 
-     }
+       }
+
+       $user_id = Auth::user()->id;
+
+
+       $versement = Operation::where('user_id',$user_id)
+       ->where('type_operation','=','VERSEMENT')
+       ->whereDate('created_at',Carbon::now())->sum('montant');
+
+       $retrait = Operation::where('user_id',$user_id)
+       ->where('type_operation','=','RETRAIT')
+       ->whereDate('created_at',Carbon::now())->sum('montant');
 
         // dd($operations);
 
-     return view('operations.index',compact('operations','search'));
- }
+       return view('operations.index',compact('operations','search', 'versement','retrait'));
+   }
 
     /**
      * Show the form for creating a new resource.
@@ -93,7 +105,7 @@ class OperationController extends Controller
 
             //dump(Gate::allows('is-versement-user'));
 
-         if(Gate::denies('is-retrait-user') && ($request->type_operation == 'RETRAIT')){
+           if(Gate::denies('is-retrait-user') && ($request->type_operation == 'RETRAIT')){
 
             return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
 
@@ -115,18 +127,18 @@ public function store(Request $request){
 
 
 
-   if(Gate::denies('is-admin')){
+ if(Gate::denies('is-admin')){
             //dump(Gate::allows('is-versement-user'));
 
-     if(Gate::denies('is-retrait-user') && ($request->type_operation == 'RETRAIT')){
+   if(Gate::denies('is-retrait-user') && ($request->type_operation == 'RETRAIT')){
 
-        return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
+    return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
 
-    }
+}
 
-    if(Gate::denies('is-versement-user') && ($request->type_operation == 'VERSEMENT')){
-        return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
-    }
+if(Gate::denies('is-versement-user') && ($request->type_operation == 'VERSEMENT')){
+    return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
+}
 
 }
 
@@ -139,11 +151,11 @@ public function store(Request $request){
 
 
 try {
- $compte = Compte::where('name','=',$request->compte_name)->firstOrFail();
+   $compte = Compte::where('name','=',$request->compte_name)->firstOrFail();
 
 } catch (\Exception $e) {
 
- return response()->json(['error'=> "Vérifier le numéro de compte"]);
+   return response()->json(['error'=> "Vérifier le numéro de compte"]);
 
 }
 
@@ -188,14 +200,14 @@ if($compte){
             }
 
         }else{
-         return response()->json(['error'=> 'Le solde demande est insuffisant sur vôtre compte']);
-     }
+           return response()->json(['error'=> 'Le solde demande est insuffisant sur vôtre compte']);
+       }
 
 
- }
+   }
 
 
- if($request->type_operation == 'VERSEMENT'){
+   if($request->type_operation == 'VERSEMENT'){
 
 
     try {
@@ -296,23 +308,23 @@ if($compte){
             }
 
             if($type_operation == 'RETRAIT'){
-             ComptePrincipalController::store_info(abs($operation->montant), 'ADD');
-             ComptePrincipalOperationController::storeOperation(abs($operation->montant), 'annulation_retrait',$operation->compte_name);
+               ComptePrincipalController::store_info(abs($operation->montant), 'ADD');
+               ComptePrincipalOperationController::storeOperation(abs($operation->montant), 'annulation_retrait',$operation->compte_name);
 
-             $operation->delete();
+               $operation->delete();
 
-             $compte->montant = $compte->montant + abs($operation->montant);
-             $compte->save();
-
-
-         }
-
-         successMessage();
+               $compte->montant = $compte->montant + abs($operation->montant);
+               $compte->save();
 
 
-         DB::commit();
+           }
 
-     } catch (\Exception $e) {
+           successMessage();
+
+
+           DB::commit();
+
+       } catch (\Exception $e) {
 
         DB::rollback();
 
@@ -343,9 +355,9 @@ if($compte){
 
     public function operation_details()
     {
-       $op_id = \Request::get('id');
+     $op_id = \Request::get('id');
 
-       $operation = Operation::where('id','=',$op_id)->first();
+     $operation = Operation::where('id','=',$op_id)->first();
 
         // $user = User::where('id','=',$operation->user_id);
 
@@ -353,13 +365,13 @@ if($compte){
 
 
 
-       return $operation ? response()->json(
+     return $operation ? response()->json(
         [
             'operation'=> $operation ,
             'user' => $operation->user
 
         ]) : response()->json(['error'=> 'ivalid id']) ;
-   }
+ }
 
     /**
      * Remove the specified resource from storage.

@@ -24,6 +24,13 @@ class RapportsController extends Controller
 		return view('rapports.index');
 	}
 
+    public function userOperation(){
+
+        return view('rapports.userOperation');
+
+
+    }
+
 	public function rapport(){
 
 		$searchDate = \Request::get('date_rapport');

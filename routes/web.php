@@ -36,6 +36,9 @@ Route::resource('placementPaiement','PlacementPaimentController');
 
 Route::resource('rapports','RapportsController');
 
+
+Route::get('userOperation','RapportsController@userOperation')->name('user_oparation');
+
 Route::resource('reboursement-decouverts','ReboursementDecouvertController');
 
 Route::namespace('Controllers')->prefix('app')->group(function(){

@@ -5,8 +5,8 @@
 <div class="row">
 	<div class="col-md-1 col-sm-12 badge-dark">
 		<p><a href="{{ route('operations.create')}}" class="text-lg-center white-color">Nouvelle opération</a></p>
-		
-		
+
+
 	</div>
 	<div class="col-md-10 col-sm-12">
 
@@ -35,39 +35,39 @@
 
 
 
-		@if($operations)
+			@if($operations)
 
-		<table class="table table-bordered table-sm table-inverse table-hover">
-			<thead>
-				<tr>
-					<th>No</th>
-					<th>@sortablelink('compte_name','COMPTE NO')</th>
-					<th>@sortablelink('montant','Montant') </th>
-					<th>@sortablelink('type_operation','Type d\' operation')</th>
-					<th>@sortablelink('created_at','Date') </th>
+			<table class="table table-bordered table-sm table-inverse table-hover">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>@sortablelink('compte_name','COMPTE NO')</th>
+						<th>@sortablelink('montant','Montant') </th>
+						<th>@sortablelink('type_operation','Type d\' operation')</th>
+						<th>@sortablelink('created_at','Date') </th>
 
 
-					<th>Action</th>
-				</tr>
-			</thead>
-			<tbody>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
 
-				@foreach($operations as $key=> $operation)
-				<tr>
-					<td>{{$key + 1}}</td>
-					<td>{{ $operation->compte_name}}</td>
-					<td>{{ numberFormat($operation->montant)}}</td>
-					<td>{{ $operation->type_operation}}</td>
-					<td>{{ $operation->created_at}}</td>
-					<td>
-						<!-- <a href="{{ route('operations.show',$operation) }}" class="btn btn-outline-info">show</a> -->
-						@can('is-admin')
-						    {{-- expr --}}
-						    <a href="{{ route('operations.edit',$operation) }}" class="btn btn-outline-dark btn-sm delete_operation">Annuler</a>
-						@endcan
-						
+					@foreach($operations as $key=> $operation)
+					<tr>
+						<td>{{$key + 1}}</td>
+						<td>{{ $operation->compte_name}}</td>
+						<td>{{ numberFormat($operation->montant)}}</td>
+						<td>{{ $operation->type_operation}}</td>
+						<td>{{ $operation->created_at}}</td>
+						<td>
+							<!-- <a href="{{ route('operations.show',$operation) }}" class="btn btn-outline-info">show</a> -->
+							@can('is-admin')
+							{{-- expr --}}
+							<a href="{{ route('operations.edit',$operation) }}" class="btn btn-outline-dark btn-sm delete_operation">Annuler</a>
+							@endcan
 
-						<button class="btn btn-outline-info btn-sm imprimer" onclick="printBordereau({{$operation->id}})">Imprimer</button>
+
+							<button class="btn btn-outline-info btn-sm imprimer" onclick="printBordereau({{$operation->id}})">Imprimer</button>
 
 						{{-- <form action="{{ route('operations.destroy' , $operation) }}" style="display: inline;" method="POST">
 							{{ csrf_field() }}
@@ -86,12 +86,53 @@
 		{{ $operations->links()}}
 
 
+
+
+			<div class="card text-dark">
+				<ul class="list-group">
+					<li class="list-group-item text-center">LE {{ date('d-m-Y') }}</li>
+					
+				</ul>
+
+				<div class="row">
+					<div class="col-md-6">
+						<li class="list-group-item">
+
+						<div>TOTAL DES VERSEMENTS : </div>
+						
+						<div><b> {{ number_format($versement) }} # FBU</b></div>
+						</li>
+						
+					</div>
+
+					<div class="col-md-6">
+
+						<li class="list-group-item">
+							<div>
+								TOTAL DES RETRAITS :
+							</div>
+
+							<div>
+								<b>{{ number_format($retrait) }} # FBU</b>
+							</div>
+							 
+
+					  </li>
+						
+					</div>
+				</div>
+
+			
+					
+			</div>
+
+
 		@endif
 
-		</div>
-
-
 	</div>
+
+
+</div>
 </div>
 
 
@@ -103,14 +144,14 @@
 <script>
 
 	const formatNumber = (number) => {
-			return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'FBU' }).format(number)
-		}
+		return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'FBU' }).format(number)
+	}
 
 	jQuery(document).ready(function($) {
 
 
 		$('.delete_operation').on('click',  function(event) {
-			 event.preventDefault();
+			event.preventDefault();
 			// console.log("je suis cool");
 
 			let element = $(this)
@@ -136,10 +177,10 @@
 					let url = element.attr('href');
 
 					$(location).attr('href',url);
-				
+
 				}
 			})
-			});
+		});
 
 	})
 
@@ -168,146 +209,146 @@
 
 
 		  		<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style type="text/css">
-	header span
-	{
-		display: block;
+		  		<html lang="en">
+		  		<head>
+		  		<meta charset="UTF-8">
+		  		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		  		<style type="text/css">
+		  		header span
+		  		{
+		  			display: block;
 
-	}
+		  		}
 
-	.main-content{
-		width: 600px;
-		position: absolute;
-		transform: translate(50%,0%);
+		  		.main-content{
+		  			width: 600px;
+		  			position: absolute;
+		  			transform: translate(50%,0%);
 
-	}
+		  		}
 
-	.main-content table{
-		width: 100%;
+		  		.main-content table{
+		  			width: 100%;
 
-	}
+		  		}
 
-	body{
-		position: relative;
+		  		body{
+		  			position: relative;
 
-	}
-	</style>
-	
-	
-</head>
-<body>
+		  		}
+		  		</style>
 
 
-	<div>
-	<button onclick="printJS('borderaeau_print','html')">Imprimer</button>
-	</div>
-
-	<div class="main-content" id="borderaeau_print">
-
-		<header>
-			<span>COPDI</span>
-			<span>Coopérative pour le Développement "<b>INEZA IWACU</b>"</span>
-			<span>NIF : 4001068602</span>
-			<span>RC : 11900/18</span>
-			<span>Adresse : Q. Muramvya, 1<sup>er</sup> AV. N° 60</span>
-		</header>
-
-		<section>
-			<p>
-			************************************************************ <br>
-			 <span>${operation.type_operation} EN ESPECES BORDEREAU No :  ${operation.id} </span> <br>
-			*************************************************************
-			</p>
-
-			<p>du : ${ new Date(operation.created_at).toLocaleString('en-GB',{ timeZone: 'Africa/Bujumbura' })}</p>
-			<p>
-				Compte No : ${operation.compte_name}
-				<br>
-				Verse par : ${operation.operer_par}
-			</p>
-
-			<p>
-
-			Montant Total : ${formatNumber(operation.montant)} <br>
+		  		</head>
+		  		<body>
 
 
-			<span> Soit :  <b>${NumberToLetter(operation.montant)} FBU </b></span>
+		  		<div>
+		  		<button onclick="printJS('borderaeau_print','html')">Imprimer</button>
+		  		</div>
 
-			</p>
+		  		<div class="main-content" id="borderaeau_print">
 
-		</section>
+		  		<header>
+		  		<span>COPDI</span>
+		  		<span>Coopérative pour le Développement "<b>INEZA IWACU</b>"</span>
+		  		<span>NIF : 4001068602</span>
+		  		<span>RC : 11900/18</span>
+		  		<span>Adresse : Q. Muramvya, 1<sup>er</sup> AV. N° 60</span>
+		  		</header>
 
-		<footer>
-		
-			Guichet : Kinama <br>
-			Caissier : ${user.first_name+' '+ user.last_name}
-			<div>
+		  		<section>
+		  		<p>
+		  		************************************************************ <br>
+		  		<span>${operation.type_operation} EN ESPECES BORDEREAU No :  ${operation.id} </span> <br>
+		  		*************************************************************
+		  		</p>
 
-				<span>Signature Caissier : </span> <br>
-				<hr>
-				<span>Signature du deposant : </span>
-			</div>
-		</footer>
+		  		<p>du : ${ new Date(operation.created_at).toLocaleString('en-GB',{ timeZone: 'Africa/Bujumbura' })}</p>
+		  		<p>
+		  		Compte No : ${operation.compte_name}
+		  		<br>
+		  		Verse par : ${operation.operer_par}
+		  		</p>
 
-		<hr>
+		  		<p>
 
-		<header>
-			<span>COPDI</span>
-			<span>Coopérative pour le Développement "<b>INEZA IWACU</b>"</span>
-			<span>NIF : 4001068602</span>
-			<span>RC : 11900/18</span>
-			<span>Adresse : Q. Muramvya, 1<sup>er</sup> AV. N° 60</span>
-		</header>
-
-		<section>
-			<p>
-			************************************************************ <br>
-			 <span>${operation.type_operation} EN ESPECES BORDEREAU No :  ${operation.id} </span> <br>
-			*************************************************************
-			</p>
-
-			<p>du : ${ new Date(operation.created_at).toLocaleString('en-GB',{ timeZone: 'Africa/Bujumbura' })}</p>
-			<p>
-				Compte No : ${operation.compte_name}
-				<br>
-				Verse par : ${operation.operer_par}
-			</p>
-
-			<p>
-
-			Montant Total : ${formatNumber(operation.montant)} <br>
+		  		Montant Total : ${formatNumber(operation.montant)} <br>
 
 
-			<span> Soit :  <b>${NumberToLetter(operation.montant)} FBU </b></span>
+		  		<span> Soit :  <b>${NumberToLetter(operation.montant)} FBU </b></span>
 
-			</p>
+		  		</p>
 
-		</section>
+		  		</section>
 
-		<footer>
-		
-			<hr>
-			Guichet : Kinama <br>
-			Caissier : ${user.first_name+' '+ user.last_name}
-			<div>
+		  		<footer>
 
-				<span>Signature Caissier : </span> <br>
-				
-				<span>Signature du deposant : </span>
-			</div>
+		  		Guichet : Kinama <br>
+		  		Caissier : ${user.first_name+' '+ user.last_name}
+		  		<div>
 
-			<hr>
-		</footer>
-	</div>
+		  		<span>Signature Caissier : </span> <br>
+		  		<hr>
+		  		<span>Signature du deposant : </span>
+		  		</div>
+		  		</footer>
+
+		  		<hr>
+
+		  		<header>
+		  		<span>COPDI</span>
+		  		<span>Coopérative pour le Développement "<b>INEZA IWACU</b>"</span>
+		  		<span>NIF : 4001068602</span>
+		  		<span>RC : 11900/18</span>
+		  		<span>Adresse : Q. Muramvya, 1<sup>er</sup> AV. N° 60</span>
+		  		</header>
+
+		  		<section>
+		  		<p>
+		  		************************************************************ <br>
+		  		<span>${operation.type_operation} EN ESPECES BORDEREAU No :  ${operation.id} </span> <br>
+		  		*************************************************************
+		  		</p>
+
+		  		<p>du : ${ new Date(operation.created_at).toLocaleString('en-GB',{ timeZone: 'Africa/Bujumbura' })}</p>
+		  		<p>
+		  		Compte No : ${operation.compte_name}
+		  		<br>
+		  		Verse par : ${operation.operer_par}
+		  		</p>
+
+		  		<p>
+
+		  		Montant Total : ${formatNumber(operation.montant)} <br>
 
 
-	
-</body>
-</html>
+		  		<span> Soit :  <b>${NumberToLetter(operation.montant)} FBU </b></span>
+
+		  		</p>
+
+		  		</section>
+
+		  		<footer>
+
+		  		<hr>
+		  		Guichet : Kinama <br>
+		  		Caissier : ${user.first_name+' '+ user.last_name}
+		  		<div>
+
+		  		<span>Signature Caissier : </span> <br>
+
+		  		<span>Signature du deposant : </span>
+		  		</div>
+
+		  		<hr>
+		  		</footer>
+		  		</div>
+
+
+
+		  		</body>
+		  		</html>
 
 
 

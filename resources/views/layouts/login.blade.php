@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'COOPDI') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -28,7 +28,7 @@
     <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
     <style>
         body{
-            background-image: url(/logo/bac.jpg);
+            background-image: url(/img/client_images/1593613725.jpeg);
             background-size: cover;
         }
         .main-content{
@@ -50,10 +50,10 @@
 
 background-color: rgba(245, 245, 245, 1);
   background: rgb(2,0,36);
-background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(45,128,177,1) 34%, rgba(0,212,255,1) 71%);
+background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(45,128,177,1) 34%, rgba(255,212,255,1) 71%);
 
-border: 1px solid black;
-border-radius: 200px;
+border: 2px solid white;
+border-radius: 10px;
 
 }
 

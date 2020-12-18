@@ -15,3 +15,5 @@ yarn-error.log
 coopdi_manager.sql.sql
 *.sql
 /db
+/public/img/client_images
+/public/img\\client_images

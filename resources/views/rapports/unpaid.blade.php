@@ -9,7 +9,6 @@
 	<div>
 		<h2 class="text-center">Montant du {{ date('Y-m') }}  :  {{ number_format($montant_total_mensuel) ?? ""}} FBU</h2>
 
-
 	</div>
 
 	<div>
