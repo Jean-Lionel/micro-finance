@@ -27,7 +27,7 @@ class FormDecouvertRequest extends FormRequest
             'montant' => 'required|numeric|min:0',
              'compte_name' => 'required|exists:comptes,name',
              'interet' => 'required|numeric|min:5',
-             'periode' => 'required|numeric|min:3',
+             'periode' => 'required|numeric|min:0',
         ];
     }
 }
