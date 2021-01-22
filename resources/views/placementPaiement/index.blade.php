@@ -50,7 +50,7 @@
 			<td>{{ $placement->compte_name}}</td>
 			<td>{{ numberFormat($placement->montant)}}</td>
 			<td>{{ date('Y-m-d', strtotime($placement->date_paiment))}}</td>
-			<td>{{ numberFormat($placement->placement->montant_restant) ?? "" }} </td>
+			<td>{{ numberFormat($placement->placement->montant_restant ?? 0) ?? "" }} </td>
 			
 			
 		</tr>

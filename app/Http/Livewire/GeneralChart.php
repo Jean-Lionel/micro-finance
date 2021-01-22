@@ -31,6 +31,8 @@ class GeneralChart extends Component
 
 			$this->versement = Operation::where('type_operation','=','VERSEMENT')->sum('montant');
        		 $this->retrait = Operation::where('type_operation','=','RETRAIT')->sum('montant');
+
+       		 // placement
 			
 			$this->placement = ComptePrincipalOperation::all()->sum('placement');
 			$this->decouvert = ComptePrincipalOperation::all()->sum('decouvert');

@@ -129,9 +129,7 @@ class DecouvertController extends Controller
     {
         //TODO
         //Ajouter le montant sur le compte principal
-
         //Enelever le nouveau Montant 
-
         //Modifier le Decouvert 
 
         //Modifier sur le compte principal operation
@@ -186,10 +184,6 @@ class DecouvertController extends Controller
 
      }
 
-
-
-
-
         // $total_a_rambourse = 
         // $request->montant + 
         // ((($request->montant * $request->interet)/100) * $request->periode);
@@ -219,6 +213,9 @@ class DecouvertController extends Controller
      */
     public function destroy(Decouvert $decouvert)
     {
-        //
+
+       // ComptePrincipalController: Ajouter le montant sur le compte principal
+        //Decouvert : SUpprimer Le decouvert
+        //ComptePrincipalOperationController: ENregistrer l'operation
     }
 }

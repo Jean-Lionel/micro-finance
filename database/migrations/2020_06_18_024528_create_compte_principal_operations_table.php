@@ -19,9 +19,11 @@ class CreateComptePrincipalOperationsTable extends Migration
             $table->decimal('versement',60,2)->default(0);
             $table->decimal('placement',60,2)->default(0);
             $table->decimal('decouvert',60,2)->default(0);
+            
             $table->decimal('reboursement',60,2)->default(0);
             $table->decimal('tenue_compte',60,2)->default(0);
             $table->decimal('annulation_versement',60,2)->default(0);
+            
             $table->decimal('annulation_retrait',60,2)->default(0);
             $table->decimal('paiment_placement',60,2)->default(0);
             $table->decimal('depense',60,2)->default(0);

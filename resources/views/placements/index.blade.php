@@ -85,6 +85,14 @@
 			<td>
 				@can('is-admin')
 				<a href="{{ route('placements.edit', $placement) }}" class="btn-success btn btn-sm">Modifier</a>
+
+				<form action="{{ route('placements.destroy',$placement) }}" method="post">
+					@csrf
+
+					@method('DELETE')
+
+					<button onclick="return confirm('êtez-vous sûr de supprimer ? ')">Supprimmer</button>
+				</form>
 				@endcan
 			</td>
 				

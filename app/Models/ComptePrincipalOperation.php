@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
 class ComptePrincipalOperation extends ParentModel
@@ -10,8 +11,10 @@ class ComptePrincipalOperation extends ParentModel
 
 	// annulation_versement`, `annulation_retrait
 
+	use SoftDeletes;
+
 	protected $fillable = [
-	'retrait','versement','compte_name','placement','decouvert','depense','reboursement','tenue_compte','annulation_versement','annulation_retrait','paiment_placement'];
+	'retrait','versement','compte_name','placement','decouvert','depense','reboursement','tenue_compte','annulation_versement','annulation_retrait','paiment_placement','moins','suppression_placement'];
 
 	
 	//annulation_versement

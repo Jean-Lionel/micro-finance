@@ -50,10 +50,11 @@ class RapportsController extends Controller
                 	DB::raw('SUM(reboursement) as total_reboursement'),
                 	DB::raw('SUM(decouvert) as total_decouvert'),
                 	DB::raw('SUM(annulation_retrait) as total_annulation_retrait'),
-                	DB::raw('SUM(annulation_versement) as total_annulation_versement'),
+                    DB::raw('SUM(annulation_versement) as total_annulation_versement'),
                 	DB::raw('SUM(paiment_placement) as total_paiment_placement'),
                 	DB::raw('created_at'),
                 )
+                ->where('deleted_at','=',NULL)
                 ->get();
 
         $versement = Operation::where('type_operation','=','VERSEMENT')
@@ -77,7 +78,9 @@ class RapportsController extends Controller
         	
         	'operation' => [
         		'total_versement' => $versement,
-        		'total_retrait' => $retrait]
+        		'total_retrait' => $retrait
+
+            ]
 
         		 ]);
 

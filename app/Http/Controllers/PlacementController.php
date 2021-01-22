@@ -103,8 +103,6 @@ class PlacementController extends Controller
         //Verification sur le compte principal
         //$response = ComptePrincipalController::update($request->montant,'PLACEMENT');
 
-
-
         try {
             DB::beginTransaction();
             $date_pl = Carbon::create($request->date_placement);
@@ -115,7 +113,6 @@ class PlacementController extends Controller
 
             ComptePrincipalController::store_info($request->montant,'PLACEMENT');
             ComptePrincipalOperationController::storeOperation($request->montant,'placement',$request->compte_name);
-
 
             $placement = Placement::create([
                 'montant' => $request->montant,
@@ -275,10 +272,7 @@ class PlacementController extends Controller
 
              ]);
 
-
             }
-
-
 
             DB::commit();
 
@@ -287,8 +281,6 @@ class PlacementController extends Controller
         } catch (\Exception $e) {
 
             DB::rollback();
-
-
 
             errorMessage($e->getMessage());
 
@@ -311,6 +303,70 @@ class PlacementController extends Controller
      */
     public function destroy(Placement $placement)
     {
-        //
+
+        
+        //La suppression se fait dans 5 tables 🚧
+
+//         ComptePrincipalController // Enleve le montant sur le compte principal
+
+
+// ComptePrincipalOperationController //Stocker l'operation
+// Placement // Suppression du placement
+// PlacementCompteOperation // Enregistrer l'operation
+// ComptePlacement // Actualiser
+// update 
+// ComptePrincipalController::store_info($placement->montant,'MOINS');
+
+
+        try {
+            DB::beginTransaction();
+
+
+            ComptePrincipalController::store_info($placement->montant,'MOINS');
+
+
+            // ComptePrincipalOperationController::storeOperation($placement->montant,'suppression_placement',$placement->compte_name);
+
+
+                 $compte_principalOp = ComptePrincipalOperation::where('compte_name','=',$placement->compte_name)
+            ->where('placement', '=',$placement->montant)
+            ->whereDate('created_at','=',$placement->created_at)->first();
+
+             $compte_principalOp->delete();
+
+
+
+            $op = PlacementCompteOperation::where('placement', $placement->id)->firstOrFail();
+
+            $op->delete();
+
+              $compte_placement = ComptePlacement::where('name','=',$placement->compte_name)->firstOrFail();
+
+            if($compte_placement->montant > $placement->montant){
+
+                $compte_placement->update(['montant' =>($compte_placement->montant - abs($placement->montant_restant)) ]);
+
+                $placement->delete();
+
+            }else{
+                 throw new Exception("Error parceQue vous n'avez pas le montant sur votre compte");
+            }
+
+            
+
+            DB::commit();
+            
+        } catch (\Exception $e) {
+
+            DB::rollback();
+
+             errorMessage($e->getMessage());
+            // dump($e->getMessage());
+            
+        }
+
+        return back();
+
+
     }
 }
