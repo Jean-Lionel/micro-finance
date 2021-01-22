@@ -95,12 +95,12 @@
 						@endif
 						
 
-						{{--
+						
 							<form action="{{ route('decouverts.destroy' , $placement) }}" style="display: inline;" method="POST">
 							{{ csrf_field() }}
 							{{ method_field('DELETE') }}
-							<button class="btn btn-outline-danger btn-sm">Delete</button>
-						</form> --}}
+							<button class="btn btn-outline-danger btn-sm" onclick="return confirm('Voulez-vous supprimer?')">Supprimer</button>
+						</form> 
 
 
 					</td>

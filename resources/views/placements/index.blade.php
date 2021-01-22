@@ -82,16 +82,16 @@
 				@endif
 
 			</td>
-			<td>
+			<td class="d-flex">
 				@can('is-admin')
-				<a href="{{ route('placements.edit', $placement) }}" class="btn-success btn btn-sm">Modifier</a>
+				<a href="{{ route('placements.edit', $placement) }}" class="btn-success btn btn-sm mr-2" title="Modifier"><i class="fa fa-edit"></i></a>
 
 				<form action="{{ route('placements.destroy',$placement) }}" method="post">
 					@csrf
 
 					@method('DELETE')
 
-					<button onclick="return confirm('êtez-vous sûr de supprimer ? ')">Supprimmer</button>
+					<button onclick="return confirm('êtez-vous sûr de supprimer ? ')" title="Supprimer" class="btn btn-danger"> <i class="fa fa-trash" ></i></button>
 				</form>
 				@endcan
 			</td>

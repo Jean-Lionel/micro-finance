@@ -134,9 +134,6 @@ class DecouvertController extends Controller
 
         //Modifier sur le compte principal operation
 
-
-
-
         try {
 
           DB::beginTransaction();
@@ -150,7 +147,7 @@ class DecouvertController extends Controller
           $compte_principal_op = ComptePrincipalOperation::where('compte_name','=', $request->compte_name)
           ->where('decouvert','=',$decouvert->montant)
           ->whereDate('created_at','=',$decouvert->created_at)
-          ->first();
+          ->firstOrFail();
 
           if($compte_principal_op){
              //Ajout du montant sur le compte principal
@@ -217,5 +214,36 @@ class DecouvertController extends Controller
        // ComptePrincipalController: Ajouter le montant sur le compte principal
         //Decouvert : SUpprimer Le decouvert
         //ComptePrincipalOperationController: ENregistrer l'operation
+
+        try {
+
+             DB::beginTransaction();
+
+
+         ComptePrincipalController::store_info($decouvert->montant,'ADD');
+
+
+          $compte_principal_op = ComptePrincipalOperation::where('compte_name','=', $decouvert->compte_name)
+          ->where('decouvert','=',$decouvert->montant)
+          ->whereDate('created_at','=',$decouvert->created_at)
+          ->firstOrFail();
+
+
+          $compte_principal_op->delete();
+
+          $decouvert->delete();
+
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            errorMessage($e->getMessage());
+            return back();
+            
+        }
+
+        successMessage();
+
+        return back();
     }
 }
