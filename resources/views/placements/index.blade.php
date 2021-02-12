@@ -42,6 +42,7 @@
 			<th>No</th>
 			<th>@sortablelink('compte_name','COMPTE NO')</th>
 			<th>@sortablelink('montant','Montant placé') </th>
+			<th>@sortablelink('montant','Nom Prenom') </th>
 			<th>@sortablelink('nbre_moi','Periode (mois)') </th>
 			<th>@sortablelink('interet','Interet %') </th>
 			<th>@sortablelink('interet_Moi','Intérêt Mensuelle') </th>

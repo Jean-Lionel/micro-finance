@@ -3,12 +3,12 @@
 
 	<div class="row">
 		<div class="col-md-4">
-		{{-- 	<div class="form-group p-3 mb-2">
+	{{-- 		<div class="form-group p-3 mb-2">
 				<label for=""> DATE</label>
 				<input type="date" wire:model="currentDate" class="form-control">
 			</div>
- --}}
 
+ --}}
 			<label for="">Les Caissiers</label>
 
 			@if($users)
