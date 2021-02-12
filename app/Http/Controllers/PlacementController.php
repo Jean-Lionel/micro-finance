@@ -44,6 +44,7 @@ class PlacementController extends Controller
         $search = \Request::get('search');
 
 
+
         $placements = Placement::sortable(['created_at'=>'desc'])
         ->where('montant','like', '%'.$search.'%')
         ->orWhere('compte_name','like', '%'.$search.'%')
@@ -51,6 +52,7 @@ class PlacementController extends Controller
         ->orWhere('interet_total','like', '%'.$search.'%')
         ->orWhere('nbre_moi','like', '%'.$search.'%')
         ->paginate(20);
+
 
         //dump(PaiementPlacement::payePlacementPaye(1));
         // $now = Carbon::now();

@@ -37,6 +37,11 @@ class ClientController extends Controller
 
            // return "Je suis cool";
         //}
+        
+
+        // $compte = Compte::getCompteByName('coo-12');
+
+        // dd( $compte->client);
 
 
         $search = \Request::get('search'); 
