@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Client;
+use App\Models\Compte;
+use App\Models\ComptePlacement;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 
 class Placement extends ParentModel
 {
@@ -30,6 +33,13 @@ class Placement extends ParentModel
 		self::creating(function($model){
 			$model->user_id = Auth::user()->id;
 			});
+	}
+
+	public function getClientNameAttribute(){
+
+		$compte = ComptePlacement::where('name','=', $this->compte_name)->first();
+
+		return $compte->client->fullName ?? "";
 	}
 
 }

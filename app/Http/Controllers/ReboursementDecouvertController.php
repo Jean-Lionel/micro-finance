@@ -28,7 +28,7 @@ class ReboursementDecouvertController extends Controller
     {
         $search = \Request::get('search'); 
 
-        $reboursementDecouverts = ReboursementDecouvert::sortable()
+        $reboursementDecouverts = ReboursementDecouvert::latest()->sortable()
             ->where('compte_name','like',$search.'%')
             ->paginate(20);
 

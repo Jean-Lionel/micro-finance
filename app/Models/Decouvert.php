@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Compte;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
 
 class Decouvert extends ParentModel
 {
@@ -27,6 +28,15 @@ class Decouvert extends ParentModel
         self::creating(function($model){
                 $model->user_id = Auth::user()->id;
             });
+    }
+
+
+    public function getClientNameAttribute(){
+
+        $compte = Compte::where('name','=', $this->compte_name)->first();
+        
+
+        return $compte->client->fullName ?? "";
     }
 
 

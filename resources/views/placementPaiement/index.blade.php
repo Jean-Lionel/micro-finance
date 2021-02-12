@@ -9,7 +9,7 @@
 	<div class="col-md-4 col-sm-6">
 		<form action="" class="navbar-form navbar-left">
 			<div class="input-group custom-search-form">
-				<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search}}">
+				<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search ?? 'P-'}}">
 				<span class="input-group-btn">
 					<button class="btn btn-default-sm" type="submit">
 						<i class="fa fa-search"></i>
@@ -32,6 +32,7 @@
 
 
 			<th>No</th>
+			<th>Nom Prénom</th>
 			<th>@sortablelink('compte_name','COMPTE NO')</th>
 			<th>@sortablelink('montant','Montant Payé') </th>
 			<th>@sortablelink('date_paiment','Date de Paiment') </th>
@@ -39,7 +40,7 @@
 			
 			
 			
-			<th>Action</th>
+			{{-- <th>Action</th> --}}
 		</tr>
 	</thead>
 	<tbody>
@@ -47,6 +48,7 @@
 		@foreach($placement_paiments as $key=> $placement)
 		<tr>
 			<td>{{$key + 1}}</td>
+			<td>{{ $placement->compte->client->fullName }}</td>
 			<td>{{ $placement->compte_name}}</td>
 			<td>{{ numberFormat($placement->montant)}}</td>
 			<td>{{ date('Y-m-d', strtotime($placement->date_paiment))}}</td>

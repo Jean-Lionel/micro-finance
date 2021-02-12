@@ -39,12 +39,13 @@
 
 	@if($decouverts)
 
-	<table class="table  table-hover table-striped table-responsive table-sm">
+	<table class="table  table-hover table-striped table-responsive ">
 		<thead>
 			<tr>
 
 
 				<th>No</th>
+				<th>NOM ET PRENOM</th>
 				<th>@sortablelink('compte_name','COMPTE NO')</th>
 				<th>@sortablelink('montant','Montant') </th>
 				<th>@sortablelink('interet','Interet en %') </th>
@@ -60,35 +61,36 @@
 		</thead>
 		<tbody>
 
-			@foreach($decouverts as $key=> $placement)
+			@foreach($decouverts as $key=> $decouvert)
 			<tr>
 				<td>{{$key + 1}}</td>
-				<td>{{ $placement->compte_name}}</td>
-				<td>{{ numberFormat($placement->montant)}}</td>
-				<td>{{ numberFormat($placement->interet)}}</td>
-				<td>{{ numberFormat($placement->total_a_rambourse - $placement->montant)}}</td>
-				<td>{{ numberFormat($placement->total_a_rambourse)}}</td>
-				<td>{{ numberFormat($placement->montant_restant)}}</td>
-				<td>{{ $placement->periode}}</td>
+				<td>{{ $decouvert->clientName }}</td>
+				<td>{{ $decouvert->compte_name}}</td>
+				<td>{{ numberFormat($decouvert->montant)}}</td>
+				<td>{{ numberFormat($decouvert->interet)}}</td>
+				<td>{{ numberFormat($decouvert->total_a_rambourse - $decouvert->montant)}}</td>
+				<td>{{ numberFormat($decouvert->total_a_rambourse)}}</td>
+				<td>{{ numberFormat($decouvert->montant_restant)}}</td>
+				<td>{{ $decouvert->periode}}</td>
 				<td>
-					@if ($placement->paye == 1)
+					@if ($decouvert->paye == 1)
 					<span style="color: green">DEJA PAYE</span>
 					@endif
 
-					@if ($placement->paye ==0)
+					@if ($decouvert->paye ==0)
 					<span style="color: red">NON PAYE</span>
 					@endif
 
 					
-					<td>{{ $placement->created_at}}</td>
+					<td>{{ $decouvert->created_at}}</td>
 					<td>
-						{{-- <a href="{{ route('decouverts.show',$placement) }}" class="btn btn-outline-info">show</a> --}}
+						{{-- <a href="{{ route('decouverts.show',$decouvert) }}" class="btn btn-outline-info">show</a> --}}
 
-						@if ($placement->paye ==0)
+						@if ($decouvert->paye ==0)
 
 						@can('is-admin')
 
-						<a href="{{ route('decouverts.edit',$placement) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
+						<a href="{{ route('decouverts.edit',$decouvert) }}" class="btn btn-outline-dark btn-sm">Modifier</a>
 
 						@endcan
 
@@ -96,7 +98,7 @@
 						
 
 						
-							<form action="{{ route('decouverts.destroy' , $placement) }}" style="display: inline;" method="POST">
+							<form action="{{ route('decouverts.destroy' , $decouvert) }}" style="display: inline;" method="POST">
 							{{ csrf_field() }}
 							{{ method_field('DELETE') }}
 							<button class="btn btn-outline-danger btn-sm" onclick="return confirm('Voulez-vous supprimer?')">Supprimer</button>

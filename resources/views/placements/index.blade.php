@@ -23,13 +23,10 @@
 						<i class="fa fa-search"></i>
 					</button>
 				</span>
-
 			</div>
 		</form>
 	</div>
 </div>
-
-
 <a href="{{ route('placements.create')}}" class="btn btn-info">Nouvel placement</a>
 
 @if($placements)
@@ -40,9 +37,10 @@
 
 
 			<th>No</th>
+			<th>Nom Prenom </th>
 			<th>@sortablelink('compte_name','COMPTE NO')</th>
 			<th>@sortablelink('montant','Montant placé') </th>
-			<th>@sortablelink('montant','Nom Prenom') </th>
+			
 			<th>@sortablelink('nbre_moi','Periode (mois)') </th>
 			<th>@sortablelink('interet','Interet %') </th>
 			<th>@sortablelink('interet_Moi','Intérêt Mensuelle') </th>
@@ -62,8 +60,10 @@
 		@foreach($placements as $key=> $placement)
 		<tr>
 			<td>{{$key + 1}}</td>
+			<td>{{ $placement->clientName }}</td>
 			<td>{{ $placement->compte_name}}</td>
 			<td>{{ numberFormat($placement->montant)}}</td>
+			
 			<td>{{ $placement->nbre_moi}}</td>
 			<td>{{ $placement->interet}}</td>
 			<td>{{ $placement->interet_Moi}}</td>

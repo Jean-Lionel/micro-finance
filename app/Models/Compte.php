@@ -12,8 +12,12 @@ class Compte extends ParentModel
 
     public $sortable = ['client_id','montant','name','type_compte'];
 
-     public function client()
+    public function client()
     {
         return $this->belongsTo('App\Models\Client');
+    }
+
+    public static function getCompteByName($name){
+    	return self::where('name','=', $name)->first();
     }
 }

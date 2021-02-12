@@ -49,4 +49,9 @@ class Client extends ParentModel
     {
         return $this->hasMany('App\Models\Compte');
     }
+
+
+    public function getFullNameAttribute(){
+        return $this->nom . " ". $this->prenom;
+    }
 }

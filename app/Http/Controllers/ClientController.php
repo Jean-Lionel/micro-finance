@@ -57,7 +57,7 @@ class ClientController extends Controller
         ->orWhere('antenne','like','%'.$search.'%')
         ->orWhere('created_at','like','%'.$search.'%')
         ->orderBy('nom')
-        ->paginate(10);
+        ->paginate();
 
 
 

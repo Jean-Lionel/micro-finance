@@ -4,7 +4,7 @@
 <div class="row">
 	
 	<div class="col-md-10">
-		<h5 class="text-center">Enregistre une nouvel placement</h5>
+		<h5 class="text-center">Enregistrer une nouvel placement</h5>
 	</div>
 	<div class="col-md-4">
 		<fieldset class="form-group">

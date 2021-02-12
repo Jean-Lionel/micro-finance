@@ -11,10 +11,6 @@ class PlacementClient extends ParentModel
 {
 
 	
-
-
-
-
 	protected $fillable = ['nom', 'prenom','cni','telephone','addresse', 'mandataire_name' ,'mandataire_telephone','mandataire_cni','mandataire_addresse'];
 
 
@@ -30,6 +26,10 @@ class PlacementClient extends ParentModel
 
 		return $comptePlacement->name ?? "";
 
+	}
+
+	public function getFullNameAttribute(){
+		return $this->nom. ' '. $this->prenom;
 	}
 
 }

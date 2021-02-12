@@ -9,7 +9,7 @@
 	<div class="col-md-6">
 		<form action="" class="navbar-form navbar-left">
 			<div class="input-group custom-search-form">
-				<input type="text" class="form-control" name="search" placeholder="Entre le numero du compte." value="{{$search}}">
+				<input type="text" class="form-control" name="search" placeholder="Entre le numero du compte." value="{{$search ?? 'COO-'}}">
 				<span class="input-group-btn">
 					<button class="btn btn-default-sm" type="submit">
 						<i class="fa fa-search"></i>
@@ -31,6 +31,7 @@
 
 
 			<th>No</th>
+			<th>Nom et Prénom</th>
 			<th>@sortablelink('compte_name','COMPTE NO')</th>
 			<th>@sortablelink('montant','Montant') </th>
 			<th>@sortablelink('interet','Taux en %') </th>
@@ -45,6 +46,7 @@
 		@foreach($reboursementDecouverts as $key=> $remboursementDecouvert)
 		<tr>
 			<td>{{$key + 1}}</td>
+			<td>{{ $remboursementDecouvert->clientName }}</td>
 			<td>{{ $remboursementDecouvert->compte_name}}</td>
 			<td>{{ numberFormat($remboursementDecouvert->montant)}}</td>
 			<td>{{ numberFormat($remboursementDecouvert->decouvert->interet)}}</td>

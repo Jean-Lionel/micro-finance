@@ -15,6 +15,6 @@ class ComptePlacement extends ParentModel
 
 	 public function client()
     {
-        return $this->belongsTo('App\Models\PlacementClient');
+        return $this->belongsTo('App\Models\PlacementClient','placement_client_id','id');
     }
 }

@@ -7,7 +7,7 @@
 
 		<form action="" id="formulaire" class="form-inline">
 			@csrf
-			<input type="text" class="form-control" id="search" name="search" placeholder="Entre le numero de compte" value="">
+			<input type="text" class="form-control" id="search" name="search" placeholder="Entre le numero de compte" value="COO-">
 			<span class="input-group-btn">
 				<button class="btn btn-default-sm" type="submit">
 					<i class="fa fa-search"></i>
