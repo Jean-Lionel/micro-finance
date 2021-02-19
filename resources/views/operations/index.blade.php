@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-md-1 col-sm-12 badge-dark">
-		<p><a href="{{ route('operations.create')}}" class="text-lg-center white-color">Nouvelle opération</a></p>
+		<p><a href="{{ route('operations.create') }}" class="text-lg-center white-color">Nouvelle opération</a></p>
 
 
 	</div>
@@ -18,7 +18,7 @@
 			<div class="col-md-4 col-sm-6">
 				<form action="" class="navbar-form navbar-left">
 					<div class="input-group custom-search-form">
-						<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search}}">
+						<input type="text" class="form-control" name="search" placeholder="Search..." value="{{ $search }}">
 						<span class="input-group-btn">
 							<button class="btn btn-default-sm" type="submit">
 								<i class="fa fa-search"></i>
@@ -54,11 +54,11 @@
 
 					@foreach($operations as $key=> $operation)
 					<tr>
-						<td>{{$key + 1}}</td>
-						<td>{{ $operation->compte_name}}</td>
-						<td>{{ numberFormat($operation->montant)}}</td>
-						<td>{{ $operation->type_operation}}</td>
-						<td>{{ $operation->created_at}}</td>
+						<td>{{ $key + 1 }}</td>
+						<td>{{ $operation->compte_name }}</td>
+						<td>{{ numberFormat($operation->montant) }}</td>
+						<td>{{ $operation->type_operation }}</td>
+						<td>{{ $operation->created_at }}</td>
 						<td>
 							<!-- <a href="{{ route('operations.show',$operation) }}" class="btn btn-outline-info">show</a> -->
 							@can('is-admin')
@@ -67,7 +67,7 @@
 							@endcan
 
 
-							<button class="btn btn-outline-info btn-sm imprimer" onclick="printBordereau({{$operation->id}})">Imprimer</button>
+							<button class="btn btn-outline-info btn-sm imprimer" onclick="printBordereau({{ $operation->id }})">Imprimer</button>
 
 						{{-- <form action="{{ route('operations.destroy' , $operation) }}" style="display: inline;" method="POST">
 							{{ csrf_field() }}
@@ -83,7 +83,7 @@
 			</tbody>
 		</table>
 
-		{{ $operations->links()}}
+		{{ $operations->links() }}
 
 
 
@@ -141,7 +141,7 @@
 
 @section('javascript')
 
-<script>
+<script type="script">
 
 	const formatNumber = (number) => {
 		return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'FBU' }).format(number)
@@ -185,9 +185,7 @@
 	})
 
 
-</script>
 
-<script>
 
 	const imprimer = $('.imprimer')
 
@@ -203,7 +201,7 @@
 		  	const operation = data.operation;
 		  	const user = data.user;
 
-		  	console.log(data);
+		  //	console.log(data);
 
 		  	$('.content-data').html(`
 
@@ -345,8 +343,6 @@
 		  		</footer>
 		  		</div>
 
-
-
 		  		</body>
 		  		</html>
 
@@ -359,6 +355,6 @@
 		});
 		
 	}
-</script>
+</script> 
 
 @endsection
