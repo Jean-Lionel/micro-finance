@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKirimbaMembresTable extends Migration
+class CreateKirimbaComptesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateKirimbaMembresTable extends Migration
      */
     public function up()
     {
-        Schema::create('kirimba_membres', function (Blueprint $table) {
+        Schema::create('kirimba_comptes', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('cni');
-            $table->string('telephone')->nullable();
-            $table->string('addresse')->nullable();
+            $table->string('name');
+            $table->foreignId('kirimba_membre_id');
+            $table->double('montant');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +30,6 @@ class CreateKirimbaMembresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kirimba_membres');
+        Schema::dropIfExists('kirimba_comptes');
     }
 }
