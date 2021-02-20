@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 //Route::permanentRedirect('/', '/home');
 
-Route::get('/','HomeController@index');
+Route::get('/','DashboardController@index');
 
 
 

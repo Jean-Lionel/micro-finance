@@ -2,7 +2,9 @@
 		<div class="col">
 			<a href="{{ route('ikirimba-operation') }}">opération</a>
 		</div>
-		<div class="col">2</div>
+		<div class="col">
+			<a href="{{ route('ikirimba-membre') }}"> Membres</a>
+		</div>
 		<div class="col">3</div>
 		<div class="col">4</div>
 		<div class="col">5</div>

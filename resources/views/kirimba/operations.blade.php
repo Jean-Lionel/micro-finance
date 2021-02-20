@@ -4,7 +4,7 @@
 
 <div>
 	@include('kirimba.header')
-	<livewire:kirimba-membre-livewire />
+	<livewire:kirimba-operation/>
 </div>
 
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $a = new Illuminate\Support\Carbon(); 
+       // $a = new Illuminate\Support\Carbon(); 
         
       
         return view('home');
