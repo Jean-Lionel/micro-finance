@@ -116,6 +116,8 @@
         <a class="p-2 {{set_active_router('rapports')}}" href="{{ route('rapports.index') }}"><i class="fa fa-share"></i> Rapport</a>
         {{-- <a class="p-2 {{set_active_router('rapports')}}" href="{{ route('placement-client.index') }}"><i class="fa fa-share"></i>Compte des place</a>
  --}}
+
+        <a  class="p-2 {{set_active_router('ikirimba-membre')}}" href="{{ route('ikirimba-membre') }}">IKIRIMBA</a>
         <a class="p-2 {{set_active_router('register')}}"  href="{{ route('users.index') }}"><i class="fa fa-users"></i> Utilisateur</a>
          @endcan
 

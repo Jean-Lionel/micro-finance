@@ -16,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::permanentRedirect('/', '/home');
+//Route::permanentRedirect('/', '/home');
+
+Route::get('/','HomeController@index');
+
+
 
 Route::resource('clients','ClientController');
 Route::resource('operations','OperationController');
@@ -24,18 +28,12 @@ Route::resource('comptes','CompteController');
 
 Route::get('comptes/ajouter/{id}', 'CompteController@createCompte')->name('create_compte');
 
-
-
-
-
-
 Route::resource('placements','PlacementController');
 Route::resource('decouverts','DecouvertController');
 Route::resource('tenuecomptes','TenueCompteController');
 Route::resource('placementPaiement','PlacementPaimentController');
 
 Route::resource('rapports','RapportsController');
-
 
 Route::get('userOperation','RapportsController@userOperation')->name('user_oparation');
 
@@ -73,6 +71,8 @@ Route::get('depense',function(){
 });
 
 
+
+
 Route::get('finaliser/{placement}','PlacementController@finaliser')->name('finaliser');
 
 //ajax Router
@@ -92,10 +92,11 @@ Route::get('operation_details', 'OperationController@operation_details')->name('
 
 Route::resource('posts', 'PostController');
 
-
-
-
 //Route pour le placement
 
 Route::resource('placement-client','PlacementClientController');
+
+//IKIRIMBA PROJECT 
+
+Route::get('ikirimba-membre', 'KirimbaMembreController@index')->name('ikirimba-membre');
 

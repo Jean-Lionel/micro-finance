@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\KirimbaMembre;
+use App\kirimbaOperation;
 use Illuminate\Http\Request;
 
-class KirimbaMembreController extends Controller
+class KirimbaOperationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,6 @@ class KirimbaMembreController extends Controller
     public function index()
     {
         //
-        return view('kirimba.membre');
     }
 
     /**
@@ -42,10 +41,10 @@ class KirimbaMembreController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\KirimbaMembre  $kirimbaMembre
+     * @param  \App\kirimbaOperation  $kirimbaOperation
      * @return \Illuminate\Http\Response
      */
-    public function show(KirimbaMembre $kirimbaMembre)
+    public function show(kirimbaOperation $kirimbaOperation)
     {
         //
     }
@@ -53,10 +52,10 @@ class KirimbaMembreController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\KirimbaMembre  $kirimbaMembre
+     * @param  \App\kirimbaOperation  $kirimbaOperation
      * @return \Illuminate\Http\Response
      */
-    public function edit(KirimbaMembre $kirimbaMembre)
+    public function edit(kirimbaOperation $kirimbaOperation)
     {
         //
     }
@@ -65,10 +64,10 @@ class KirimbaMembreController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\KirimbaMembre  $kirimbaMembre
+     * @param  \App\kirimbaOperation  $kirimbaOperation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, KirimbaMembre $kirimbaMembre)
+    public function update(Request $request, kirimbaOperation $kirimbaOperation)
     {
         //
     }
@@ -76,10 +75,10 @@ class KirimbaMembreController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\KirimbaMembre  $kirimbaMembre
+     * @param  \App\kirimbaOperation  $kirimbaOperation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(KirimbaMembre $kirimbaMembre)
+    public function destroy(kirimbaOperation $kirimbaOperation)
     {
         //
     }
