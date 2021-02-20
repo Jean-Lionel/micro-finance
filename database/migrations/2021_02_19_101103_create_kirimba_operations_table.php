@@ -15,8 +15,9 @@ class CreateKirimbaOperationsTable extends Migration
     {
         Schema::create('kirimba_operations', function (Blueprint $table) {
             $table->id();
-            $table->table('compte_name');
             $table->integer('kirimba_compte_id');
+            $table->string('compte_name');
+            $table->string('type_operation');
             $table->double('montant', 64 ,2);
             $table->foreignId('user_id');
             $table->timestamps();

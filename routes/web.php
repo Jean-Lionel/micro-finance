@@ -100,3 +100,5 @@ Route::resource('placement-client','PlacementClientController');
 
 Route::get('ikirimba-membre', 'KirimbaMembreController@index')->name('ikirimba-membre');
 
+Route::get('ikirimba-operation', 'KirimbaOperationController@index')->name('ikirimba-operation');
+

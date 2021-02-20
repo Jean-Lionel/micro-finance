@@ -15,6 +15,7 @@ class KirimbaOperationController extends Controller
     public function index()
     {
         //
+        return view('kirimba.operations');
     }
 
     /**
