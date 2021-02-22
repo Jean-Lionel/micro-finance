@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\KirimbaCompte;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class KirimbaOperation extends Component
 {
@@ -16,7 +17,7 @@ class KirimbaOperation extends Component
 
 	protected $rules = [
 		'montant' => 'required|min:0|numeric',
-		'CompteName' => 'exists:kirimba_comptes,name',
+		'CompteName' => 'required|exists:kirimba_comptes,name',
 		'type_operation' => 'required|in:RETRAIT,VERSEMENT',
 	];
 
@@ -27,6 +28,27 @@ class KirimbaOperation extends Component
 
     public function saveOperation(){
     	$this->validate($this->rules);
+
+        /**
+         * VERFIER LE MONTANT SUR LE COMPTE PRINCIPAL IKIRIMBA
+         * VERFIER QU'IL Y A LE MONTANT SUR LE COMPTE DU MEMBRE
+         *
+         * ENLEVE LE MONTANT SUR LE COMPTE DU MEMBRE
+         *
+         * ENLEVE LE MONTANT SUR LE COMPTE PRINCIPAL
+         *
+         * 
+         */
+        
+
+        try {
+            DB::beginTransaction();
+
+            DB::commit();
+            
+        } catch (\Exception $e) {
+            
+        }
     }
 
     public function updatedCompteName(){

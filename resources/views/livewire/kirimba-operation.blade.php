@@ -9,8 +9,6 @@ montant
 
      --}}
 
-
-
    	<div class="row mt-5">
    		<div class="col-md-6">
 	   		<form action="" wire:submit.prevent="saveOperation">
@@ -82,7 +80,7 @@ montant
 
 	   		@else
 	   		<div class="badge-danger">
-	   			{{-- <h1 class="text-center">NUMERO INVALIDE</h1> --}}
+	   			<h3 class="text-center">NUMERO INVALIDE</h3>
 	   			
 	   		</div>
 
