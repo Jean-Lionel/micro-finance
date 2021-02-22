@@ -2,9 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\KirimbaCompte;
 use Livewire\Component;
+use App\Models\KirimbaCompte;
+use App\Models\kirimbaOperation as KOperation;
 use Illuminate\Support\Facades\DB;
+use App\Models\KirimbaComptePrincipal;
+use App\Models\KirimbaComptePrincipalOperation;
+
 
 class KirimbaOperation extends Component
 {
@@ -27,7 +31,8 @@ class KirimbaOperation extends Component
     }
 
     public function saveOperation(){
-    	$this->validate($this->rules);
+    	
+        $this->validate($this->rules);
 
         /**
          * VERFIER LE MONTANT SUR LE COMPTE PRINCIPAL IKIRIMBA
@@ -40,13 +45,86 @@ class KirimbaOperation extends Component
          * 
          */
         
-
         try {
             DB::beginTransaction();
 
+            if( KirimbaComptePrincipalOperation::isValideRegistration() == false){
+                throw new \Exception("Votre date n'est pas bien réglé", 1);
+            }
+
+            $compte_principal = KirimbaComptePrincipal::latest()->first() ?? new KirimbaComptePrincipal;
+             $compte = $this->membre->compte;
+
+            if($this->type_operation == 'RETRAIT')
+            {
+                if($this->montant > $compte_principal->montant){
+                    //ERROR
+                    throw new \Exception("Le compte principal de IKIRIMBA ne possede pas cette montant demande", 1);
+                    
+                }else{
+                    //ON CHERCHE LE COMPTE DU MEMBRE 
+                    //
+                    //UN MEMBRE A LE DROIT DE DEMANDE LE MONTANT < 1/2 de son compte 
+                    //principal 
+                    
+                    if($this->montant < ($this->membre->compte->montant * 2)){
+                        //RETRAIT 
+                       
+                        
+                        $compte_principal->montant  -= $this->montant;
+
+                        $compte_principal->save();
+
+                        $compte->montant -= $this->montant;
+
+                        $compte->save();
+
+                    }else{
+                        //ERROR 
+                        throw new \Exception("Solde insufisant sur votre compte", 1);
+                        
+                    }
+                }
+
+            }else if($this->type_operation == 'VERSEMENT'){
+
+                //AUGMENTER LE MONTANT DU COMPTE PRINCIPALE 
+                
+                 $compte = $this->membre->compte;   
+                 $compte_principal->montant  += $this->montant;
+                 $compte_principal->save();
+                 $compte->montant += $this->montant;
+                 $compte->save();
+            }
+
+           $op = KOperation::create([
+                'kirimba_compte_id' =>  $compte->id,
+                'compte_name' =>  $compte->name,
+                'type_operation' =>  $this->type_operation,
+                'montant' => $this->montant
+            ]);
+
+            KirimbaComptePrincipalOperation::create([
+
+                'operation_type' => $op->type_operation,
+                'montant' => $op->montant,
+                'compte_name' => $op->compte_name
+
+
+            ]);
+
+             session()->flash('success', 'Opération réussi.');
+
+
             DB::commit();
+
+            $this->reset();
             
         } catch (\Exception $e) {
+
+        
+             session()->flash('error', $e->getMessage());
+            DB::rollback();
             
         }
     }

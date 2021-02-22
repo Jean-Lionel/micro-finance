@@ -1,12 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class kirimbaOperation extends Model
+class KirimbaComptePrincipal extends Model
 {
+    //
     use SoftDeletes;
+
     protected $guarded = [];
+
+   
 }

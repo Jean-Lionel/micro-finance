@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\KirimbaCompte;
-use App\KirimbaMembre;
+
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\KirimbaCompte;
+use App\Models\KirimbaMembre;
 use Illuminate\Support\Facades\DB;
 
 class KirimbaMembreLivewire extends Component
