@@ -17,4 +17,8 @@ class KirimbaRapportController extends Controller
 		return view("kirimba.rapport");
 
 	}
+
+	public function history(){
+		return view("kirimba.kirimbaHistory");
+	}
 }
