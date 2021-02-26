@@ -1,9 +1,17 @@
 <?php
 
+use App\Models\User;
 use MercurySeries\Flashy\flashy;
 
 
 define('TENU_COMPTE_MENSUELLE', 500);
+
+
+function get_user_ById($id){
+	$user = User::find($id);
+
+	return $user->first_name . " " . $user->last_name;
+}
 
 
 function set_active_router($route){

@@ -113,7 +113,9 @@
     				<td>{{ $membre->addresse }}</td>
     				<td class="d-flex justify-content-around" >
     					<button wire:click="modifierMembre({{ $membre->id  }})" class="btn badge-warning">Modifier</button>
+                        @can('is-admin')
     					<button wire:click="$emit('triggerDelete',{{ $membre->id }})" class="btn badge-danger ">Supprimer</button>
+                        @endcan
 
     				</td>	
     			</tr>

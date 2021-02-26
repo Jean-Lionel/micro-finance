@@ -33,8 +33,13 @@ class KirimbaRapportLivire extends Component
                 ->whereDate('created_at', Carbon::now())
                 ->get()->sum('montant');
 
+        $today = date('Y-m-d');
 
-        $user_operations = DB::select("SELECT user_id ,type_operation,SUM(montant) as sum_montant from  kirimba_operations GROUP BY user_id , type_operation");
+
+        $user_operations = DB::select("SELECT user_id ,type_operation,SUM(montant) as sum_montant from  kirimba_operations WHERE date(created_at) like '$today%'  GROUP BY user_id , type_operation");
+
+
+
 
         return view('livewire.kirimba-rapport-livire',[
         	'membreTotal' => $membreTotal ,
