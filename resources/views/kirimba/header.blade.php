@@ -5,7 +5,7 @@
 		<div class="col">
 			<a href="{{ route('ikirimba-membre') }}"> Membres</a>
 		</div>
-		<div class="col">3</div>
+		<div class="col"> <a href="{{ route('ikirimba-rapport') }}">Rapport</a> </div>
 		<div class="col">4</div>
 		<div class="col">5</div>
 		<div class="col">6</div>

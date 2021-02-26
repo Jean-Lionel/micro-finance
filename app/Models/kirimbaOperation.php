@@ -18,4 +18,6 @@ class kirimbaOperation extends Model
     		$model->user_id = Auth::user()->id;
     	});
     }
+
+   
 }

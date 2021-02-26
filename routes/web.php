@@ -102,3 +102,5 @@ Route::get('ikirimba-membre', 'KirimbaMembreController@index')->name('ikirimba-m
 
 Route::get('ikirimba-operation', 'KirimbaOperationController@index')->name('ikirimba-operation');
 
+Route::get('ikirimba-rapport', 'KirimbaRapportController@index')->name('ikirimba-rapport');
+
