@@ -21,7 +21,7 @@ class PlacementPaimentController extends Controller
     {
         //
         $search = \Request::get('search');
-        $placement_paiments = PlacementPaiment::sortable()->latest()->paginate(10);
+        $placement_paiments = PlacementPaiment::sortable()->where('compte_name','like',$search .'%')->latest()->paginate(10);
 
         return view('placementPaiement.index',compact('placement_paiments','search'));
     }
