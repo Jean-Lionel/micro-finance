@@ -49,7 +49,7 @@
 			<td>{{ $remboursementDecouvert->clientName }}</td>
 			<td>{{ $remboursementDecouvert->compte_name}}</td>
 			<td>{{ numberFormat($remboursementDecouvert->montant)}}</td>
-			<td>{{ numberFormat($remboursementDecouvert->decouvert->interet)}}</td>
+			<td>{{ numberFormat($remboursementDecouvert->decouvert->interet ?? 0)}}</td>
 
 			{{-- <td>{{ numberFormat($remboursementDecouvert->decouvert->montant_restant - $remboursementDecouvert->montant)}}</td> --}}
 

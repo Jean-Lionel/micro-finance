@@ -19,7 +19,7 @@ class KirimbaRapportLivire extends Component
     public function render()
     {
     	$membreTotal = KirimbaMembre::all()->count();
-    	$montantKirimba = KirimbaComptePrincipal::first()->montant;
+    	$montantKirimba = KirimbaComptePrincipal::first()->montant ?? 0;
     	// $versement = KOperation::all()->where('type_operation','=', 'VERSEMENT')
     	// 								->whereDate ('created_at', Carbon::now())->sum('montant');
 

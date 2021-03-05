@@ -23,9 +23,9 @@ class KirimbaComptePrincipalOperation extends Model
     }
 
     public static function isValideRegistration(){
-        $latestDate = self::latest()->first();
+        $latestDate = self::latest()->first() ?? new KirimbaComptePrincipalOperation;
 
-        if(Carbon::now() <  $latestDate->created_at){
+        if(Carbon::now() <  $latestDate->created_at ){
             throw new \Exception("Verifier que la date est bien regler . date(Y-m-d)", 1);
             return false;
         }

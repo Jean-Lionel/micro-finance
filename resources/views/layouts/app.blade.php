@@ -171,8 +171,9 @@
 
 <script src="/js/script.js"></script>
 <script src="/js/nombre_en_lettre.js"></script>
-@livewireScripts
 @yield('javascript')
+@livewireScripts
+
 
 @include('flashy::message')
 

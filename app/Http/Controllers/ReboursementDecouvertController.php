@@ -92,8 +92,6 @@ class ReboursementDecouvertController extends Controller
 
      //dd($request->montant);
 
-     
-
 
      try {
 
@@ -126,7 +124,7 @@ class ReboursementDecouvertController extends Controller
          
      }
 
-return $this->index();
+    return $this->index();
 }
 
     /**

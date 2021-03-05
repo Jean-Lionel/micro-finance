@@ -122,6 +122,7 @@ class KirimbaOperation extends Component
             
         } catch (\Exception $e) {
 
+          
         
              session()->flash('error', $e->getMessage());
             DB::rollback();

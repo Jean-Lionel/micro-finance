@@ -66,6 +66,8 @@
 							<a href="{{ route('operations.edit',$operation) }}" class="btn btn-outline-dark btn-sm delete_operation">Annuler</a>
 							@endcan
 
+							
+
 
 							<button class="btn btn-outline-info btn-sm imprimer" onclick="printBordereau({{ $operation->id }})">Imprimer</button>
 
@@ -143,11 +145,15 @@
 
 <script type="script">
 
+
+
 	const formatNumber = (number) => {
 		return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'FBU' }).format(number)
 	}
 
 	jQuery(document).ready(function($) {
+
+		alert("Je suis cool")
 
 
 		$('.delete_operation').on('click',  function(event) {
@@ -190,7 +196,7 @@
 	const imprimer = $('.imprimer')
 
 	function printBordereau(id){
-		// console.log(id);
+		 console.log(id);
 
 		jQuery.get('{{ route('operation_details') }}', {id: id}, function(data, textStatus, xhr) {
 		  //optional stuff to do after success
@@ -355,6 +361,8 @@
 		});
 		
 	}
+
+
 </script> 
 
 @endsection
