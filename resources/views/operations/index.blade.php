@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-md-1 col-sm-12 badge-dark">
-		<p><a href="{{ route('operations.create') }}" class="text-lg-center white-color">Nouvelle opération</a></p>
+		<p><a href="{{ route('operations.create')}}" class="text-lg-center white-color">Nouvelle opération</a></p>
 
 
 	</div>
@@ -18,7 +18,7 @@
 			<div class="col-md-4 col-sm-6">
 				<form action="" class="navbar-form navbar-left">
 					<div class="input-group custom-search-form">
-						<input type="text" class="form-control" name="search" placeholder="Search..." value="{{ $search }}">
+						<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search}}">
 						<span class="input-group-btn">
 							<button class="btn btn-default-sm" type="submit">
 								<i class="fa fa-search"></i>
@@ -54,11 +54,11 @@
 
 					@foreach($operations as $key=> $operation)
 					<tr>
-						<td>{{ $key + 1 }}</td>
-						<td>{{ $operation->compte_name }}</td>
-						<td>{{ numberFormat($operation->montant) }}</td>
-						<td>{{ $operation->type_operation }}</td>
-						<td>{{ $operation->created_at }}</td>
+						<td>{{$key + 1}}</td>
+						<td>{{ $operation->compte_name}}</td>
+						<td>{{ numberFormat($operation->montant)}}</td>
+						<td>{{ $operation->type_operation}}</td>
+						<td>{{ $operation->created_at}}</td>
 						<td>
 							<!-- <a href="{{ route('operations.show',$operation) }}" class="btn btn-outline-info">show</a> -->
 							@can('is-admin')
@@ -66,10 +66,8 @@
 							<a href="{{ route('operations.edit',$operation) }}" class="btn btn-outline-dark btn-sm delete_operation">Annuler</a>
 							@endcan
 
-							
 
-
-							<button class="btn btn-outline-info btn-sm imprimer" onclick="printBordereau({{ $operation->id }})">Imprimer</button>
+							<button class="btn btn-outline-info btn-sm imprimer" onclick="printBordereau({{$operation->id}})">Imprimer</button>
 
 						{{-- <form action="{{ route('operations.destroy' , $operation) }}" style="display: inline;" method="POST">
 							{{ csrf_field() }}
@@ -85,7 +83,7 @@
 			</tbody>
 		</table>
 
-		{{ $operations->links() }}
+		{{ $operations->links()}}
 
 
 
@@ -143,17 +141,13 @@
 
 @section('javascript')
 
-<script type="script">
-
-
+<script>
 
 	const formatNumber = (number) => {
 		return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'FBU' }).format(number)
 	}
 
 	jQuery(document).ready(function($) {
-
-		alert("Je suis cool")
 
 
 		$('.delete_operation').on('click',  function(event) {
@@ -196,7 +190,7 @@
 	const imprimer = $('.imprimer')
 
 	function printBordereau(id){
-		 console.log(id);
+		// console.log(id);
 
 		jQuery.get('{{ route('operation_details') }}', {id: id}, function(data, textStatus, xhr) {
 		  //optional stuff to do after success
@@ -207,16 +201,12 @@
 		  	const operation = data.operation;
 		  	const user = data.user;
 
-		  //	console.log(data);
+		  	console.log(data);
 
 		  	$('.content-data').html(`
 
 
-		  		<!DOCTYPE html>
-		  		<html lang="en">
-		  		<head>
-		  		<meta charset="UTF-8">
-		  		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		  		
 		  		<style type="text/css">
 		  		header span
 		  		{
@@ -243,8 +233,7 @@
 		  		</style>
 
 
-		  		</head>
-		  		<body>
+
 
 
 		  		<div>
@@ -289,7 +278,7 @@
 		  		<footer>
 
 		  		Guichet : Kinama <br>
-		  		Caissier : ${user.first_name+' '+ user.last_name}
+		  		Caissier : ${user.first_name} ${user.last_name}
 		  		<div>
 
 		  		<span>Signature Caissier : </span> <br>
@@ -346,23 +335,25 @@
 		  		</div>
 
 		  		<hr>
-		  		</footer>
-		  		</div>
-
-		  		</body>
-		  		</html>
+		
 
 
 
 
-		  		`)
+
+
+
+
+
+
+
+
+		  		`);
 
 		  }
 		});
 		
 	}
-
-
-</script> 
+</script>
 
 @endsection

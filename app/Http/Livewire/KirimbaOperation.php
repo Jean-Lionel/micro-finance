@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\KirimbaCompte;
-use App\Models\kirimbaOperation as KOperation;
-use Illuminate\Support\Facades\DB;
 use App\Models\KirimbaComptePrincipal;
 use App\Models\KirimbaComptePrincipalOperation;
+use App\Models\kirimbaCredit;
+use App\Models\kirimbaOperation as KOperation;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 
 class KirimbaOperation extends Component
@@ -67,15 +68,36 @@ class KirimbaOperation extends Component
                     //UN MEMBRE A LE DROIT DE DEMANDE LE MONTANT < 1/2 de son compte 
                     //principal 
                     
-                    if($this->montant < ($this->membre->compte->montant * 2)){
+                    if($this->montant <= ($this->membre->compte->montant * 2)){
                         //RETRAIT 
                        
-                        
+                       //SI LE COMPTE EST INFERIEUR AUX MONTANT DU COMPTE
+
+                        // ON DOIT PAYE 2 % DU MONTANT RETIRE 
+
+                        // 200 000 ON PAYE 4000 
+                        //DONC C 200 000 x 2 / 100 = 4000 de benefice
+
                         $compte_principal->montant  -= $this->montant;
 
                         $compte_principal->save();
 
                         $compte->montant -= $this->montant;
+
+                        if($compte->montant  < 0){
+                            //Interet est de 2 % du montant retirer
+                            $benefice =  $this->montant * 2 / 100 ;
+
+                            $compte->montant -= $benefice;
+
+                            kirimbaCredit::create([
+                                'kirimba_membre_id' => $this->membre->id ,
+                                'compte_name' =>$compte->name ,
+                                'montant' => $this->montant,
+                                'benefice' => $benefice
+                            ]);
+                            
+                        }
 
                         $compte->save();
 

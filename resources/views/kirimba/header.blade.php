@@ -10,5 +10,7 @@
 		</div>
 		@can('is-admin')
 		<div class="col"> <a href="{{ route('ikirimba-rapport') }}">Rapport</a> </div>
+
+		<div class="col"> <a href="{{ route('kirimba-rapport-dette') }}">Rapport des dettes</a> </div>
 		@endcan
 </div>

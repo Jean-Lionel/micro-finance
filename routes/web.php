@@ -105,3 +105,5 @@ Route::get('ikirimba-operation', 'KirimbaOperationController@index')->name('ikir
 Route::get('ikirimba-rapport', 'KirimbaRapportController@index')->name('ikirimba-rapport');
 Route::get('ikirimba-history', 'KirimbaRapportController@history')->name('ikirimba-history');
 
+Route::get('kirimba-rapport-dette', 'KirimbaRapportController@rapportKirimba')->name('kirimba-rapport-dette');
+

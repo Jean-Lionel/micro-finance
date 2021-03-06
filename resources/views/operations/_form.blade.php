@@ -87,8 +87,6 @@
 
 @section('javascript')
 
-
-
 <script>
 
 	const formatNumber = (number) => {
