@@ -17,6 +17,7 @@
     			<th>Numero de Compte</th>
     			<th>TYPE D'OPERATION</th>
     			<th>MONTANT</th>
+                <th>BENEFICE</th>
     			<th>DATE</th>
     		</tr>
     		
@@ -29,7 +30,8 @@
     			
     			<td>{{ $operation->compte_name }}</td>
     			<td>{{ $operation->type_operation }}</td>
-    			<td>{{ $operation->montant }}</td>
+    			<td>{{ number_format($operation->montant) }}</td>
+                <td>{{ number_format($operation->benefice) ?? 0 }}</td>
     			<td>{{ $operation->created_at }}</td>
     		</tr>
 

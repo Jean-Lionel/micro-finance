@@ -86,8 +86,8 @@
 
             <div class="d-flex">
                <div class="media-body">
-                 <h4>Total des Membres qui on des dettes</h4>
-                <span>{{ $membre_avec_dette->count()}}</span>
+                 <h4>Total des Membres qui ont des dettes</h4>
+                <b>{{ $membre_avec_dette->count()}} personnes</b>
               </div>
               <div>
                    <h6>Le montant en dette</h6>

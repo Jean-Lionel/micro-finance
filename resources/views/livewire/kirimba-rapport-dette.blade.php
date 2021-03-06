@@ -19,7 +19,7 @@
     				<td>{{ ++ $key}}</td>
     				<td>{{ $compte->name}}</td>
     				<td>{{ $compte->membre->fullName}}</td>
-    				<td>{{ numberFormat($compte->montant)}}</td>
+    				<td>{{ numberFormat(abs($compte->montant))}}</td>
     			</tr>
 
     			@endforeach

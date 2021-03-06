@@ -56,6 +56,8 @@ class KirimbaOperation extends Component
             $compte_principal = KirimbaComptePrincipal::latest()->first() ?? new KirimbaComptePrincipal;
              $compte = $this->membre->compte;
 
+             $benefice = 0;
+
             if($this->type_operation == 'RETRAIT')
             {
                 if($this->montant > $compte_principal->montant){
@@ -123,7 +125,8 @@ class KirimbaOperation extends Component
                 'kirimba_compte_id' =>  $compte->id,
                 'compte_name' =>  $compte->name,
                 'type_operation' =>  $this->type_operation,
-                'montant' => $this->montant
+                'montant' => $this->montant,
+                'benefice' => $benefice
             ]);
 
             KirimbaComptePrincipalOperation::create([
