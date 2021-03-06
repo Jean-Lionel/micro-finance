@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use Carbon\Carbon;
-use Livewire\Component;
-use App\Models\KirimbaMembre;
-use Illuminate\Support\Facades\DB;
+use App\Models\KirimbaCompte;
 use App\Models\KirimbaComptePrincipal;
+use App\Models\KirimbaMembre;
 use App\Models\kirimbaOperation as KOperation;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Livewire\Component;
 
 
 class KirimbaRapportLivire extends Component
@@ -22,6 +23,8 @@ class KirimbaRapportLivire extends Component
     	$montantKirimba = KirimbaComptePrincipal::first()->montant ?? 0;
     	// $versement = KOperation::all()->where('type_operation','=', 'VERSEMENT')
     	// 								->whereDate ('created_at', Carbon::now())->sum('montant');
+
+        $membre_avec_dette = KirimbaCompte::where('montant','<',0)->get();
 
        $versement = DB::table('kirimba_operations')
        			->where('type_operation','=', 'VERSEMENT')
@@ -46,7 +49,8 @@ class KirimbaRapportLivire extends Component
         	'montantKirimba' => $montantKirimba,
         	'versement' => $versement,
         	'retrait' => $retrait,
-        	'user_operations' => $user_operations
+        	'user_operations' => $user_operations,
+            'membre_avec_dette' => $membre_avec_dette
 
 
         ]);

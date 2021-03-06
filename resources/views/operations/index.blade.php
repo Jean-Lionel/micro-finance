@@ -226,15 +226,8 @@
 
 		  		}
 
-		  		body{
-		  			position: relative;
-
-		  		}
+		  		
 		  		</style>
-
-
-
-
 
 		  		<div>
 		  		<button onclick="printJS('borderaeau_print','html')">Imprimer</button>

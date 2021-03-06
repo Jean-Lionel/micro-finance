@@ -2,10 +2,8 @@
     {{-- Success is as dangerous as failure. --}}
 
   <div class="grey-bg container-fluid">
-    <h1 class="text-center"> Rapport </h1>
-  
+    <h5 class="text-center"> Rapport </h5>
   <section id="stats-subtitle">
-
 
   <div class="row">
     <div class="col-xl-6 col-md-12">
@@ -19,7 +17,7 @@
                 <span> {{ date('d-M-Y') }}</span>
               </div>
               <div>
-                 <h1 class="mr-2">{{ number_format($versement) }} FBU</h1>
+                 <h5 class="mr-2">{{ number_format($versement) }} FBU</h5>
               </div>
             </div>
           </div>
@@ -36,7 +34,7 @@
                 <span> {{ date('d-M-Y') }}</span>
               </div>
               <div>
-                 <h1 class="mr-2">{{ number_format($retrait) }} FBU</h1>
+                 <h5 class="mr-2">{{ number_format($retrait) }} FBU</h5>
               </div>
             </div>
 
@@ -56,7 +54,7 @@
                 <span>{{ date('d-M-Y') }}</span>
               </div>
               <div class="align-self-center">
-                <h1>{{ number_format($montantKirimba) }} # FBU</h1>
+                <h5>{{ number_format($montantKirimba) }} # FBU</h5>
               </div>
             </div>
           </div>
@@ -65,25 +63,43 @@
 
 
       <div class="card">
-
          <div class="card-content">
           <div class="card-body ">
-
              <div class="d-flex">
                <div class="media-body">
                  <h4>Total des Membres</h4>
                 <span>COOPDI</span>
               </div>
               <div>
-                   <h1>{{ $membreTotal }} Personnes</h1>
+                   <h5>{{ $membreTotal }} Personnes</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+
+
+            <div class="d-flex">
+               <div class="media-body">
+                 <h4>Total des Membres qui on des dettes</h4>
+                <span>{{ $membre_avec_dette->count()}}</span>
+              </div>
+              <div>
+                   <h6>Le montant en dette</h6>
+                   <h5>{{ numberFormat(abs($membre_avec_dette->sum('montant')))}} # FBU</h5>
               </div>
             </div>
 
+            
           </div>
         </div>
-
-        
       </div>
+
     </div>
 
     <div class="col-xl-6 col-md-12">
