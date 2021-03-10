@@ -7,20 +7,20 @@
   {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
 
 
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
   {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
 
   {{-- <link rel="stylesheet" href="/css/bootstrap.css"> --}}
   {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
 
-  <link rel="stylesheet" href="/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('font-awesome/css/all.min.css') }}">
 
-  <link rel="stylesheet" href="/css/sweetalert2.min.css">
-  <link rel="stylesheet" href= "{{ asset('/css/decouvert_form.css')}}">
+  <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
+  <link rel="stylesheet" href= "{{ asset('css/decouvert_form.css')}}">
 
  
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
-  <link rel="stylesheet" type="text/css" href="/css/print.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/print.min.css') }}">
 
   <style>
 
