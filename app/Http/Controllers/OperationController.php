@@ -173,7 +173,7 @@ if($compte){
             try {
 
                 DB::beginTransaction();
-
+                
                 ComptePrincipalController::store_info($request->montant, 'RETRAIT');
 
                 $new_monant = $compte->montant - $request->montant;

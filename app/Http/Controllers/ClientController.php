@@ -88,15 +88,9 @@ class ClientController extends Controller
             # code...
             $imageName = time().'.'.$request->upload_image->extension();  
             $request->upload_image->move(public_path('img\client_images'), $imageName);
-
         }
-
-        
-
         DB::transaction(function() use($request, $imageName) {
-
-            $client = Client::create($request->all()  + ['image' => $imageName ]);
-
+            $client = Client::create($request->all()  + ['image' => $imageName ]);  
             Compte::create(
                 [
                     'montant' => 0,
@@ -107,8 +101,6 @@ class ClientController extends Controller
             );
       //
         });
-
-
         successMessage();
 
         return back();
