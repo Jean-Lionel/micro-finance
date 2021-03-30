@@ -362,6 +362,8 @@ class PlacementController extends Controller
 
             DB::rollback();
 
+            return back();
+
              errorMessage($e->getMessage());
             // dump($e->getMessage());
             

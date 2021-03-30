@@ -17,14 +17,16 @@ class Cors
     public function handle($request, Closure $next)
     {
         
-        $allow_Ip = ['192.168.43.1','127.0.0.1','192.168.43.249'];
-
+        $allow_Ip = ['localhost','192.168.1.1','192.168.1.2','192.168.1.3','192.168.1.6','127.0.0.1','192.168.1.4'];
         $ip = Request::ip();
 
         if(in_array( $ip, $allow_Ip )){
             return $next($request);
 
         }else{
+             return $next($request);
+            //throw new Exception("Error Processing Request", 1);
+            
 
         //      return $next($request)
         // ->header('Access-Control-Allow-Origin', 'localhost')
