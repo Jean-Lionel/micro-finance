@@ -26,20 +26,22 @@ class KirimbaRapportLivire extends Component
 
         $membre_avec_dette = KirimbaCompte::where('montant','<',0)->get();
 
-       $versement = DB::table('kirimba_operations')
+       $versement = DB::table('kirimba_operations') 
        			->where('type_operation','=', 'VERSEMENT')
+                ->where('deleted_at','=', NULL)
                 ->whereDate('created_at', Carbon::now())
                 ->get()->sum('montant');
 
         $retrait = DB::table('kirimba_operations')
        			->where('type_operation','=', 'RETRAIT')
+                ->where('deleted_at','=', NULL)
                 ->whereDate('created_at', Carbon::now())
                 ->get()->sum('montant');
 
         $today = date('Y-m-d');
 
 
-        $user_operations = DB::select("SELECT user_id ,type_operation,SUM(montant) as sum_montant from  kirimba_operations WHERE date(created_at) like '$today%'  GROUP BY user_id , type_operation");
+        $user_operations = DB::select("SELECT user_id ,type_operation,SUM(montant) as sum_montant from  kirimba_operations WHERE  date(created_at) like '$today%' AND deleted_at is NULL GROUP BY user_id , type_operation");
 
 
 
