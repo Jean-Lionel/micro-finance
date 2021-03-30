@@ -44,9 +44,18 @@
 			</table>
 		</div>
 	</div>
-	<canvas id="graphique1" width="200" height="100">
+	<div class="col-md-6">
+		<canvas id="graphique1" width="200" height="100">
 		Ooops !!! votre navigateur n'est pas à jour essayer de chercher les derniers mise à jour
 	</canvas>
+	</div>
+
+	{{-- <div class="col-md-6">
+		<canvas id="graphique2" width="200" height="100">
+		Ooops !!! votre navigateur n'est pas à jour essayer de chercher les derniers mise à jour
+	</canvas> --}}
+	</div>
+
 
 	
 
@@ -72,8 +81,9 @@
 	let remboursement = {{$remboursement}};
 
 
-	var ctx2 = document.getElementById('graphique1').getContext('2d');
-	var char2 = new Chart(ctx2,{
+	var ctx1 = document.getElementById('graphique1').getContext('2d');
+	//var ctx2 = document.getElementById('graphique2').getContext('2d');
+	var char1 = new Chart(ctx1,{
 		type:'bar',
 		data:{
 			labels: ['DEPENSES', 'RETRAIT', 'VERSEMENT', 'PLACEMENT', 'DECOUVERT', 'COMPTE PRINCIPAL','TENUE DE COMPTE','REMBOURSEMENT'],

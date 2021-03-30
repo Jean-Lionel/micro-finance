@@ -6,7 +6,6 @@
 		<div class="col-xl-12 col-sm-12">
 			<style>
 				.test{
-					
 					/*background: rgb(212,175,55);*/
 					background: #b0a160;
 					box-shadow: 5px 10px #888888 
@@ -16,9 +15,7 @@
 					background: #ecce6d;
 					cursor: pointer;
 					box-shadow: 5px 10px rgb(197,179,88);
-
 				}
-				
 			</style>
 			<div class="card-body test border-danger" >
 				<div class="row mb-1"> 
