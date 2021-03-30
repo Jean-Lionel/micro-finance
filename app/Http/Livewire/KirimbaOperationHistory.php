@@ -45,12 +45,10 @@ class KirimbaOperationHistory extends Component
     		if( KirimbaComptePrincipalOperation::isValideRegistration() == false){
                 throw new \Exception("Votre date n'est pas bien réglé", 1);
             }
+              $compte_principal = KirimbaComptePrincipal::latest()->first() ?? new KirimbaComptePrincipal;
+              $compte = $operation->compte;
 
             if($operation->type_operation == 'RETRAIT'){
-
-           	   $compte_principal = KirimbaComptePrincipal::latest()->first() ?? new KirimbaComptePrincipal;
-
-            	$compte = $operation->compte;
 
             	//AJOUT DU MONTANT SUR LE COMPTE DU MEMBRE
             	$compte->montant += $operation->montant;
@@ -76,12 +74,29 @@ class KirimbaOperationHistory extends Component
             	}
             	//SUPPRESSION DE L'OPERATION
             	$operation->delete();
-            	
-
 
     		}
 
     		if($operation->type_operation == "VERSEMENT"){
+
+    			//DIMINUER LE MONTANT DU COMPTE PRINCIPALE
+    			//DIMINUER LE MONTANT DU MEMBRE 
+    			//ENREGISTRE
+            	$compte->montant -= $operation->montant;
+            	$compte_principal->montant -= $operation->montant;
+
+            	$compte->save();
+            	$compte_principal->save();
+            	
+            	KirimbaComptePrincipalOperation::create([
+		                'operation_type' => "ANNULATION DU VERSEMENT",
+		                'montant' => $operation->montant,
+		                'compte_name' => $operation->compte_name
+           			]);
+
+            	$operation->delete();
+
+    			// dd($operation);
 
     		}
 
