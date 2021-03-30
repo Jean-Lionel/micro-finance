@@ -16,6 +16,7 @@ class CreateKirimbaCreditsTable extends Migration
         Schema::create('kirimba_credits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kirimba_membre_id');
+            $table->foreignId('operation_id');
             $table->string('compte_name');
             $table->double('montant',64,2);
             $table->double('benefice',64,2);

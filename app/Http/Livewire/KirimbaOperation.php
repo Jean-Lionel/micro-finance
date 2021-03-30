@@ -62,12 +62,11 @@ class KirimbaOperation extends Component
             {
                 if($this->montant > $compte_principal->montant){
                     //ERROR
-                    throw new \Exception("Le compte principal de IKIRIMBA ne possede pas cette montant demande", 1);
-                    
+                    throw new \Exception("Le compte principal de IKIRIMBA ne possede pas cette montant demandé", 1);
                 }else{
                     //ON CHERCHE LE COMPTE DU MEMBRE 
                     //
-                    //UN MEMBRE A LE DROIT DE DEMANDE LE MONTANT < 1/2 de son compte 
+                    //UN MEMBRE A LE DROIT DE DEMANDE LE MONTANT <= 1/2 de son compte 
                     //principal 
                     
                     if($this->montant <= ($this->membre->compte->montant * 2)){
@@ -86,17 +85,28 @@ class KirimbaOperation extends Component
 
                         $compte->montant -= $this->montant;
 
+                        $op = KOperation::create([
+                            'kirimba_compte_id' =>  $compte->id,
+                            'compte_name' =>  $compte->name,
+                            'type_operation' =>  $this->type_operation,
+                            'montant' => $this->montant,
+                            'benefice' => $benefice
+                         ]);
+
                         if($compte->montant  < 0){
                             //Interet est de 2 % du montant retirer
                             $benefice =  $this->montant * 2 / 100 ;
 
                             $compte->montant -= $benefice;
 
+
+
                             kirimbaCredit::create([
                                 'kirimba_membre_id' => $this->membre->id ,
                                 'compte_name' =>$compte->name ,
                                 'montant' => $this->montant,
-                                'benefice' => $benefice
+                                'benefice' => $benefice,
+                                'operation_id' =>  $op->id
                             ]);
                             
                         }
@@ -119,15 +129,18 @@ class KirimbaOperation extends Component
                  $compte_principal->save();
                  $compte->montant += $this->montant;
                  $compte->save();
-            }
 
-           $op = KOperation::create([
+                 $op = KOperation::create([
                 'kirimba_compte_id' =>  $compte->id,
                 'compte_name' =>  $compte->name,
                 'type_operation' =>  $this->type_operation,
                 'montant' => $this->montant,
                 'benefice' => $benefice
             ]);
+
+            }
+
+           
 
             KirimbaComptePrincipalOperation::create([
 

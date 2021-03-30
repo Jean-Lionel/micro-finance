@@ -20,4 +20,8 @@ class kirimbaCredit extends Model
     		$model->user_id = Auth::user()->id;
     	});
     }
+
+    public function operation(){
+    	return $this->belongsTo(KirimbaOperation::class, 'operation_id','id');
+    }
 }

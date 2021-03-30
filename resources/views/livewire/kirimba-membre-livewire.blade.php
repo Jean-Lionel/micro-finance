@@ -136,8 +136,8 @@
 
         @this.on('triggerDelete', orderId => {
             Swal.fire({
-                title: 'Are You Sure?',
-                text: 'Order record will be deleted!',
+                title: 'êtez vous sûr ?',
+                text: 'de supprimer cette opération',
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: 'var(--success)',
