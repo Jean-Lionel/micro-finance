@@ -27,35 +27,22 @@ Route::resource('operations','OperationController');
 Route::resource('comptes','CompteController');
 
 Route::get('comptes/ajouter/{id}', 'CompteController@createCompte')->name('create_compte');
-
 Route::resource('placements','PlacementController');
 Route::resource('decouverts','DecouvertController');
 Route::resource('tenuecomptes','TenueCompteController');
 Route::resource('placementPaiement','PlacementPaimentController');
-
 Route::resource('rapports','RapportsController');
-
 Route::get('userOperation','RapportsController@userOperation')->name('user_oparation');
-
 Route::resource('reboursement-decouverts','ReboursementDecouvertController');
-
 Route::namespace('Controllers')->prefix('app')->group(function(){
-
 });
-
-
 //Admin Router
-
 Route::namespace('Admin')->prefix('admin')
 ->middleware('can:manager-user')->group(function(){
 	Route::resource('users', 'UsersController');
-
 });
 
-
-
 //Fin admin Router
-
 
 Route::get('find_decouvert', 'ReboursementDecouvertController@ajaxfindDecouvert')->name('find_decouvert');
 
@@ -106,4 +93,8 @@ Route::get('ikirimba-rapport', 'KirimbaRapportController@index')->name('ikirimba
 Route::get('ikirimba-history', 'KirimbaRapportController@history')->name('ikirimba-history');
 
 Route::get('kirimba-rapport-dette', 'KirimbaRapportController@rapportKirimba')->name('kirimba-rapport-dette');
+
+//GESTION DES AGANCES 
+
+Route::get('agences', 'AgenceController@index');
 
