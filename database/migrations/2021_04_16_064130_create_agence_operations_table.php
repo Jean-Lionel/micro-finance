@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCaisseAgencesTable extends Migration
+class CreateAgenceOperationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateCaisseAgencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('caisse_agences', function (Blueprint $table) {
+        Schema::create('agence_operations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('agence_id');
-            $table->double('montant',64,4);
+             $table->string("type_operation");
+            $table->double("montant",64,2);
+            $table->foreignId("user_id");
+            $table->foreignId("agence_id");
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +31,6 @@ class CreateCaisseAgencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('caisse_agences');
+        Schema::dropIfExists('agence_operations');
     }
 }

@@ -1,19 +1,25 @@
 @extends('layouts.app')
-
-
 @section('content')
 
-
 <div class="row">
-	
-	<div class="col-md-12">
-		<ul>
+	<div class="col-md-4">
+		<ul class="d-flex justify-content-around">
 			{{-- <li class="list-unstyled"><a href="depense" class="">Depense</a></li> --}}
-			<li class="list-unstyled"><a href="{{route('tenueMensuelle') }}" >Tenue de compte</a></li
-				>
-			<li class="list-unstyled"><a href="{{route('user_oparation') }}" >Activité des utilisateurs</a></li>
+			<li class="list-unstyled list-group-item ">
+				<a href="{{route('tenueMensuelle') }}" >Tenue de compte</a></li>
+			<li class="list-unstyled list-group-item "><a href="{{route('user_oparation') }}" >Activité des utilisateurs</a></li>
 		</ul>
 	</div>
+
+	<div class="col-md-4">
+		<ul class="d-flex justify-content-around list-group">
+			{{-- <li class="list-unstyled"><a href="depense" class="">Depense</a></li> --}}
+			<li class="list-unstyled list-group-item">
+				<a href="{{route('tenueMensuelle') }}" >Gestion des Agence</a></li>
+			
+		</ul>
+	</div>
+
 
 	<div class="col-md-12">
 
