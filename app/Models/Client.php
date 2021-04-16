@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Client extends ParentModel
 {
@@ -39,15 +40,27 @@ class Client extends ParentModel
     'signateur_3_nom_prenom',
     'signateur_3_cni',
     'signateur_3_tel',
-    'image'
+    'image',
+    'agence_id',
     ];
     
-    public $sortable = ['nom','prenom','cni','date_naissance','created_at','antenne'];
+    public $sortable = ['nom','prenom','cni','date_naissance','created_at','antenne','agence_id'];
 
 
     public function comptes()
     {
         return $this->hasMany('App\Models\Compte');
+    }
+
+    public static function boot(){
+        parent::boot();
+
+        self::creating(function($model){
+            $model->agence_id = Auth::user()->agence_id;
+
+        });
+
+
     }
 
 

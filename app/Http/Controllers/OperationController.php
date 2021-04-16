@@ -124,16 +124,10 @@ class OperationController extends Controller
 public function store(Request $request){
 
     //Verfication des autorisation
-
-
-
  if(Gate::denies('is-admin')){
             //dump(Gate::allows('is-versement-user'));
-
    if(Gate::denies('is-retrait-user') && ($request->type_operation == 'RETRAIT')){
-
     return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
-
 }
 
 if(Gate::denies('is-versement-user') && ($request->type_operation == 'VERSEMENT')){
@@ -142,14 +136,7 @@ if(Gate::denies('is-versement-user') && ($request->type_operation == 'VERSEMENT'
 
 }
 
-
-
     //FIN
-
-
-
-
-
 try {
    $compte = Compte::where('name','=',$request->compte_name)->firstOrFail();
 

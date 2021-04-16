@@ -15,95 +15,95 @@ class ComptePrincipalController extends Controller
     }
 
 
-    public static function update($motant, $type_Operation){
+    // public static function update($motant, $type_Operation){
 
-        //I get the last value of compte bank
+    //     //I get the last value of compte bank
 
-        $type_Operation = mb_strtoupper($type_Operation);
+    //     $type_Operation = mb_strtoupper($type_Operation);
 
-        $errors = '';
+    //     $errors = '';
 
-        $comptePrincipal = ComptePrincipal::latest()->first();
-
-
-        if(!$comptePrincipal){
-            ComptePrincipal::create(['montant' => 0]);
-            $comptePrincipal = ComptePrincipal::latest()->first();
-        }
-
-        $currentValue = $comptePrincipal->montant;
-        $newValue = $currentValue;
+    //     $comptePrincipal = ComptePrincipal::latest()->first();
 
 
-        switch($type_Operation){
+    //     if(!$comptePrincipal){
+    //         ComptePrincipal::create(['montant' => 0]);
+    //         $comptePrincipal = ComptePrincipal::latest()->first();
+    //     }
 
-            case 'RETRAIT':
-                $newValue = oparate($currentValue,$motant,'MOINS');
-                break;
+    //     $currentValue = $comptePrincipal->montant;
+    //     $newValue = $currentValue;
 
-            case 'VERSEMENT':
-                $newValue = oparate($currentValue,$motant,'ADD');
-                break;
 
-            case 'PLACEMENT':
-                $newValue = oparate($currentValue,$motant,'ADD');
-                break;
+    //     switch($type_Operation){
 
-            case 'DECOUVERT':
-                $newValue = oparate($currentValue,$motant,'MOINS');
-                break;
+    //         case 'RETRAIT':
+    //             $newValue = oparate($currentValue,$motant,'MOINS');
+    //             break;
+
+    //         case 'VERSEMENT':
+    //             $newValue = oparate($currentValue,$motant,'ADD');
+    //             break;
+
+    //         case 'PLACEMENT':
+    //             $newValue = oparate($currentValue,$motant,'ADD');
+    //             break;
+
+    //         case 'DECOUVERT':
+    //             $newValue = oparate($currentValue,$motant,'MOINS');
+    //             break;
                 
-            case 'REMBOURSEMENT':
-                $newValue = oparate($currentValue,$motant,'ADD');
-                break;
+    //         case 'REMBOURSEMENT':
+    //             $newValue = oparate($currentValue,$motant,'ADD');
+    //             break;
 
-            case 'DEPENSE':
-                $newValue = oparate($currentValue,$motant,'MOINS');
-                break;
-            case 'ADD':
-                $newValue = oparate($currentValue,$motant,'ADD');
-                break;
-            case 'MOINS':
-                $newValue = oparate($currentValue,$motant,'MOINS');
-                break;
+    //         case 'DEPENSE':
+    //             $newValue = oparate($currentValue,$motant,'MOINS');
+    //             break;
+    //         case 'ADD':
+    //             $newValue = oparate($currentValue,$motant,'ADD');
+    //             break;
+    //         case 'MOINS':
+    //             $newValue = oparate($currentValue,$motant,'MOINS');
+    //             break;
 
-            default:
-                return false;
+    //         default:
+    //             return false;
 
-        }
+    //     }
 
-        if($newValue){
+    //     if($newValue){
 
-            //On test si c'est la meme journe 
-            //On fait tout simplement la modification
-            //Une nouvelle journe on fait la creation
+    //         //On test si c'est la meme journe 
+    //         //On fait tout simplement la modification
+    //         //Une nouvelle journe on fait la creation
 
-            $dateOfLastActivity = new Carbon($comptePrincipal->created_at);
+    //         $dateOfLastActivity = new Carbon($comptePrincipal->created_at);
 
-            if($dateOfLastActivity->isCurrentDay()){
-                $comptePrincipal->update(['montant' => $newValue]);
+    //         if($dateOfLastActivity->isCurrentDay()){
+    //             $comptePrincipal->update(['montant' => $newValue]);
 
-                return "OK";
-            }else{
+    //             return "OK";
+    //         }else{
 
-                $today = new Carbon();
+    //             $today = new Carbon();
 
-                if($today < $dateOfLastActivity){
+    //             if($today < $dateOfLastActivity){
                     
-                    return 'Votre date n\'est pas bien regle';
-                }else{
-                    ComptePrincipal::create(['montant' => $newValue]);
+    //                 return 'Votre date n\'est pas bien regle';
+    //             }else{
+    //                 ComptePrincipal::create(['montant' => $newValue]);
 
-                    return 'OK';
-                }
-            }
-             // return 'OK';
+    //                 return 'OK';
+    //             }
+    //         }
+    //          // return 'OK';
 
-         }else{
+    //      }else{
             
-            return "Le montant sur le compte principale est insuffisant";
-         }
-    }
+    //         return "Le montant sur le compte principale est insuffisant";
+    //      }
+    // }
 
 
 
@@ -118,7 +118,6 @@ class ComptePrincipalController extends Controller
 
         $comptePrincipal = ComptePrincipal::latest()->first();
 
-
         if(!$comptePrincipal){
             ComptePrincipal::create(['montant' => 0]);
             $comptePrincipal = ComptePrincipal::latest()->first();
@@ -126,7 +125,6 @@ class ComptePrincipalController extends Controller
 
         $currentValue = $comptePrincipal->montant;
         $newValue = $currentValue;
-
 
         switch($type_Operation){
 
@@ -196,14 +194,10 @@ class ComptePrincipalController extends Controller
                 }
             }
              // return 'OK';
-
          }else{
             
             return "Le montant sur le compte principale est insuffisant";
          }
-
-
-        
     }
 
     //2h pour ecrire cette fonction
@@ -231,10 +225,7 @@ class ComptePrincipalController extends Controller
         }else{
 
              //return $response;
-
           throw new \Exception($response);
-
-            
         }
 
         //  return $response;

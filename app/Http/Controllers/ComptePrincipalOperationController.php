@@ -58,9 +58,7 @@ class ComptePrincipalOperationController extends Controller
             $typeOperation => $montant,
             'compte_name' => $compte_name
          ]);
-
-
-
+         
         return true;
     }
 

@@ -57,6 +57,30 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="user_name" class="col-md-4 col-form-label text-md-right">{{ __('AGENCE') }}</label>
+
+                            <div class="col-md-6">
+                               {{--  {{$user->agence}} --}}
+
+                                <select name="agence_id" id="" class="form-control">
+                                    <option value="">SELECT ....</option>
+
+                                     @foreach ($agences as $agence)
+                                    {{-- expr --}}
+                                    <option value="{{ $agence->id }}"  @if( $agence->id == ($user->agence->id ?? 0)  ) selected="" @endif   >{{$agence->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('agence_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

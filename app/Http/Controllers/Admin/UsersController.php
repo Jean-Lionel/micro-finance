@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agence;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -89,7 +90,8 @@ class UsersController extends Controller
             return $this->index();
         }
         $roles = Role::all();
-        return view('Admin.users.edit', compact('user','roles'));
+        $agences = Agence::all();
+        return view('Admin.users.edit', compact('user','roles','agences'));
     }
 
     /**
@@ -107,6 +109,7 @@ class UsersController extends Controller
             'last_name'  => ['required', 'string','min:2', 'max:255'],
             'user_name'  => ['required', 'string','min:5', 'max:255'],
             'email'      => ['required', 'string', 'email', 'max:255'],
+            'agence_id'      => ['required'],
             ]);
 
 
@@ -116,6 +119,7 @@ class UsersController extends Controller
         $user->last_name = $request->last_name;
         $user->user_name = $request->user_name;
         $user->email = $request->email;
+        $user->agence_id = $request->agence_id;
 
         if(!empty($request->password)){
           $user->password = Hash::make($request->password);

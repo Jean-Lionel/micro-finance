@@ -96,5 +96,5 @@ Route::get('kirimba-rapport-dette', 'KirimbaRapportController@rapportKirimba')->
 
 //GESTION DES AGANCES 
 
-Route::get('agences', 'AgenceController@index');
+Route::get('agences', 'AgenceController@index')->name("agences");
 

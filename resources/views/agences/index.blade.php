@@ -3,6 +3,9 @@
 @section('content')
 
 <div>
+
+	<livewire:agence-livewire />
+
 	
 </div>
 

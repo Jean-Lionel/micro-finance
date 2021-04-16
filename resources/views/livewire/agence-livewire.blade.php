@@ -43,22 +43,42 @@
 @endif
 
  
+ <div class="row">
 
- <table class="table">
- 	<thead>
- 		<tr>
- 			<th>AGENCE</th>
- 			<th>DESCRIPTION</th>
- 		</tr>
- 	</thead>
- 	<tbody>
- 		@foreach ($agences as $element)
- 	{{-- expr --}}
-		 	<tr>
-		 		<td>{{$element->name}}</td>
-		 		<td>{{$element->description}}</td>
-		 	</tr>
-    @endforeach
- 	</tbody>
- </table>
+  @foreach ($agences as $agence)
+
+    <div class="col-md-6">
+        <h5>AGENCE : {{$agence->name}}</h5>
+        <h6>LISTE DES CAISSIERS</h6>
+        <hr>
+        <table class="table tab-content table-hover">
+          <tr>
+            <th>#</th>
+            <th>NOM ET PRENOM</th>
+            <th>ROLES</th>
+          </tr>
+
+          @foreach ($agence->users as $key => $user)
+            {{-- expr --}}
+            <tr>
+              <td>{{ ++$key }}</td>
+              <td>{{ $user->first_name}} {{ $user->last_name}}</td>
+              <td>
+                <ul>
+                  @foreach ( $user->roles  as $role)
+                    {{-- expr --}}
+                    <li>{{$role->name}}</li>
+                  @endforeach
+                </ul>
+
+              </td>
+            </tr>
+          @endforeach
+        </table>
+    </div>
+
+  @endforeach
+
+  
+ </div>
 </div>
