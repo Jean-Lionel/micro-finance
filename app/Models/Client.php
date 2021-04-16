@@ -59,10 +59,7 @@ class Client extends ParentModel
             $model->agence_id = Auth::user()->agence_id;
 
         });
-
-
     }
-
 
     public function getFullNameAttribute(){
         return $this->nom . " ". $this->prenom;
