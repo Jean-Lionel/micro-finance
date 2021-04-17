@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agence;
+use App\Models\AgenceOperation;
 use App\Models\ComptePrincipal;
 use Exception;
 use Illuminate\Http\Request;
@@ -237,15 +238,18 @@ class ComptePrincipalController extends Controller
 
 
  function oparate($last_montant , $newMontat, $type_Operation){
-
-       
-
         
         $agence = Agence::find(Auth::user()->agence_id);
 
         if(! $agence){
             throw new Exception("Vous n'appartiez à aucune agence ", 1);
         }
+        //SUIVRE LES INFORMATIONS D'UNE AGENCE 
+        $data = [
+            "montant" => $newMontat,
+            "agence_id" => $agence->id,
+            "type_operation" => $type_Operation,
+         ];
 
 
         if($type_Operation == 'ADD'){
@@ -254,6 +258,7 @@ class ComptePrincipalController extends Controller
             $agence->save();
 
             //dd($agence);
+            AgenceOperation::create($data);
 
             return $last_montant + $newMontat;
         }
@@ -266,8 +271,8 @@ class ComptePrincipalController extends Controller
             }else{
                 $agence->montant -= $newMontat;
                 $agence->save();
+                AgenceOperation::create($data);
             }
-
             return $last_montant > $newMontat ? ($last_montant - $newMontat) : false;
         }
 }
