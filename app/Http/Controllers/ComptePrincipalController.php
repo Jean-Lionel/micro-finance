@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agence;
 use App\Models\ComptePrincipal;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class ComptePrincipalController extends Controller
 {
@@ -206,6 +208,7 @@ class ComptePrincipalController extends Controller
     public static function store_info($motant, $type_Operation)
     {
 
+
         $response = self::check_update_is_valide($motant, $type_Operation);
         //dd($response); MOIS MOINS 
         if(is_array($response))
@@ -221,7 +224,6 @@ class ComptePrincipalController extends Controller
             }
 
 
-
         }else{
 
              //return $response;
@@ -231,14 +233,41 @@ class ComptePrincipalController extends Controller
         //  return $response;
         
     }
-
-   
 }
 
 
  function oparate($last_montant , $newMontat, $type_Operation){
-        if($type_Operation == 'ADD')
+
+       
+
+        
+        $agence = Agence::find(Auth::user()->agence_id);
+
+        if(! $agence){
+            throw new Exception("Vous n'appartiez à aucune agence ", 1);
+        }
+
+
+        if($type_Operation == 'ADD'){
+            //ON CHERCHER L'AGANCE 
+            $agence->montant += $newMontat;
+            $agence->save();
+
+            //dd($agence);
+
             return $last_montant + $newMontat;
-        else if($type_Operation == 'MOINS')
+        }
+        else if($type_Operation == 'MOINS'){
+
+            // ON CHERCHER ON FAIT LA SOUSTRACTION
+            if($agence->montant < $newMontat){
+                //MUGIHE ATA MAFARANGA ARIKO KURI IYO AGENCE
+                 throw new Exception("Votre agence ne possède pas cet montant demandé", 1);
+            }else{
+                $agence->montant -= $newMontat;
+                $agence->save();
+            }
+
             return $last_montant > $newMontat ? ($last_montant - $newMontat) : false;
-    }
+        }
+}
