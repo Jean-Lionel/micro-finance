@@ -13,9 +13,9 @@
                     <div class="col-md-4">
                           <a href="{{ route('users.create') }}" class="btn btn-info btn-sm">Nouvel utilisateur</a>
                     </div>
-                    <div class="col-md-4">
+                  {{--   <div class="col-md-4">
                           <a href="{{ route('agences') }}" class="btn btn-info btn-sm">Agence</a>
-                    </div>
+                    </div> --}}
 
                     <div class="col-md-4">
                         {{ __('Liste des utilisateurs') }}

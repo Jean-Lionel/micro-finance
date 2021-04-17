@@ -12,10 +12,14 @@
 	</div>
 
 	<div class="col-md-4">
-		<ul class="d-flex justify-content-around list-group">
+		<ul class="d-flex justify-content-around ">
 			{{-- <li class="list-unstyled"><a href="depense" class="">Depense</a></li> --}}
 			<li class="list-unstyled list-group-item">
-				<a href="{{route('tenueMensuelle') }}" >Gestion des Agence</a></li>
+				<a href="{{route('gestion-agence') }}" >Gestion des Agence</a>
+			</li>
+			<li class="list-unstyled list-group-item">
+				<a href="{{route('agences') }}" > Agence et Caisser</a>
+			</li>
 			
 		</ul>
 	</div>

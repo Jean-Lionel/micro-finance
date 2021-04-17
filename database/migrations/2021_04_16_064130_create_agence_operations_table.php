@@ -15,7 +15,7 @@ class CreateAgenceOperationsTable extends Migration
     {
         Schema::create('agence_operations', function (Blueprint $table) {
             $table->id();
-             $table->string("type_operation");
+            $table->string("type_operation");
             $table->double("montant",64,2);
             $table->foreignId("user_id");
             $table->foreignId("agence_id");

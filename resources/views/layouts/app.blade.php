@@ -48,6 +48,9 @@
       /*background: #f66d9b;*/ 
       
     }
+    .table td, table th{
+      padding: 0px;
+    }
     body{
       
       /*background: rgba(138, 138, 138,0.3);*/

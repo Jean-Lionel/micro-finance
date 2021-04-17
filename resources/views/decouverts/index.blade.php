@@ -83,7 +83,7 @@
 
 					
 					<td>{{ $decouvert->created_at}}</td>
-					<td>
+					<td class="d-flex justify-content-between">
 						{{-- <a href="{{ route('decouverts.show',$decouvert) }}" class="btn btn-outline-info">show</a> --}}
 
 						@if ($decouvert->paye ==0)
