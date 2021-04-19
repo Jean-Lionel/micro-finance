@@ -41,6 +41,8 @@ class GestionAgenceLivewire extends Component
     	 		$agence->montant += $this->montant;
     	 		$agence->save();
     	 		AgenceOperation::create($data);
+                
+                $this->reset();
     	 	DB::commit();
     	 	
     	 } catch (\Exception $e) {

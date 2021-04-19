@@ -270,7 +270,7 @@
 
 		  		<footer>
 
-		  		Guichet : Kinama <br>
+		  		Agence : ${data.agence_name.toUpperCase() || 'KINAMA'} <br>
 		  		Caissier : ${user.first_name} ${user.last_name}
 		  		<div>
 

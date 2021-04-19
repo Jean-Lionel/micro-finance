@@ -30,12 +30,9 @@ class OperationController extends Controller
         // dump($sum);
         // dump($retrait);
 
-
         // dd('FIN');
 
-
         $search = \Request::get('search');
-
         if(Gate::allows('is-admin')){
             $operations = Operation::sortable(['created_at'=>'desc'])
             ->where('compte_name', 'like', '%'.$search.'%')
@@ -355,7 +352,8 @@ if($compte){
      return $operation ? response()->json(
         [
             'operation'=> $operation ,
-            'user' => $operation->user
+            'user' => $operation->user,
+            'agence_name' => $operation->user->agence->name,
 
         ]) : response()->json(['error'=> 'ivalid id']) ;
  }

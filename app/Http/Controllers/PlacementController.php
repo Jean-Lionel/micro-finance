@@ -47,7 +47,7 @@ class PlacementController extends Controller
 
         $placements = Placement::sortable(['created_at'=>'desc'])
         ->where('montant','like', '%'.$search.'%')
-        ->orWhere('compte_name','like', '%'.$search.'%')
+        ->orWhere('compte_name','=', $search)
         ->orWhere('date_placement','like', '%'.$search.'%')
         ->orWhere('interet_total','like', '%'.$search.'%')
         ->orWhere('nbre_moi','like', '%'.$search.'%')
