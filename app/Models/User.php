@@ -20,6 +20,7 @@ class User extends Authenticatable
         'first_name','user_name','last_name' ,'email', 'password','agence_id'
     ];
 
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -87,7 +88,6 @@ class User extends Authenticatable
 
     public function isDecouvert()
     {
-
         return $this->roles()->where('name', 'GESTION DES DECOUVERTS')->first();
 
     }
