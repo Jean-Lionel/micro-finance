@@ -6,6 +6,7 @@ use  App\Http\Controllers\OperationController;
 use  MercurySeries\Flashy\Flashy;
 use App\Http\Controllers\ComptePrincipalOperationController;
 use App\Http\Requests\FormOperationRequest;
+use App\Models\CaisseCaissier;
 use App\Models\Compte;
 use App\Models\Operation;
 use Carbon\Carbon;
@@ -26,12 +27,9 @@ class OperationController extends Controller
     {
         // $sum = Operation::where('type_operation','=','VERSEMENT')->sum('montant');
         // $retrait = Operation::where('type_operation','=','RETRAIT')->sum('montant');
-
         // dump($sum);
         // dump($retrait);
-
         // dd('FIN');
-
         $search = \Request::get('search');
         if(Gate::allows('is-admin')){
             $operations = Operation::sortable(['created_at'=>'desc'])
@@ -65,9 +63,11 @@ class OperationController extends Controller
        ->where('type_operation','=','RETRAIT')
        ->whereDate('created_at',Carbon::now())->sum('montant');
 
+       $montant_caisse = CaisseCaissier::where('user_id',$user_id)->sum('montant');
+
         // dd($operations);
 
-       return view('operations.index',compact('operations','search', 'versement','retrait'));
+       return view('operations.index',compact('operations','search', 'versement','retrait','montant_caisse'));
    }
 
     /**
@@ -211,32 +211,17 @@ if($compte){
         Operation::create($request->all());
 
         DB::commit();
-
         return response()->json(['success'=>'Opération réussi']);
-
     } catch (\Exception $e) {
-
         DB::rollback();
-
         return response()->json(['error'=>$e->getMessage()]);
 
-
     }
-
-
+}
 
 }
 
-
-
-
-
 }
-
-
-
-}
-
     /**
      * Display the specified resource.
      *

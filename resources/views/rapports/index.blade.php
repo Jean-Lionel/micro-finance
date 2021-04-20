@@ -10,7 +10,6 @@
 			<li class="list-unstyled list-group-item "><a href="{{route('user_oparation') }}" >Activité des utilisateurs</a></li>
 		</ul>
 	</div>
-
 	<div class="col-md-6">
 		<ul class="d-flex justify-content-around ">
 			{{-- <li class="list-unstyled"><a href="depense" class="">Depense</a></li> --}}
@@ -23,25 +22,18 @@
 			<li class="list-unstyled list-group-item">
 				<a href="{{route('caissier') }}" >Gestion des Caissiers</a>
 			</li>
-			
 		</ul>
 	</div>
-
-
 	<div class="col-md-12">
 
 		<form action="">
 			<input type="date" id="date_rapport" name="date_rapport" value="">
 		</form>
 		<h2 class="text-primary text-center"> RAPPORT JOURNALIERE </h2>
-		<button class="btn-info" id="btn_print">Imprimer</button>
+		{{-- <button class="btn-info" id="btn_print">Imprimer</button> --}}
 
 		<div class="table-rapport" id="info-print">
-			
-			
-			
-		</div>
-		
+		</div>	
 	</div>
 
 	<div class="col-md-4">
@@ -50,14 +42,11 @@
 	<div class="col-md-4">
 		<canvas id="myChart1" width="200" height="200"></canvas>
 	</div>
-	
-
 	<div class="col-md-4">
 		<canvas id="myChart2" width="200" height="200"></canvas>
 	</div>
 
 </div>
-
 
 @stop
 

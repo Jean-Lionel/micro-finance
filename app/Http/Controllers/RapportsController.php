@@ -20,7 +20,6 @@ class RapportsController extends Controller
 		//    jjdj 
 
 		// EOL;
-
 		return view('rapports.index');
 	}
 

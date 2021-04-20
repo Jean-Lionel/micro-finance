@@ -1,7 +1,7 @@
 <div>
     {{-- Do your work, then step back. --}}
 
-    <div class="form">
+   {{--  <div class="form">
     	<form action="" wire:submit.prevent="saveMontantAgence">
     		<div class="form-group row">
     			<div class="col-md-4">
@@ -9,37 +9,27 @@
           <select name="" id="" class="form-control " wire:model="agence_id">
             <option value="">..Select </option>
             @foreach ($agences as $agence)
-              {{-- expr --}}
-              <option value="{{$agence->id}}">{{$agence->name}} </option>
+                         <option value="{{$agence->id}}">{{$agence->name}} </option>
             @endforeach
           </select>
           @error("agence_id")
           <span class="text-danger">{{$message}}</span>
           @enderror
-         
-
           </div>
-
           <div class="col-md-4">
-            
           <label for="" class="">MONTANT</label>
           <input type="number" wire:model="montant" class="form-control ">
           @error("montant")
           <span class="text-danger">{{$message}}</span>
           @enderror
-
-
           </div>
           <div class="col-md-3 pt-2">
             <label for="" class=""></label>
             <input type="submit" class="btn btn-info mt-4"  value="Valider">
           </div>
-
-    			
-
     		</div>
     	</form>
-    </div>
+    </div> --}}
 
    <table class="table-sm table">
    	
@@ -56,7 +46,7 @@
    			{{-- expr --}}
 	   		<tr>
 	   			<td>{{ ++ $key}}</td>
-	   			<td>{{ $agence->name}}</td>
+	   			<td>{{ $agence->agence_id == 1 ? 'KINAMA' : 'RUBIRIZI'}}</td>
 	   			<td>{{ numberFormat($agence->montant)}} # FBU</td>
 	   		</tr>
    		@endforeach

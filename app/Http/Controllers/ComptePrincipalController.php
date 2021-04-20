@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agence;
 use App\Models\AgenceOperation;
+use App\Models\CaisseCaissier;
 use App\Models\ComptePrincipal;
 use Exception;
 use Illuminate\Http\Request;
@@ -238,40 +239,42 @@ class ComptePrincipalController extends Controller
 
 
  function oparate($last_montant , $newMontat, $type_Operation){
+
+        //JE VEUX AUTORISE L'OPERATION SUR 2 AGENCE KINAMA ET RUBIRIZI
+        // CODE IRAGANJE 
+
+        if(Auth::user()->agence_id < 3){
+             $agence = Agence::find(Auth::user()->agence_id);
+        }else{
+            throw new Exception("Vous n'appartiez à aucune agence !!! 🤣😂🤣😁👍🎂🎂 ", 1);
+        }
         
-        $agence = Agence::find(Auth::user()->agence_id);
+       // $agence = Agence::find(Auth::user()->agence_id);
 
         if(! $agence){
             throw new Exception("Vous n'appartiez à aucune agence ", 1);
         }
-        //SUIVRE LES INFORMATIONS D'UNE AGENCE 
-        $data = [
-            "montant" => $newMontat,
-            "agence_id" => $agence->id,
-            "type_operation" => $type_Operation,
-         ];
-
+        $caisse_caissier = CaisseCaissier::where("user_id",Auth::user()->id)->first();
+       // dd($caisse_caissier);
+        if(! $caisse_caissier){
+            throw new Exception("Vous n'avez pas  à aucune caisse ", 1);
+        }
 
         if($type_Operation == 'ADD'){
             //ON CHERCHER L'AGANCE 
-            $agence->montant += $newMontat;
-            $agence->save();
-
+            $caisse_caissier->montant += $newMontat;
+            $caisse_caissier->save();
             //dd($agence);
-            AgenceOperation::create($data);
-
             return $last_montant + $newMontat;
         }
         else if($type_Operation == 'MOINS'){
-
             // ON CHERCHER ON FAIT LA SOUSTRACTION
-            if($agence->montant < $newMontat){
+            if( $caisse_caissier->montant < $newMontat){
                 //MUGIHE ATA MAFARANGA ARIKO KURI IYO AGENCE
-                 throw new Exception("Votre agence ne possède pas cet montant demandé", 1);
+                 throw new Exception("Votre Caisse ne possède pas cet montant demandé", 1);
             }else{
-                $agence->montant -= $newMontat;
-                $agence->save();
-                AgenceOperation::create($data);
+                 $caisse_caissier->montant -= $newMontat;
+                 $caisse_caissier->save();
             }
             return $last_montant > $newMontat ? ($last_montant - $newMontat) : false;
         }

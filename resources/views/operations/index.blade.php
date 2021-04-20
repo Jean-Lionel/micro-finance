@@ -5,14 +5,10 @@
 <div class="row">
 	<div class="col-md-1 col-sm-12 badge-dark">
 		<p><a href="{{ route('operations.create')}}" class="text-lg-center white-color">Nouvelle opération</a></p>
-
-
 	</div>
 	<div class="col-md-10 col-sm-12">
-
 		<div class="row">
 			<div class="col-md-8">
-
 				{{-- <p class="text-center">Tout les opérations</p>	 --}}
 			</div>
 			<div class="col-md-4 col-sm-6">
@@ -95,7 +91,7 @@
 				</ul>
 
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<li class="list-group-item">
 
 						<div>TOTAL DES VERSEMENTS : </div>
@@ -105,7 +101,7 @@
 						
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-4">
 
 						<li class="list-group-item">
 							<div>
@@ -115,8 +111,20 @@
 							<div>
 								<b>{{ number_format($retrait) }} # FBU</b>
 							</div>
-							 
+					  </li>
+						
+					</div>
 
+					<div class="col-md-4">
+
+						<li class="list-group-item">
+							<div>
+								CAISSE :
+							</div>
+
+							<div>
+								<b>{{ number_format($montant_caisse) }} # FBU</b>
+							</div>
 					  </li>
 						
 					</div>

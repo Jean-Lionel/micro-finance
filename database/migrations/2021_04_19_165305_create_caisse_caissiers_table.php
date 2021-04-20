@@ -16,6 +16,7 @@ class CreateCaisseCaissiersTable extends Migration
         Schema::create('caisse_caissiers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
+            $table->foreignId('agence_id');
             $table->double('montant',64,2);
             $table->timestamps();
             $table->softDeletes();

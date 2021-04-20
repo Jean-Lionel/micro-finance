@@ -43,7 +43,9 @@
     					<td>{{ $caisse->user->fullName }}</td>
     					<td>{{ numberFormat($caisse->montant) }}</td>
     					<td>
-    						<button class="btn-sm btn-info">Validation</button>
+                            @if($caisse->montant > 0)
+    						<button class="btn-sm btn-info" wire:click="vaideReception({{$caisse->id}})">Validation</button>
+                            @endif
     					</td>
     				</tr>
     				@endforeach	
