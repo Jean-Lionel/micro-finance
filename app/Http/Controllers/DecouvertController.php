@@ -19,30 +19,35 @@ class DecouvertController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //$decouverts = Decouvert::sortable()->paginate(10);
 
-        $search = \Request::get('search'); 
+    public function index(){
+        //UPDATE `decouverts` SET `date_fin` = DATE_ADD(`created_at`, INTERVAL `periode` MONTH )
 
+        $now = Carbon::now();
 
-    
+        $decouverts =  Decouvert::whereDate('date_fin', '<', $now)->get();
 
+        dump($decouverts);
 
-        $decouverts = Decouvert::sortable()->latest()
-        ->where('compte_name','like','%'.$search.'%')
-        ->orWhere('montant','like','%'.$search.'%')
-        ->orWhere('interet','like','%'.$search.'%')
-        ->orWhere('total_a_rambourse','like','%'.$search.'%')
-        ->orWhere('periode','like','%'.$search.'%')
-        ->orWhere('montant_payer','like','%'.$search.'%')
-        ->orWhere('montant_restant','like','%'.$search.'%')
-        ->orWhere('created_at','like','%'.$search.'%')
-        ->paginate();
-
-
-        return view('decouverts.index', compact('decouverts','search'));
+        dd("OK");
     }
+    // public function index()
+    // {
+    //     //$decouverts = Decouvert::sortable()->paginate(10);
+
+    //     $search = \Request::get('search'); 
+    //     $decouverts = Decouvert::sortable()->latest()
+    //     ->where('compte_name','like','%'.$search.'%')
+    //     ->orWhere('montant','like','%'.$search.'%')
+    //     ->orWhere('interet','like','%'.$search.'%')
+    //     ->orWhere('total_a_rambourse','like','%'.$search.'%')
+    //     ->orWhere('periode','like','%'.$search.'%')
+    //     ->orWhere('montant_payer','like','%'.$search.'%')
+    //     ->orWhere('montant_restant','like','%'.$search.'%')
+    //     ->orWhere('created_at','like','%'.$search.'%')
+    //     ->paginate();
+    //     return view('decouverts.index', compact('decouverts','search'));
+    // }
 
     /**
      * Show the form for creating a new resource.

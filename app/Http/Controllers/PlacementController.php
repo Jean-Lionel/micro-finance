@@ -186,7 +186,6 @@ class PlacementController extends Controller
 
             ComptePrincipalController::store_info($placement->montant,'MOINS');
             ComptePrincipalOperationController::storeOperation($placement->montant,'paiment_placement',$placement->compte_name);
-
             $placement->status = 'DEJA PAYE';
 
             $placement->save();
