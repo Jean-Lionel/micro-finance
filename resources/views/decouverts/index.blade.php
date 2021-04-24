@@ -18,7 +18,9 @@
 				<i class="fa fa-plus"></i> Remboursement de decouvert
 			</a>
 
-			<a class="p-2 btn-info btn-sm" href="{{ route('reboursement-decouverts.index') }}"><i class="fa fa-share"></i>Histoique de Remboursement</a>
+			<a class=" btn-info btn-sm" href="{{ route('reboursement-decouverts.index') }}"><i class="fa fa-share"></i>Histoique de Remboursement</a>
+
+			<a class=" btn-info btn-sm" href="{{ route('reboursement-decouverts.index') }}"><i class=""></i>Recouvrement</a>
 		</div>
 		<div class="col-md-4 col-sm-6">
 			<form action="" class="navbar-form navbar-left">
