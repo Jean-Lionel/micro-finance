@@ -28,7 +28,7 @@ class AddAgenceIdToComptePrincipalOperationsTable extends Migration
     {
         Schema::table('compte_principal_operations', function (Blueprint $table) {
             //
-             $table->foreignId('agence_id')->nullable()->after('antenne');
+             $table->dropColumn('agence_id');
         });
     }
 }
