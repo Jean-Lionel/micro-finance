@@ -1,21 +1,10 @@
 <div>
-    {{-- Success is as dangerous as failure.
-
-    	compte_name
-type_operation
-montant
-
-
-
-     --}}
-
 
        @if (session()->has('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
-
         @if (session()->has('error'))
             <div class="alert alert-danger">
                 {{ session('error') }}
@@ -99,5 +88,32 @@ montant
 
 	   		@endif
    		</div>
+   	</div>
+   	<style type="text/css">
+   		.footer{
+   			position: fixed;
+   			bottom:  0;
+   			left: 0;
+   			width: 100%;
+   		}
+   	</style>
+   	<div class="footer">
+   		<div class="row ">
+   			@foreach ($opertations as $opration)
+   				{{-- expr --}}
+   				<div class="col-md-3">
+   					<div class="card">
+   						<div class="card-title text-center">
+   							<h5>{{$opration->type_operation}}</h5>
+   						</div>
+   						<div class="card-body text-center">
+   							<h4>{{ numberFormat($opration->montant) }} # FBU</h4>
+   							<p>{{ date('D  d / M / Y') }}</p>
+   						</div>
+   					</div>
+   				</div>
+   			@endforeach
+   		</div>
+   		
    	</div>
 </div>

@@ -7,6 +7,8 @@ use App\Models\KirimbaComptePrincipal;
 use App\Models\KirimbaComptePrincipalOperation;
 use App\Models\kirimbaCredit;
 use App\Models\kirimbaOperation as KOperation;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -28,7 +30,15 @@ class KirimbaOperation extends Component
 
     public function render()
     {
-        return view('livewire.kirimba-operation');
+        $user_id = Auth::user()->id;
+        $now = date('Y-m-d');
+        $opertations = DB::select("select type_operation, SUM(montant) as montant  from `kirimba_operations` where (`user_id` = $user_id and date(`created_at`) = '$now') and `kirimba_operations`.`deleted_at` is null group by `type_operation`");
+
+       // dd($opertations);
+
+        return view('livewire.kirimba-operation',[
+            'opertations' =>$opertations
+        ]);
     }
 
     public function saveOperation(){
@@ -159,9 +169,6 @@ class KirimbaOperation extends Component
             $this->reset();
             
         } catch (\Exception $e) {
-
-          
-        
              session()->flash('error', $e->getMessage());
             DB::rollback();
             

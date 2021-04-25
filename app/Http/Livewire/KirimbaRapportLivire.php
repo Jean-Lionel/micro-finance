@@ -44,8 +44,6 @@ class KirimbaRapportLivire extends Component
         $user_operations = DB::select("SELECT user_id ,type_operation,SUM(montant) as sum_montant from  kirimba_operations WHERE  date(created_at) like '$today%' AND deleted_at is NULL GROUP BY user_id , type_operation");
 
 
-
-
         return view('livewire.kirimba-rapport-livire',[
         	'membreTotal' => $membreTotal ,
         	'montantKirimba' => $montantKirimba,
