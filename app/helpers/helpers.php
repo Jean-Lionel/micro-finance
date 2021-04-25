@@ -29,6 +29,10 @@ function warningMessage($message = 'Opération echoué'){
 function numberFormat($number){
 	return number_format($number, 2, ',', ' ');
 }
+
+function dateFormat($date){
+	return  date('d-m-Y', strtotime($date));
+}
 function testLionel(){
 	dump();
 	return "JEAN";

@@ -3,27 +3,18 @@
 
 	<div class="row">
 		<div class="col-md-4">
-	{{-- 		<div class="form-group p-3 mb-2">
-				<label for=""> DATE</label>
-				<input type="date" wire:model="currentDate" class="form-control">
-			</div>
-
- --}}
-			<label for="">Les Caissiers</label>
-
 			@if($users)
-
+			<label for="">Les Caissiers</label>
 			<select wire:model="selectedUser" id="" class="form-control">
 				<option value="">Choisissez ...</option>
 				@foreach($users as $user)
 				<option value="{{ $user->id }}">{{ $user->first_name.'  '. $user->last_name }}</option>
-
 				@endforeach
-
-				
-
-
 			</select>
+			<div class="form-group p-3 mb-2">
+				<label for=""> DATE</label>
+				<input type="date" wire:model="currentDate" class="form-control">
+			</div>
 
 			@endif
 			

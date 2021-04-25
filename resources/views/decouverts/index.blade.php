@@ -74,8 +74,8 @@
 				<td>{{ numberFormat($decouvert->total_a_rambourse - $decouvert->montant)}}</td>
 				<td>{{ numberFormat($decouvert->total_a_rambourse)}}</td>
 				<td>{{ numberFormat($decouvert->montant_restant)}}</td>
-				<td>{{ $decouvert->periode}}</td>
-				<td>{{ $decouvert->date_fin}}</td>
+				<td class="text-center">{{ $decouvert->periode}}</td>
+				<td>{{ dateFormat($decouvert->date_fin)}}</td>
 				<td>
 					@if ($decouvert->paye == 1)
 					<span style="color: green">DEJA PAYE</span>
@@ -88,7 +88,7 @@
 					
 					<td>{{ $decouvert->created_at}}</td>
 					<td class="d-flex justify-content-between">
-						<a href="{{ route('decouverts.show',$decouvert) }}" class="btn btn-outline-info"><i class="fa fa-eye" aria-hidden="true" title="Afficher plus d'information"></i>
+						<a href="{{ route('decouverts.show',$decouvert) }}" class="btn btn-outline-info"><i class="fa fa-eye" aria-hidden="true" title="Afficher plus d'information"></i> Afficher
  </a>
 						@if ($decouvert->paye ==0)
 
@@ -102,7 +102,7 @@
 							<form action="{{ route('decouverts.destroy' , $decouvert) }}" style="display: inline;" method="POST">
 							{{ csrf_field() }}
 							{{ method_field('DELETE') }}
-							<button class="btn btn-outline-danger btn-sm" onclick="return confirm('Voulez-vous supprimer?')">Supprimer</button>
+							<button class="btn btn-outline-danger btn-sm" onclick="return confirm('Voulez-vous supprimer?')"><i class="fas fa-trash" title="Modifier"></i>Supprimer</button>
 						</form> 
 
 
