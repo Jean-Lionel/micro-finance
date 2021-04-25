@@ -20,7 +20,7 @@ class UsersController extends Controller
     public function index()
     {
         $search =  \Request::get('search'); 
-        $users = User::where('first_name','like','%'.$search.'%')
+        $users = User::latest()->where('first_name','like','%'.$search.'%')
                         ->orWhere('last_name','like','%'.$search.'%')
                         ->orWhere('email','like','%'.$search.'%')
                         ->paginate(10);

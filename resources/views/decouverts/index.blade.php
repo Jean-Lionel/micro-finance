@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-	<div class="col-md-2">
+	<div class="col-md-1">
 		<b>List</b>
 	</div>
 	<div class="col-md">
@@ -18,9 +18,9 @@
 				<i class="fa fa-plus"></i> Remboursement de decouvert
 			</a>
 
-			<a class=" btn-info btn-sm" href="{{ route('reboursement-decouverts.index') }}"><i class="fa fa-share"></i>Histoique de Remboursement</a>
+			<a class="btn btn-info btn-sm" href="{{ route('reboursement-decouverts.index') }}"><i class="fa fa-share"></i> Histoique de Remboursement</a>
 
-			<a class=" btn-info btn-sm" href="{{ route('recrouvement') }}"><i class=""></i>Recouvrement</a>
+			<a class="btn btn-info btn-sm" href="{{ route('recrouvement') }}"><i class=""></i><i class="fa fa-clock"></i> Recouvrement  <span class="badge badge-danger">{{$nombre_total}}</span> </a>
 		</div>
 		<div class="col-md-4 col-sm-6">
 			<form action="" class="navbar-form navbar-left">

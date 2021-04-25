@@ -7,6 +7,7 @@ use App\Models\Operation;
 use App\Models\ReboursementDecouvert;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class RapportUser extends Component
@@ -24,6 +25,7 @@ class RapportUser extends Component
 
 	public $reboursement_decouverts =null;
 	public $paiment_placement =null;
+	public $kirimbaOperations =[];
 
 
 
@@ -52,6 +54,8 @@ class RapportUser extends Component
 
 	   $this->paiment_placement = ComptePrincipalOperation::where('user_id', $user_id)
 	   														->whereDate('created_at',$this->currentDate)->sum('paiment_placement');
+
+	   $this->kirimbaOperations =  DB::select("select type_operation, SUM(montant) as montant  from `kirimba_operations` where (`user_id` = $user_id and date(`created_at`) = '$this->currentDate') and `kirimba_operations`.`deleted_at` is null group by `type_operation`");
 
 	}
 

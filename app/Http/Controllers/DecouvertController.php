@@ -24,19 +24,18 @@ class DecouvertController extends Controller
     public function index()
     {
         //$decouverts = Decouvert::sortable()->paginate(10);
-
         $search = \Request::get('search'); 
         $decouverts = Decouvert::sortable()->latest()
-        ->where('compte_name','like','%'.$search.'%')
-        ->orWhere('montant','like','%'.$search.'%')
-        ->orWhere('interet','like','%'.$search.'%')
-        ->orWhere('total_a_rambourse','like','%'.$search.'%')
-        ->orWhere('periode','like','%'.$search.'%')
-        ->orWhere('montant_payer','like','%'.$search.'%')
-        ->orWhere('montant_restant','like','%'.$search.'%')
+        ->where('compte_name','=',$search)
         ->orWhere('created_at','like','%'.$search.'%')
         ->paginate();
-        return view('decouverts.index', compact('decouverts','search'));
+        //TOTAL DES RECOUVREMENT
+        $now = date('Y-m-d');
+         $total = DB::select("select count(*) as nombre_total from `decouverts` where `paye` = 0 and date(`date_fin`) < '$now' and `decouverts`.`deleted_at` is null");
+
+        $nombre_total = $total[0]->nombre_total;
+
+        return view('decouverts.index', compact('decouverts','search','nombre_total'));
     }
 
     /**
@@ -191,15 +190,22 @@ class DecouvertController extends Controller
     }
 
     public function recrouvement(){
+
+        $search = \Request::get('search'); 
+
         $now = Carbon::now();
         $decouverts =  Decouvert::where("paye",'=',0)
+                                ->where(function($query) use ($search){
+                                    if(strlen($search) > 4){
+                                        $query->where('compte_name', '=',$search );
+                                    }
+                                })
                                 ->whereDate('date_fin', '<', $now)->paginate(); 
-
         $total = DB::select("select count(*) as nombre_total from `decouverts` where `paye` = 0 and date(`date_fin`) < '$now' and `decouverts`.`deleted_at` is null");
 
         $nombre_total = $total[0]->nombre_total;
         //dd("OK");
-        return view("decouverts.recrouvement", compact('decouverts','nombre_total'));
+        return view("decouverts.recrouvement", compact('decouverts','nombre_total','search'));
     }
 
     /**

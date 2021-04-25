@@ -11,7 +11,7 @@
 		<div class="col-md-4 col-sm-6">
 			<form action="" class="navbar-form navbar-left">
 				<div class="input-group custom-search-form">
-					<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search ?? ''}}">
+					<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search ?? 'COO-'}}">
 					<span class="input-group-btn">
 						<button class="btn btn-default-sm" type="submit">
 							<i class="fa fa-search"></i>
@@ -55,11 +55,11 @@
 			<tr>
 				<td class="text-left">{{$key + 1}}</td>
 				<td class="text-left">{{ $decouvert->clientName }}</td>
-				<td>{{ $decouvert->compte_name}}</td>
-				<td>{{ numberFormat($decouvert->montant)}}</td>
+				<td class="text-left">{{ $decouvert->compte_name}}</td>
+				<td class="text-left">{{ numberFormat($decouvert->montant)}}</td>
 				
-				<td>{{ numberFormat($decouvert->total_a_rambourse - $decouvert->montant)}}</td>
-				<td>{{ numberFormat($decouvert->total_a_rambourse)}}</td>
+				<td class="text-left">{{ numberFormat($decouvert->total_a_rambourse - $decouvert->montant)}}</td>
+				<td class="text-left">{{ numberFormat($decouvert->total_a_rambourse)}}</td>
 				<td class="text-right">{{ numberFormat($decouvert->montant_restant)}}</td>
 				<td class="text-center">{{ $decouvert->periode}}</td>
 				<td>{{ $decouvert->date_fin}}</td>
