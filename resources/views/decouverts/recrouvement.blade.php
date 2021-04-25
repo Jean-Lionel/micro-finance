@@ -3,25 +3,11 @@
 @section('content')
 
 <div class="row">
-	<div class="col-md-2">
-		<b>List</b>
+	<div class="col-md-6">
+		<b>List des personnes qui ont depassé la date de remboursement</b>
 	</div>
-	<div class="col-md">
-		@can('is-admin')
-
-		<a href="{{ route('decouverts.create')}}" class="btn btn-info btn-sm">
-			<i class="fa fa-plus"></i> Nouvel decouvert</a>
-
-			@endcan
-
-			<a href="{{ route('reboursement-decouverts.create')}}" class="btn btn-info btn-sm">
-				<i class="fa fa-plus"></i> Remboursement de decouvert
-			</a>
-
-			<a class=" btn-info btn-sm" href="{{ route('reboursement-decouverts.index') }}"><i class="fa fa-share"></i>Histoique de Remboursement</a>
-
-			<a class=" btn-info btn-sm" href="{{ route('recrouvement') }}"><i class=""></i>Recouvrement</a>
-		</div>
+	<div class="col-md-6">
+		
 		<div class="col-md-4 col-sm-6">
 			<form action="" class="navbar-form navbar-left">
 				<div class="input-group custom-search-form">
@@ -35,13 +21,14 @@
 				</div>
 			</form>
 		</div>
+		TOTAL DES CLIENTS QUI N'ONT PAS ENCORE PAYE {{$nombre_total ?? 0}} PERSONNES
 	</div>
 
 
 
 	@if($decouverts)
 
-	<table class="table  table-hover table-striped table-responsive text-right">
+	<table class="table  table-hover table-striped table-responsive text-right" style="width: 100%;">
 		<thead>
 			<tr>
 
@@ -50,7 +37,7 @@
 				<th>NOM ET PRENOM</th>
 				<th>@sortablelink('compte_name','COMPTE')</th>
 				<th>@sortablelink('montant','Montant') </th>
-				<th>@sortablelink('interet','Interet') </th>
+				
 				<th>Interet en FBU </th>
 				<th>@sortablelink('total_a_rambourse','à rembourse') </th>
 				<th>@sortablelink('montant_restant','Reste') </th>
@@ -70,11 +57,11 @@
 				<td class="text-left">{{ $decouvert->clientName }}</td>
 				<td>{{ $decouvert->compte_name}}</td>
 				<td>{{ numberFormat($decouvert->montant)}}</td>
-				<td>{{ numberFormat($decouvert->interet)}}</td>
+				
 				<td>{{ numberFormat($decouvert->total_a_rambourse - $decouvert->montant)}}</td>
 				<td>{{ numberFormat($decouvert->total_a_rambourse)}}</td>
-				<td>{{ numberFormat($decouvert->montant_restant)}}</td>
-				<td>{{ $decouvert->periode}}</td>
+				<td class="text-right">{{ numberFormat($decouvert->montant_restant)}}</td>
+				<td class="text-center">{{ $decouvert->periode}}</td>
 				<td>{{ $decouvert->date_fin}}</td>
 				<td>
 					@if ($decouvert->paye == 1)
@@ -87,26 +74,9 @@
 
 					
 					<td>{{ $decouvert->created_at}}</td>
-					<td class="d-flex justify-content-between">
+				<td>
 						<a href="{{ route('decouverts.show',$decouvert) }}" class="btn btn-outline-info"><i class="fa fa-eye" aria-hidden="true" title="Afficher plus d'information"></i>
- </a>
-						@if ($decouvert->paye ==0)
-
-						@can('is-admin')
-
-						<a href="{{ route('decouverts.edit',$decouvert) }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-edit" title="Modifier"></i>Modifier</a>
-
-						@endcan
-
-						@endif
-							<form action="{{ route('decouverts.destroy' , $decouvert) }}" style="display: inline;" method="POST">
-							{{ csrf_field() }}
-							{{ method_field('DELETE') }}
-							<button class="btn btn-outline-danger btn-sm" onclick="return confirm('Voulez-vous supprimer?')">Supprimer</button>
-						</form> 
-
-
-					</td>
+				</td>
 				</tr>
 
 				@endforeach

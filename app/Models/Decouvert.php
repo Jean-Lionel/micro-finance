@@ -13,13 +13,13 @@ class Decouvert extends ParentModel
     protected $fillable = [
     'compte_name','montant','interet','total_a_rambourse','periode',
     'montant_payer','paye',
-	'montant_restant'
+	'montant_restant','date_fin'
     ];
     public $sortable = [
     'compte_name','montant','interet','total_a_rambourse',
     'created_at','periode',
     'montant_payer',
-	'montant_restant',
+	'montant_restant','date_fin',
     'paye'];
 
     public static function boot(){
@@ -34,9 +34,15 @@ class Decouvert extends ParentModel
     public function getClientNameAttribute(){
 
         $compte = Compte::where('name','=', $this->compte_name)->first();
-        
-
+    
         return $compte->client->fullName ?? "";
+    }
+
+    public function client(){
+
+        $compte = Compte::where('name','=', $this->compte_name)->first();
+    
+        return $compte->client;
     }
 
 

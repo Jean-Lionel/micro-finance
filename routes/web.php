@@ -64,3 +64,5 @@ Route::get('agences', 'AgenceController@index')->name("agences");
 Route::get('gestion-agence', 'AgenceController@gestion')->name("gestion-agence");
 Route::get("caissier",'AgenceController@caissier')->name("caissier");
 
+Route::get("recrouvement",'DecouvertController@recrouvement')->name("recrouvement");
+

@@ -33,6 +33,7 @@
     			<thead class="table-hover table-info">
     				<tr>
     					<th>NOM ET PRENOM</th>
+                        <th>AGENCE</th>
     					<th>MONTANT ( FBU )</th>
     					<th>VALIDATION</th>
     				</tr>
@@ -41,10 +42,11 @@
     				@foreach ($caisse_caissiers as $caisse)
     				<tr>
     					<td>{{ $caisse->user->fullName }}</td>
+                        <td>{{ $caisse->user->agence->name ?? "" }}</td>
     					<td>{{ numberFormat($caisse->montant) }}</td>
     					<td>
-                            @if($caisse->montant > 0)
-    						<button class="btn-sm btn-info" wire:click="vaideReception({{$caisse->id}})">Validation</button>
+                            @if($caisse->montant > 0) 
+    						<button class="btn-sm btn-info" wire:click="$emit('confirmValidation',{{$caisse->id}})">Validation</button>
                             @endif
     					</td>
     				</tr>
@@ -54,3 +56,38 @@
     	</div>
     </div>
 </div>
+
+
+@push("scripts")
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded",function(e){
+          @this.on('confirmValidation', orderId => {
+            Swal.fire({
+                title: 'êtez vous sûr ?',
+                text: 'de Valider cette opération',
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: 'var(--success)',
+                cancelButtonColor: 'var(--primary)',
+                confirmButtonText: 'Valider !'
+            }).then((result) => {
+        //if user clicks on delete
+                if (result.value) {
+             // calling destroy method to delete
+                    @this.call('vaideReception',orderId)
+            // success response
+                    responseAlert({title: session('message'), type: 'success'});
+                    
+                } else {
+                    responseAlert({
+                        title: 'Operation Cancelled!',
+                        type: 'success'
+                    });
+                }
+            });
+        });
+    })
+</script>
+
+@endpush

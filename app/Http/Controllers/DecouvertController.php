@@ -20,34 +20,24 @@ class DecouvertController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(){
-        //UPDATE `decouverts` SET `date_fin` = DATE_ADD(`created_at`, INTERVAL `periode` MONTH )
+   
+    public function index()
+    {
+        //$decouverts = Decouvert::sortable()->paginate(10);
 
-        $now = Carbon::now();
-
-        $decouverts =  Decouvert::whereDate('date_fin', '<', $now)->get();
-
-        dump($decouverts);
-
-        dd("OK");
+        $search = \Request::get('search'); 
+        $decouverts = Decouvert::sortable()->latest()
+        ->where('compte_name','like','%'.$search.'%')
+        ->orWhere('montant','like','%'.$search.'%')
+        ->orWhere('interet','like','%'.$search.'%')
+        ->orWhere('total_a_rambourse','like','%'.$search.'%')
+        ->orWhere('periode','like','%'.$search.'%')
+        ->orWhere('montant_payer','like','%'.$search.'%')
+        ->orWhere('montant_restant','like','%'.$search.'%')
+        ->orWhere('created_at','like','%'.$search.'%')
+        ->paginate();
+        return view('decouverts.index', compact('decouverts','search'));
     }
-    // public function index()
-    // {
-    //     //$decouverts = Decouvert::sortable()->paginate(10);
-
-    //     $search = \Request::get('search'); 
-    //     $decouverts = Decouvert::sortable()->latest()
-    //     ->where('compte_name','like','%'.$search.'%')
-    //     ->orWhere('montant','like','%'.$search.'%')
-    //     ->orWhere('interet','like','%'.$search.'%')
-    //     ->orWhere('total_a_rambourse','like','%'.$search.'%')
-    //     ->orWhere('periode','like','%'.$search.'%')
-    //     ->orWhere('montant_payer','like','%'.$search.'%')
-    //     ->orWhere('montant_restant','like','%'.$search.'%')
-    //     ->orWhere('created_at','like','%'.$search.'%')
-    //     ->paginate();
-    //     return view('decouverts.index', compact('decouverts','search'));
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -78,12 +68,14 @@ class DecouvertController extends Controller
     // database queries here
 
             ComptePrincipalController::store_info($request->montant, 'DECOUVERT');
-
+            $date_fin = new Carbon();
+            $date_fin = $date_fin->addMonths($request->periode);
             Decouvert::create([
                 'compte_name' => $request->compte_name,
                 'montant' => $request->montant,
                 'interet' => $request->interet,
                 'periode' => $request->periode,
+                'date_fin' =>   $date_fin,
                 'total_a_rambourse' => $total_a_rambourse,
                 'montant_restant' => $total_a_rambourse
             ]);
@@ -114,6 +106,7 @@ class DecouvertController extends Controller
     public function show(Decouvert $decouvert)
     {
         //
+        return view("decouverts.show" , compact('decouvert'));
     }
 
     /**
@@ -168,11 +161,14 @@ class DecouvertController extends Controller
                     ]);
 
             ComptePrincipalController::store_info($request->montant, 'DECOUVERT');
+             $date_fin = new Carbon();
+             $date_fin = $date_fin->addMonths($request->periode);
             $decouvert->update(
                 [
                 'montant' => $request->montant,
                 'interet' => $request->interet,
                 'periode' => $request->periode,
+                'date_fin' => $date_fin,
                 'total_a_rambourse' => $total_a_rambourse,
                 'montant_restant' => $total_a_rambourse
 
@@ -190,26 +186,21 @@ class DecouvertController extends Controller
 
      }
 
-        // $total_a_rambourse = 
-        // $request->montant + 
-        // ((($request->montant * $request->interet)/100) * $request->periode);
-
-        // $decouvert->update(
-        //     [
-        //         'compte_name' => $request->compte_name,
-        //         'montant' => $request->montant,
-        //         'interet' => $request->interet,
-        //         'periode' => $request->periode,
-        //         'total_a_rambourse' => $total_a_rambourse ,
-        //         'montant_restant' => $total_a_rambourse
-        //     ]
-
-        // );
-
-     // errorMessage("On ne peut pas Modifier une decouvert qu'a déjà attribué  ");
 
      return $this->index();
- }
+    }
+
+    public function recrouvement(){
+        $now = Carbon::now();
+        $decouverts =  Decouvert::where("paye",'=',0)
+                                ->whereDate('date_fin', '<', $now)->paginate(); 
+
+        $total = DB::select("select count(*) as nombre_total from `decouverts` where `paye` = 0 and date(`date_fin`) < '$now' and `decouverts`.`deleted_at` is null");
+
+        $nombre_total = $total[0]->nombre_total;
+        //dd("OK");
+        return view("decouverts.recrouvement", compact('decouverts','nombre_total'));
+    }
 
     /**
      * Remove the specified resource from storage.
