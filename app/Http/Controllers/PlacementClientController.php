@@ -28,7 +28,7 @@ class PlacementClientController extends Controller
         ->orWhere('cni','like','%'.$search.'%')
         ->orWhere('addresse','like','%'.$search.'%')
         ->orderBy('nom')
-        ->paginate(10);
+        ->paginate();
         
 
         return view('placementClients.index', compact('clients','search'));

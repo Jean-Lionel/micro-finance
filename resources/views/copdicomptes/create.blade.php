@@ -4,7 +4,7 @@
 
 <form action="{{ route('operations.store')}}" method="POST">
 
-@include('operations._form',['btnTitle' => 'Enregistre'])
+@include('operations._form',['btnTitle' => 'Enregistrer'])
 
 </form>
 

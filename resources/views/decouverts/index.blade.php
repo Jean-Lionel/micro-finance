@@ -41,7 +41,7 @@
 
 	@if($decouverts)
 
-	<table class="table  table-hover table-striped table-responsive text-right">
+	<table class="table  table-hover table-striped table-responsive text-right table-bordered">
 		<thead>
 			<tr>
 
@@ -99,12 +99,13 @@
 						@endcan
 
 						@endif
+						 @can('is-admin')
 							<form action="{{ route('decouverts.destroy' , $decouvert) }}" style="display: inline;" method="POST">
 							{{ csrf_field() }}
 							{{ method_field('DELETE') }}
 							<button class="btn btn-outline-danger btn-sm" onclick="return confirm('Voulez-vous supprimer?')"><i class="fas fa-trash" title="Modifier"></i>Supprimer</button>
 						</form> 
-
+						 @endcan('is-admin')
 
 					</td>
 				</tr>

@@ -85,15 +85,14 @@
          @endcannot
 
          @endcan
-
-         @can('placement-manager')
-
+         @canany(['placement-manager','is-placement'])
              @cannot('is-admin')
-
             <a class="p-2 {{set_active_router('placements.index')}}" href="{{ route('placements.index') }}"><i class="fa fa-inbox"></i> Placement</a>
             @endcannot
 
-         @endcan
+         @endcanany
+
+    
 
          @can('decouvert-manager')
 

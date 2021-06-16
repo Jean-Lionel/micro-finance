@@ -14,7 +14,7 @@
  --}}
 		<div class="form-save">
 			<form action="{{ route('decouverts.store')}}" method="POST">
-				@include('decouverts._form',['btnTitle' => 'Enregistre'])
+				@include('decouverts._form',['btnTitle' => 'Enregistrer'])
 
 			</form>
 		</div>

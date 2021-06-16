@@ -4,7 +4,7 @@
 
 <form action="{{ route('student.store')}}" method="POST">
 
-@include('students._form',['btnTitle' => 'Enregistre'])
+@include('students._form',['btnTitle' => 'Enregistrer'])
 
 </form>
 

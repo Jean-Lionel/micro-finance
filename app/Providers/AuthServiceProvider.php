@@ -69,5 +69,11 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isDecouvert();
 
          });
+
+         Gate::define('is-placement', function($user){
+
+            return $user->isPlacement();
+
+         });
     }
 }

@@ -42,23 +42,17 @@ class OperationController extends Controller
             ->paginate(10);
 
         }
-
         if(Gate::denies('is-admin')){
-
            $operations = Operation::sortable(['created_at'=>'desc'])
            ->where('compte_name', 'like', '%'.$search.'%')
            ->where('user_id','=', Auth::user()->id)
            ->paginate(10);
 
        }
-
        $user_id = Auth::user()->id;
-
-
        $versement = Operation::where('user_id',$user_id)
        ->where('type_operation','=','VERSEMENT')
        ->whereDate('created_at',Carbon::now())->sum('montant');
-
        $retrait = Operation::where('user_id',$user_id)
        ->where('type_operation','=','RETRAIT')
        ->whereDate('created_at',Carbon::now())->sum('montant');

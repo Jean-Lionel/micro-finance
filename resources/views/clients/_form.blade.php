@@ -227,7 +227,7 @@
 
 			<div class="col-md-12 mt-4">
 				<div class="form-group">
-					<label for="upload_image">Ajouter sa photo</label>
+					<label for="upload_image">Ajouter une photo</label>
 					<input type="file" name="upload_image" class="form-control-file" id="upload_image">
 				</div>
 			</div>

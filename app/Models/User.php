@@ -89,6 +89,9 @@ class User extends Authenticatable
     public function isDecouvert()
     {
         return $this->roles()->where('name', 'GESTION DES DECOUVERTS')->first();
-
+    } 
+    public function isPlacement()
+    {
+        return $this->roles()->where('name', 'GESTION DES PLACEMENTS')->first();
     }
 }

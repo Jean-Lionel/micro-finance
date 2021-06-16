@@ -1,4 +1,4 @@
-<div>
+<div> 
     {{-- Be like water. --}}
 
     <h1>Historique des opérations</h1>

@@ -44,5 +44,10 @@ class RoleSeeder extends Seeder
             'name' => 'GESTION DES DECOUVERTS'
 
         ]);
+        Role::create([
+            'name' => 'GESTION DES PLACEMENTS'
+
+        ]);
+        
     }
 }
