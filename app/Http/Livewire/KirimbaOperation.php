@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Controllers\ComptePrincipalController;
 use App\Models\KirimbaCompte;
 use App\Models\KirimbaComptePrincipal;
 use App\Models\KirimbaComptePrincipalOperation;
@@ -30,6 +31,9 @@ class KirimbaOperation extends Component
 
     public function render()
     {
+
+        
+
         $user_id = Auth::user()->id;
         $now = date('Y-m-d');
         $opertations = DB::select("select type_operation, SUM(montant) as montant  from `kirimba_operations` where (`user_id` = $user_id and date(`created_at`) = '$now') and `kirimba_operations`.`deleted_at` is null group by `type_operation`");
@@ -94,7 +98,10 @@ class KirimbaOperation extends Component
 
                         $compte_principal->save();
 
-                        $compte->montant -= $this->montant;
+                       //  -= $this->montant;
+                        //UTILISATION DU MONTANT DU COMPTE PRINCIPALE
+
+                         $compte->montant = ComptePrincipalController::oparate($compte->montant,$this->montant,'MOINS');
 
                         $op = KOperation::create([
                             'kirimba_compte_id' =>  $compte->id,
@@ -109,8 +116,6 @@ class KirimbaOperation extends Component
                             $benefice =  $this->montant * 2 / 100 ;
 
                             $compte->montant -= $benefice;
-
-
 
                             kirimbaCredit::create([
                                 'kirimba_membre_id' => $this->membre->id ,
@@ -138,7 +143,9 @@ class KirimbaOperation extends Component
                  $compte = $this->membre->compte;   
                  $compte_principal->montant  += $this->montant;
                  $compte_principal->save();
-                 $compte->montant += $this->montant;
+                // $compte->montant += $this->montant;
+
+                 $compte->montant = ComptePrincipalController::oparate($compte->montant,$this->montant,'ADD');
                  $compte->save();
 
                  $op = KOperation::create([

@@ -133,33 +133,33 @@ class ComptePrincipalController extends Controller
         switch($type_Operation){
 
             case 'RETRAIT':
-                $newValue = oparate($currentValue,$motant,'MOINS');
+                $newValue = self::oparate($currentValue,$motant,'MOINS');
                 break;
 
             case 'VERSEMENT':
-                $newValue = oparate($currentValue,$motant,'ADD');
+                $newValue = self::oparate($currentValue,$motant,'ADD');
                 break;
 
             case 'PLACEMENT':
-                $newValue = oparate($currentValue,$motant,'ADD');
+                $newValue = self::oparate($currentValue,$motant,'ADD');
                 break;
 
             case 'DECOUVERT':
-                $newValue = oparate($currentValue,$motant,'MOINS');
+                $newValue = self::oparate($currentValue,$motant,'MOINS');
                 break;
                 
             case 'REMBOURSEMENT':
-                $newValue = oparate($currentValue,$motant,'ADD');
+                $newValue = self::oparate($currentValue,$motant,'ADD');
                 break;
 
             case 'DEPENSE':
-                $newValue = oparate($currentValue,$motant,'MOINS');
+                $newValue = self::oparate($currentValue,$motant,'MOINS');
                 break;
             case 'ADD':
-                $newValue = oparate($currentValue,$motant,'ADD');
+                $newValue = self::oparate($currentValue,$motant,'ADD');
                 break;
             case 'MOINS':
-                $newValue = oparate($currentValue,$motant,'MOINS');
+                $newValue = self::oparate($currentValue,$motant,'MOINS');
                 break;
 
             default:
@@ -235,47 +235,50 @@ class ComptePrincipalController extends Controller
         //  return $response;
         
     }
-}
 
+    public static function oparate($last_montant , $newMontat, $type_Operation){
 
- function oparate($last_montant , $newMontat, $type_Operation){
+           //dd("OK JE SUIS COOL");
 
-        //JE VEUX AUTORISE L'OPERATION SUR 2 AGENCE KINAMA ET RUBIRIZI
-        // CODE IRAGANJE 
+            //JE VEUX AUTORISE L'OPERATION SUR 2 AGENCE KINAMA ET RUBIRIZI
+            // CODE IRAGANJE 
 
-        if(Auth::user()->agence_id < 3){
-             $agence = Agence::find(Auth::user()->agence_id);
-        }else{
-            throw new Exception("Vous n'appartiez à aucune agence !!! 🤣😂🤣😁👍🎂🎂 ", 1);
-        }
-        
-       // $agence = Agence::find(Auth::user()->agence_id);
-
-        if(! $agence){
-            throw new Exception("Vous n'appartiez à aucune agence ", 1);
-        }
-        $caisse_caissier = CaisseCaissier::where("user_id",Auth::user()->id)->first();
-       // dd($caisse_caissier);
-        if(! $caisse_caissier){
-            throw new Exception("Vous n'avez pas  à aucune caisse ", 1);
-        }
-
-        if($type_Operation == 'ADD'){
-            //ON CHERCHER L'AGANCE 
-            $caisse_caissier->montant += $newMontat;
-            $caisse_caissier->save();
-            //dd($agence);
-            return $last_montant + $newMontat;
-        }
-        else if($type_Operation == 'MOINS'){
-            // ON CHERCHER ON FAIT LA SOUSTRACTION
-            if( $caisse_caissier->montant < $newMontat){
-                //MUGIHE ATA MAFARANGA ARIKO KURI IYO AGENCE
-                 throw new Exception("Votre Caisse ne possède pas cet montant demandé", 1);
+            if(Auth::user()->agence_id < 3){
+                 $agence = Agence::find(Auth::user()->agence_id);
             }else{
-                 $caisse_caissier->montant -= $newMontat;
-                 $caisse_caissier->save();
+                throw new Exception("Vous n'appartiez à aucune agence !!! 🤣😂🤣😁👍🎂🎂 ", 1);
             }
-            return $last_montant > $newMontat ? ($last_montant - $newMontat) : false;
-        }
+            
+           // $agence = Agence::find(Auth::user()->agence_id);
+
+            if(! $agence){
+                throw new Exception("Vous n'appartiez à aucune agence ", 1);
+            }
+            $caisse_caissier = CaisseCaissier::where("user_id",Auth::user()->id)->first();
+           // dd($caisse_caissier);
+            if(! $caisse_caissier){
+                throw new Exception("Vous n'avez pas  à aucune caisse ", 1);
+            }
+
+            if($type_Operation == 'ADD'){
+                //ON CHERCHER L'AGANCE 
+                $caisse_caissier->montant += $newMontat;
+                $caisse_caissier->save();
+                //dd($agence);
+                return $last_montant + $newMontat;
+            }
+            else if($type_Operation == 'MOINS'){
+                // ON CHERCHER ON FAIT LA SOUSTRACTION
+                if( $caisse_caissier->montant < $newMontat){
+                    //MUGIHE ATA MAFARANGA ARIKO KURI IYO AGENCE
+                     throw new Exception("Votre Caisse ne possède pas cette somme demandé", 1);
+                }else{
+                     $caisse_caissier->montant -= $newMontat;
+                     $caisse_caissier->save();
+                }
+                return $last_montant > $newMontat ? ($last_montant - $newMontat) : false;
+            }
+    }
+
+
 }
