@@ -27,9 +27,6 @@ class RapportUser extends Component
 	public $paiment_placement =null;
 	public $kirimbaOperations =[];
 
-
-
-
 	public function mount(){
 
 		$this->users = User::all();

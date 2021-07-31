@@ -111,7 +111,7 @@ class UsersController extends Controller
             'email'      => ['required', 'string', 'email', 'max:255'],
             'agence_id'      => ['required'],
             ]);
-
+ 
 
         $user->roles()->sync($request->roles);
 

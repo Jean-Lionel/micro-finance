@@ -7,7 +7,7 @@
 
 <form action="{{ route('comptes.store')}}" method="POST">
 
-	@include('comptes._form',['btnTitle' => 'Enregistrer'])
+	@include('comptes._form',['btnTitle' => 'Enregistrers'])
 
 </form>
 

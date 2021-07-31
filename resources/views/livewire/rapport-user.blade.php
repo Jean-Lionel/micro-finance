@@ -43,7 +43,7 @@
 						<td>{{ number_format($paiment_placement) }}</td>
 						<td>{{ number_format($reboursement_decouverts) }}</td>
 					</tr>
-				</tbody>
+				</tbody> 
 			</table>
 			<h4 class="text-center">IKIRIMBA</h4>
 

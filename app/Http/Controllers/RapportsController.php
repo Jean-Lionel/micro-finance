@@ -27,7 +27,6 @@ class RapportsController extends Controller
 
         return view('rapports.userOperation');
 
-
     }
 
 	public function rapport(){

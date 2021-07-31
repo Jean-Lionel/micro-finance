@@ -70,6 +70,7 @@ class KirimbaOperation extends Component
 
             if($this->type_operation == 'RETRAIT')
             {
+                //MODIFIER LE CAISSE DU MEMBRE 
                 if($this->montant > $compte_principal->montant){
                     //ERROR
                     throw new \Exception("Le compte principal de IKIRIMBA ne possede pas cette montant demandé", 1);

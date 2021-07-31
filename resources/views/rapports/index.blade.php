@@ -17,7 +17,7 @@
 				<a href="{{route('gestion-agence') }}" >Gestion des Agence</a>
 			</li>
 			<li class="list-unstyled list-group-item">
-				<a href="{{route('agences') }}" > Agence et Caisser</a>
+				<a href="{{route('agences') }}" > Agence et Caisse</a>
 			</li>
 			<li class="list-unstyled list-group-item">
 				<a href="{{route('caissier') }}" >Gestion des Caissiers</a>
