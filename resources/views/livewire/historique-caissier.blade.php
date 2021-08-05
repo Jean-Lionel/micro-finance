@@ -8,7 +8,8 @@
         <thead>
             <tr>
                 <th>DATE</th>
-                <th>TYPE</th>
+                <th>HEURE</th>
+                <th>TYPE D'OPERATION</th>
                 <th>MONTANT ( #FBU)</th>
             </tr>
             
@@ -18,8 +19,9 @@
             
             @foreach ($operations as $element)
                 <tr>
-                    <td>{{ $element->created_at }}</td>
-                    <td>{{ $element->type_operation == 'VIREMENT MATINAL' ? 'APPROVISIONEMENT' : 'RETOUR' }}</td>
+                    <td>{{ $element->created_at->format('Y-m-d') }}</td>
+                    <td>{{ $element->created_at->format('H:i:s') }}</td>
+                    <td>{{ $element->type_operation == 'VIREMENT MATINAL' ? 'APPROVISIONEMENT' : 'MONTANT REMIS' }}</td>
                     <td class="text-left">{{ number_format($element->montant) }}</td>
                 </tr>
             @endforeach

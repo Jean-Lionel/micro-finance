@@ -84,9 +84,12 @@
 
 			</td>
 			<td class="d-flex">
-				@can('is-admin')
+				@canany(['is-admin','is-placement'])
 				<a href="{{ route('placements.edit', $placement) }}" class="btn-success btn btn-sm mr-2" title="Modifier"><i class="fa fa-edit"></i></a>
 
+				@endcanany
+
+				@can('is-admin')
 				<form action="{{ route('placements.destroy',$placement) }}" method="post">
 					@csrf
 

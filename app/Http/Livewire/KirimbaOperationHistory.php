@@ -22,7 +22,6 @@ class KirimbaOperationHistory extends Component
     				$query->where('compte_name', '=',$c );
     			}
     		}
-
     	 )->paginate();
 
         return view('livewire.kirimba-operation-history',[

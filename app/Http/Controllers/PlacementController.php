@@ -322,10 +322,7 @@ class PlacementController extends Controller
         try {
             DB::beginTransaction();
 
-
             ComptePrincipalController::store_info($placement->montant,'MOINS');
-
-
             // ComptePrincipalOperationController::storeOperation($placement->montant,'suppression_placement',$placement->compte_name);
 
 
@@ -336,36 +333,28 @@ class PlacementController extends Controller
              $compte_principalOp->delete();
 
 
-
             $op = PlacementCompteOperation::where('placement', $placement->id)->firstOrFail();
 
             $op->delete();
 
               $compte_placement = ComptePlacement::where('name','=',$placement->compte_name)->firstOrFail();
 
-            if($compte_placement->montant > $placement->montant){
+            if($compte_placement->montant >= $placement->montant){
 
                 $compte_placement->update(['montant' =>($compte_placement->montant - abs($placement->montant_restant)) ]);
-
                 $placement->delete();
 
             }else{
                  throw new Exception("Error parceQue vous n'avez pas le montant sur votre compte");
             }
-
-            
-
             DB::commit();
             
         } catch (\Exception $e) {
 
             DB::rollback();
-
             return back();
-
              errorMessage($e->getMessage());
-            // dump($e->getMessage());
-            
+            // dump($e->getMessage())
         }
 
         return back();
