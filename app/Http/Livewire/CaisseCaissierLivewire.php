@@ -66,12 +66,14 @@ class CaisseCaissierLivewire extends Component
 
     public function vaideReception($id){
 
+        //dd($id);
+
         $caisse = CaisseCaissier::find($id);
         try {
             DB::beginTransaction();
                 OperationCaisse::create([
                     "montant" => $caisse->montant,
-                    "user_id" => $id,
+                    "user_id" => $caisse->user_id,
                     "type_operation" => "RETOUR SOIR"
                 ]);
                 $caisse->montant = 0;

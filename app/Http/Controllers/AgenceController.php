@@ -16,4 +16,8 @@ class AgenceController extends Controller
     public function caissier(){
     	return view("caissiers.index");
     }
+    public function historique($id){
+        $post = $id;
+        return view("caissiers.historique", compact('post'));
+    }
 }

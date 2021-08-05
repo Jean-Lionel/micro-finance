@@ -63,6 +63,7 @@ Route::get('kirimba-rapport-dette', 'KirimbaRapportController@rapportKirimba')->
 Route::get('agences', 'AgenceController@index')->name("agences");
 Route::get('gestion-agence', 'AgenceController@gestion')->name("gestion-agence");
 Route::get("caissier",'AgenceController@caissier')->name("caissier");
+Route::get("caissier_info/{id}",'AgenceController@historique')->name("caissier_info");
 
 Route::get("recrouvement",'DecouvertController@recrouvement')->name("recrouvement");
 
