@@ -161,6 +161,12 @@ class ComptePrincipalController extends Controller
             case 'MOINS':
                 $newValue = self::oparate($currentValue,$motant,'MOINS');
                 break;
+            case 'ANNULATION_VERSEMENT':
+                $newValue = self::oparate($currentValue,$motant,'ANNULATION_VERSEMENT');
+                break;
+            case 'ANNULATION_RETRAIT':
+                $newValue = self::oparate($currentValue,$motant,'ANNULATION_RETRAIT');
+                break;
 
             default:
                 return "Actitvité non permise";
@@ -277,6 +283,13 @@ class ComptePrincipalController extends Controller
                      $caisse_caissier->save();
                 }
                 return $last_montant > $newMontat ? ($last_montant - $newMontat) : false;
+            }
+            else if($type_Operation == 'ANNULATION_VERSEMENT'){
+                return $last_montant > $newMontat ? ($last_montant - $newMontat) : false;
+            }
+            else if($type_Operation == 'ANNULATION_RETRAIT'){
+
+                return $last_montant + $newMontat;
             }
     }
 

@@ -61,8 +61,7 @@
 							{{-- expr --}}
 							<a href="{{ route('operations.edit',$operation) }}" class="btn btn-outline-dark btn-sm delete_operation">Annuler</a>
 							@endcan
-
-
+							
 							<button class="btn btn-outline-info btn-sm imprimer" onclick="printBordereau({{$operation->id}})">Imprimer</button>
 
 						{{-- <form action="{{ route('operations.destroy' , $operation) }}" style="display: inline;" method="POST">

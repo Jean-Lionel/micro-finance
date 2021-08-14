@@ -187,6 +187,7 @@
 			<div class="card">
 			<b class="card-title">Nom : ${data.client.nom}</b>
 			<b class="card-title">prénom : ${data.client.prenom}</b>
+			<b class="card-title">NUMERO DE COMPTE : ${'COO- ' +data.client.id}</b>
 			<b class="card-title">C.N.I : ${data.client.cni}</b>
 			<b class="card-title">Date de Naissance :${data.client.date_naissance} </b>
 

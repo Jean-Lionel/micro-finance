@@ -9,6 +9,7 @@ use App\Http\Requests\FormOperationRequest;
 use App\Models\CaisseCaissier;
 use App\Models\Compte;
 use App\Models\Operation;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -239,27 +240,33 @@ if($compte){
         if(Gate::denies('is-admin')){
 
             errorMessage("Vous n'êtes pas autorisé a faire cette action");
-
             return $this->index();
-
         }
-
-
-
 
         try {
             DB::begintransaction();
+           // if(Carbon::today() == $operation->created_at;
+
+
+            if(Carbon::today()->format('Y-m-d') !== $operation->created_at->format('Y-m-d')){
+                throw new \Exception("impossible d'annulé les opérations des jours antérieur !! 🔒", 1);
+
+            }
 
             $compte = Compte::where('name',$operation->compte_name)->firstOrFail();
-
-
+             $user = User::find($operation->user_id);
             $type_operation = $operation->type_operation;
 
             if($type_operation == 'VERSEMENT'){
 
+            
+                 if($user->caisse->montant < $operation->montant)
+                    throw new \Exception("L'annulation de cette opération est impossible car le montant est insuffisant sur son compte",2);
+                //On enleve le montant sur son compte
+                 $user->caisse->montant -= $operation->montant;
+                 $user->caisse->save();
                    // `annulation_versement`, `annulation_retrait`
-
-                ComptePrincipalController::store_info(abs($operation->montant), 'MOINS');
+                ComptePrincipalController::store_info(abs($operation->montant), 'ANNULATION_VERSEMENT');
                 ComptePrincipalOperationController::storeOperation(abs($operation->montant), 'annulation_versement',$operation->compte_name);
 
                 $operation->delete();
@@ -271,9 +278,11 @@ if($compte){
             }
 
             if($type_operation == 'RETRAIT'){
-               ComptePrincipalController::store_info(abs($operation->montant), 'ADD');
+               ComptePrincipalController::store_info(abs($operation->montant), 'ANNULATION_RETRAIT');
                ComptePrincipalOperationController::storeOperation(abs($operation->montant), 'annulation_retrait',$operation->compte_name);
-
+               // On ajouter le montant sur son compte 
+                $user->caisse->montant += $operation->montant;
+                 $user->caisse->save();
                $operation->delete();
 
                $compte->montant = $compte->montant + abs($operation->montant);
