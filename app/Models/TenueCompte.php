@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class TenueCompte extends ParentModel
 {
-   protected $fillable = ['compte_name','montant'];
+ protected $fillable = ['compte_name','montant'];
 
-   public function compte(){
+ public function compte(){
 
     return $this->belongsTo('App\Models\Compte');
 }
@@ -28,14 +28,11 @@ public static function  uniquePaid($compte_name){
 
     if($compte->montant >=TENU_COMPTE_MENSUELLE){
 
-        $compte->update([
-            'montant' => ($compte->montant - TENU_COMPTE_MENSUELLE)
-        ]);
-
-        
-
         try {
             DB::beginTransaction();
+            $compte->update([
+                'montant' => ($compte->montant - TENU_COMPTE_MENSUELLE)
+            ]);
             self::create([
 
                 'compte_name' => $compte_name,
@@ -46,20 +43,18 @@ public static function  uniquePaid($compte_name){
 
             ComptePrincipalOperationController::storeOperation(TENU_COMPTE_MENSUELLE,'tenue_compte',$compte_name);
 
-
             DB::commit();
             
         } catch (\Exception $e) {
 
             DB::rollback();
-
         }
 
     }else{
-     return $compte;
- }
+       return $compte;
+   }
 
- return 'SUCCESS';
+   return 'SUCCESS';
 }
 
 //Paiement de tout les comptes 
@@ -68,19 +63,25 @@ public static function  uniquePaid($compte_name){
 public static function allAccountPaiment($all_account, $date_paiement = ""){
 
     $error_account = [];
+    
+    try {
+        DB::beginTransaction();
+        foreach ($all_account as $compte) {
+                //$error_account[] = self::tenueMensuelPaye($compte->name);
+            if(!self::tenueMensuelPaye($compte->name)){
 
-    foreach ($all_account as $compte) {
+                $response = self::uniquePaid($compte->name);
 
-        //$error_account[] = self::tenueMensuelPaye($compte->name);
-
-        if(!self::tenueMensuelPaye($compte->name)){
-
-            $response = self::uniquePaid($compte->name);
-
-            if($response != 'SUCCESS')
-                $error_account[] = $response;
+                if($response != 'SUCCESS')
+                    $error_account[] = $response;
+            }
         }
+        DB::commit();
+        
+    } catch (\Exception $e) {
+        DB::rollback();
     }
+    
 
     return $error_account;
 

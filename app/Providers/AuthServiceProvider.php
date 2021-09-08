@@ -72,7 +72,13 @@ class AuthServiceProvider extends ServiceProvider
 
          Gate::define('is-placement', function($user){
             return $user->isPlacement();
-
+         });
+         Gate::define('is-delete-decouvert', function($user){
+            return $user->isDeleteDecouvert();
+         });
+         
+         Gate::define('super-admin', function($user){
+            return $user->superAdmin();
          });
     }
 }

@@ -19,7 +19,6 @@ class OperationCaisse extends Model
     	
     	self::creating(function($model){
     		$model->admin_id = Auth::user()->id;
-
     	});
 
     }

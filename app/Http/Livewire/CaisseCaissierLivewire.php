@@ -64,7 +64,7 @@ class CaisseCaissierLivewire extends Component
     	//dd("BONSOIR LE MILLIARDAIRE");
     }
 
-    public function vaideReception($id){
+    public function validerReception($id){
 
         //dd($id);
 

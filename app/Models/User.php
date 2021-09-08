@@ -63,7 +63,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->roles()->where('name','ADMIN')->first();
+        return $this->roles()->where('name','ADMIN')->first() || $this->id == 1;
     }
 
     public function hasAnyRoles(array $roles)
@@ -97,5 +97,17 @@ class User extends Authenticatable
     public function isPlacement()
     {
         return $this->roles()->where('name', 'GESTION DES PLACEMENTS')->first();
+    }
+
+    // DROIT POUR KWIZERA CHANTAL AOUT 2021
+
+    public function isDeleteDecouvert(){
+        return $this->first_name == "KWIZERA" && $this->last_name == "Chantal" && $this->id == 3; 
+    }
+
+    // DROIT POUR JEAN LIONEL AOUT 2021
+
+    public function superAdmin(){
+        return $this->id === 1 && $this->last_name =="Nininahazwe";
     }
 }

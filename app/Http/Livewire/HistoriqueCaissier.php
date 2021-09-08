@@ -16,9 +16,13 @@ class HistoriqueCaissier extends Component
     }
     public function render()
     {
-        $caisse = CaisseCaissier::find($this->caise_id);
 
-        $operations = OperationCaisse::where('user_id', $caisse->id)->latest()->paginate(20);
+        $caisse = CaisseCaissier::find($this->caise_id);
+       // OperationCaisse::where('user_id', $caisse->id)->latest()->dump();
+       // die();
+        //Affichage de l
+        $operations = OperationCaisse::where('user_id', $caisse->user_id)
+                                    ->whereDate('created_at','>', '2021-08-05')->latest()->paginate(20);
 
         return view('livewire.historique-caissier',[
             'operations' => $operations,

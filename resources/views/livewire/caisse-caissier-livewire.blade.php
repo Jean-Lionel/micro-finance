@@ -63,8 +63,7 @@
                                     @php
                                      $solde = floatval($caisse->montant) - floatval($virement_matinal);
                                     @endphp
-                                    Diff <span @if($solde < 0) class="bg-danger" @else class="bg-success" @endif> {{ numberFormat($solde)  }}</span> 
-                                        
+                                    Diff <span @if($solde < 0) class="bg-danger" @else class="bg-success" @endif> {{ numberFormat($solde)  }}</span>   
                                     </p>
                                 
                                 </li>
@@ -120,7 +119,7 @@
         //if user clicks on delete
                 if (result.value) {
              // calling destroy method to delete
-                    @this.call('vaideReception',orderId)
+                    @this.call('validerReception',orderId)
             // success response
                     responseAlert({title: session('message'), type: 'success'});
                     
