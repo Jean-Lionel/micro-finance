@@ -17,7 +17,8 @@ class CreateTenuCompteurWatchesTable extends Migration
             $table->id();
             $table->double("montant",64,4);
             $table->boolean("status")->nullable();
-            $table->text("description")->null();
+            $table->text("comptes_error")->null();
+            $table->text("comptes_success")->null();
             $table->timestamps();
         });
     }

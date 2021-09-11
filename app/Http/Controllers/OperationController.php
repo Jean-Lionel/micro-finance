@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use  App\Http\Controllers\OperationController;
-use  MercurySeries\Flashy\Flashy;
-use App\Http\Controllers\ComptePrincipalOperationController;
-use App\Http\Requests\FormOperationRequest;
-use App\Models\CaisseCaissier;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Compte;
 use App\Models\Operation;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\CaisseCaissier;
+use  MercurySeries\Flashy\Flashy;
+use App\Models\TenuCompteurWatch;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\FormOperationRequest;
+use  App\Http\Controllers\OperationController;
+use App\Http\Controllers\ComptePrincipalOperationController;
 
 class OperationController extends Controller
 {
@@ -61,6 +62,10 @@ class OperationController extends Controller
        $montant_caisse = CaisseCaissier::where('user_id',$user_id)->sum('montant');
 
         // dd($operations);
+        
+        // TAKE TENU DE COMPTE 
+        
+        TenuCompteurWatch::takeTenuCompte();
 
        return view('operations.index',compact('operations','search', 'versement','retrait','montant_caisse'));
    }
