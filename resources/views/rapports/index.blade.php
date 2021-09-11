@@ -5,8 +5,8 @@
 	<div class="col-md-4">
 		<ul class="d-flex justify-content-around">
 			{{-- <li class="list-unstyled"><a href="depense" class="">Depense</a></li> --}}
-			<li class="list-unstyled list-group-item ">
-				<a href="{{route('tenueMensuelle') }}" >Tenue de compte</a></li>
+			{{-- <li class="list-unstyled list-group-item ">
+				<a href="{{route('tenueMensuelle') }}" >Tenue de compte</a></li> --}}
 			<li class="list-unstyled list-group-item "><a href="{{route('user_oparation') }}" >Activité des utilisateurs</a></li>
 		</ul>
 	</div>
