@@ -32,8 +32,6 @@ class KirimbaOperation extends Component
     public function render()
     {
 
-        
-
         $user_id = Auth::user()->id;
         $now = date('Y-m-d');
         $opertations = DB::select("select type_operation, SUM(montant) as montant  from `kirimba_operations` where (`user_id` = $user_id and date(`created_at`) = '$now') and `kirimba_operations`.`deleted_at` is null group by `type_operation`");
@@ -46,9 +44,7 @@ class KirimbaOperation extends Component
     }
 
     public function saveOperation(){
-    	
         $this->validate($this->rules);
-
         /**
          * VERFIER LE MONTANT SUR LE COMPTE PRINCIPAL IKIRIMBA
          * VERFIER QU'IL Y A LE MONTANT SUR LE COMPTE DU MEMBRE
@@ -155,11 +151,7 @@ class KirimbaOperation extends Component
                 'montant' => $this->montant,
                 'benefice' => $benefice
             ]);
-
             }
-
-           
-
             KirimbaComptePrincipalOperation::create([
 
                 'operation_type' => $op->type_operation,

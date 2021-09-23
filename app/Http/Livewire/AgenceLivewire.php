@@ -17,7 +17,7 @@ class AgenceLivewire extends Component
     ];
     public function render()
     {
-    	$agences = Agence::latest()->paginate();
+    	$agences = Agence::paginate();
 
         return view('livewire.agence-livewire',['agences' => $agences]);
     }

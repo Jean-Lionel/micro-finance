@@ -19,7 +19,6 @@ class ChartComptePrincipal extends Component
         if(ComptePrincipal::all()->count() > 0)
         	$currentMontant = ComptePrincipal::latest()->first()->montant;
         
-        
         return view('livewire.chart-compte-principal',[
         	'value' => $currentMontant,
         	'agences' => $agences

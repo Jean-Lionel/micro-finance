@@ -10,10 +10,8 @@
 <div class="text-center">
 	
 	@livewire('chart-compte-principal')
-	
 	<div class="col-md-12 col-sm-12">
-		@livewire('general-chart')
-		
+		@livewire('general-chart')	
 	</div>
 
 </div>

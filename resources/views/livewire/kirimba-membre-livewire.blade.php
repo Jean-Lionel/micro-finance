@@ -6,7 +6,7 @@
     @if($showForm)
 
     <div class="offset-md-2">
-    	<h3 class="text-center col-md-8">Ajout d'un nouveau membre</h3>
+    	<h3 class="text-center col-md-8">Nouveau membre</h3>
     	<form action="" wire:submit.prevent="enregistrerMembrer">
     		<div class="row">
     			<div class="form-group col-md-4 ">

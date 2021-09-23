@@ -249,7 +249,7 @@ class ComptePrincipalController extends Controller
             //JE VEUX AUTORISE L'OPERATION SUR 2 AGENCE KINAMA ET RUBIRIZI
             // CODE IRAGANJE 
 
-            if(Auth::user()->agence_id < 3){
+            if(Auth::user()->agence_id <= NOMBRE_AGENCE){
                  $agence = Agence::find(Auth::user()->agence_id);
             }else{
                 throw new Exception("Vous n'appartiez à aucune agence !!! 🤣😂🤣😁👍🎂🎂 ", 1);

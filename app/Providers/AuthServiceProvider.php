@@ -55,7 +55,7 @@ class AuthServiceProvider extends ServiceProvider
 
 
          Gate::define('manager-user', function($user){
-            return $user->hasAnyRoles(['ADMIN']);
+            return $user->isAdmin();
 
          });
 
