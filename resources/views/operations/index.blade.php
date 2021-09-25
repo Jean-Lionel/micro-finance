@@ -54,7 +54,7 @@
 						<td>{{ $operation->compte_name}}</td>
 						<td>{{ numberFormat($operation->montant)}}</td>
 						<td>{{ $operation->type_operation}}</td>
-						<td>{{ $operation->created_at}}</td>
+						<td>{{ dateFormat($operation->created_at)}}</td>
 						<td>
 							<!-- <a href="{{ route('operations.show',$operation) }}" class="btn btn-outline-info">show</a> -->
 							@can('is-admin')

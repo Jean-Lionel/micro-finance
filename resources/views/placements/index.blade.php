@@ -69,8 +69,8 @@
 			<td>{{ $placement->interet_Moi}}</td>
 			<td>{{ numberFormat($placement->interet_total)}}</td>
 			<td>{{ numberFormat($placement->place_interet)}}</td>
-			<td>{{ $placement->date_placement}}</td>
-			<td>{{ $placement->date_fin}}</td>
+			<td>{{ dateFormat($placement->date_placement)}}</td>
+			<td>{{ dateFormat($placement->date_fin)}}</td>
 			<td>{{ numberFormat( $placement->montant_restant) }}</td>
 			<td>
 

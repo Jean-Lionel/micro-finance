@@ -54,7 +54,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Ferme</button>
-						<button type="submit" class="btn btn-primary">Enregistre</button>
+						<button type="submit" class="btn btn-primary">Enregistrer</button>
 					</div>
 					
 				</form>

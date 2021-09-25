@@ -11,7 +11,6 @@
 
 		<a href="{{ route('decouverts.create')}}" class="btn btn-info btn-sm">
 			<i class="fa fa-plus"></i> Nouvel decouvert</a>
-
 			@endcan
 
 			<a href="{{ route('reboursement-decouverts.create')}}" class="btn btn-info btn-sm">
@@ -86,7 +85,7 @@
 					@endif
 
 					
-					<td>{{ $decouvert->created_at}}</td>
+					<td>{{dateFormat( $decouvert->created_at )}}</td>
 					<td class="d-flex justify-content-between">
 						<a href="{{ route('decouverts.show',$decouvert) }}" class="btn btn-outline-info"><i class="fa fa-eye" aria-hidden="true" title="Afficher plus d'information"></i> Afficher
  </a>

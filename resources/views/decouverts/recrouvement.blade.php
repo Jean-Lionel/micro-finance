@@ -28,7 +28,7 @@
 
 	@if($decouverts)
 
-	<table class="table  table-hover table-striped table-responsive text-right" style="width: 100%;">
+	<table class="table  table-hover table-striped  text-right" >
 		<thead>
 			<tr>
 
@@ -62,7 +62,7 @@
 				<td class="text-left">{{ numberFormat($decouvert->total_a_rambourse)}}</td>
 				<td class="text-right">{{ numberFormat($decouvert->montant_restant)}}</td>
 				<td class="text-center">{{ $decouvert->periode}}</td>
-				<td>{{ $decouvert->date_fin}}</td>
+				<td>{{ dateFormat($decouvert->date_fin )}}</td>
 				<td>
 					@if ($decouvert->paye == 1)
 					<span style="color: green">DEJA PAYE</span>
@@ -73,7 +73,7 @@
 					@endif
 
 					
-					<td>{{ $decouvert->created_at}}</td>
+					<td>{{dateFormat($decouvert->created_at )}}</td>
 				<td>
 						<a href="{{ route('decouverts.show',$decouvert) }}" class="btn btn-outline-info"><i class="fa fa-eye" aria-hidden="true" title="Afficher plus d'information"></i>
 				</td>

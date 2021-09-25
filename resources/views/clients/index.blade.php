@@ -60,8 +60,8 @@
 				</ul>
 			</td>
 			<td>{{ $client->antenne}}</td>
-			<td>{{ $client->date_naissance}}</td>
-			<td>{{ $client->created_at}}</td>
+			<td>{{ dateFormat($client->date_naissance)}}</td>
+			<td>{{dateFormat($client->created_at)}}</td>
 			<td>
 				<a href="{{ route('clients.show',$client) }}" class="btn btn-outline-info btn-sm">Afficher</a>
 				<a href="{{ route('clients.edit',$client) }}" class="btn btn-outline-dark btn-sm">Modifier</a>

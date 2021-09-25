@@ -28,11 +28,15 @@ function warningMessage($message = 'Opération echoué'){
 }
 //Formatage des chiffres 
 function numberFormat($number){
-	return number_format($number, 2, ',', ' ');
+	return number_format($number,2, ',', ' ');
 }
 
 function dateFormat($date){
-	return  date('d-m-Y', strtotime($date));
+	$noTime = (date('H:i:s', strtotime($date)) == '00:00:00');
+	if($noTime)
+		return date('d/m/Y', strtotime($date));
+
+	return  date('d/m/Y à H:i:s', strtotime($date));
 }
 function testLionel(){
 	dump();

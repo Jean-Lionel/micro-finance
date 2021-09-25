@@ -62,7 +62,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Enregistre</button>
+					<button type="submit" class="btn btn-primary">Enregistrer</button>
 				</div>
 
 			</form>
