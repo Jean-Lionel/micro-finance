@@ -18,13 +18,11 @@ class AgenceLivewire extends Component
     public function render()
     {
     	$agences = Agence::paginate();
-
         return view('livewire.agence-livewire',['agences' => $agences]);
     }
 
     public function saveAgence(){
     	//$this->validate();
-
     	$data = [
     		"name" => $this->name,
     		"description" => $this->description

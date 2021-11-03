@@ -80,11 +80,10 @@
 	let depense = {{$depense}};
 	let remboursement = {{$remboursement}};
 
-
 	var ctx1 = document.getElementById('graphique1').getContext('2d');
 	//var ctx2 = document.getElementById('graphique2').getContext('2d');
 	var char1 = new Chart(ctx1,{
-		type:'bar',
+		type:'line',
 		data:{
 			labels: ['DEPENSES', 'RETRAIT', 'VERSEMENT', 'PLACEMENT', 'DECOUVERT', 'COMPTE PRINCIPAL','TENUE DE COMPTE','REMBOURSEMENT'],
 			datasets: [{
@@ -99,7 +98,7 @@
 				'rgba(10,80,10,0.5)',
 
 				],
-				borderColor: '#000',
+				borderColor: '#d14130',
 				data: [depense, retrait, versement, placement, decouvert, compte_principal,tenue_compte,remboursement],
 			}]
 		},

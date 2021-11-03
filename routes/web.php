@@ -59,7 +59,7 @@ Route::get('ikirimba-operation', 'KirimbaOperationController@index')->name('ikir
 Route::get('ikirimba-rapport', 'KirimbaRapportController@index')->name('ikirimba-rapport');
 Route::get('ikirimba-history', 'KirimbaRapportController@history')->name('ikirimba-history');
 Route::get('kirimba-rapport-dette', 'KirimbaRapportController@rapportKirimba')->name('kirimba-rapport-dette');
-//GESTION DES AGANCES 
+//GESTION DES AGANCES  
 Route::get('agences', 'AgenceController@index')->name("agences");
 Route::get('gestion-agence', 'AgenceController@gestion')->name("gestion-agence");
 Route::get("caissier",'AgenceController@caissier')->name("caissier");

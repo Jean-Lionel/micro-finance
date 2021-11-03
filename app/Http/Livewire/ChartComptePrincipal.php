@@ -9,7 +9,7 @@ class ChartComptePrincipal extends Component
 {
 
 	public $name = "JEAN";
-
+    
     public function render()
     {
         $currentMontant = 0.0;

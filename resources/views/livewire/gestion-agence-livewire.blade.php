@@ -1,6 +1,5 @@
-<div>
+<div class="container">
     {{-- Do your work, then step back. --}}
-
    {{--  <div class="form">
     	<form action="" wire:submit.prevent="saveMontantAgence">
     		<div class="form-group row">
@@ -31,22 +30,24 @@
     	</form>
     </div> --}}
 
+    <h4 class="text-center">Liste des agences</h4>
    <table class="table-sm table">
-   	
    	<thead>
    		<tr>
    			<th>#</th>
-   			<th>AGENCE </th>
+        <th>AGENCE </th>
    			<th>MONTANT</th>
    		</tr>
    	</thead>
 
    	<tbody>
+      {{-- @dump($agences ); --}}
    		@foreach ($agences as $key=>$agence)
    			{{-- expr --}}
 	   		<tr>
 	   			<td>{{ ++ $key}}</td>
-	   			<td>{{ $agence->agence_id == 1 ? 'KINAMA' : 'RUBIRIZI'}}</td>
+
+          <td>{{ $agence->name }}</td>
 	   			<td>{{ numberFormat($agence->montant)}} # FBU</td>
 	   		</tr>
    		@endforeach

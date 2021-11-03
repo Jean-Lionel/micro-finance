@@ -30,7 +30,7 @@
     			<td>{{ $operation->type_operation }}</td>
     			<td>{{ number_format($operation->montant) }}</td>
                 <td>{{ number_format($operation->benefice) ?? 0 }}</td>
-    			<td>{{ $operation->created_at }}</td>
+    			<td>{{ dateFormat( $operation->created_at ) }}</td>
                 <td>
                     {{-- <button wire:click="updateOperation({{$operation->id}})">Modifier</button> --}}
                     <button wire:click="$emit('triggerDelete',{{ $operation->id }})">Annuler</button>

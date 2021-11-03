@@ -28,8 +28,6 @@ class CompteController extends Controller
                                 ->paginate(3);
 
          }
-
-        
         return view('comptes.index', compact('comptes','search'));
     }
 
@@ -141,7 +139,6 @@ class CompteController extends Controller
         // if(!$compte)
         //    return response()->json(['error' => 'Invalide']);
 
-
         return response()->json(['client' => $compte->client,'compte'=>$compte]);
     
     }
@@ -155,7 +152,6 @@ class CompteController extends Controller
         $compte_name = \Request::get('compte_name');
         $date_val = \Request::get('date_val');
 
-
         $operations = Operation::where('compte_name','=',$compte_name)->get();
         $paiment_placement = PaiementPlacement::where('compte_name','=',$compte_name)->get();
 
@@ -168,8 +164,6 @@ class CompteController extends Controller
 
         if(!$compte)
             return response()->json(['error'=>'Invalide compte name']);
-
-        
 
         return response()->json([
             'operations' => $operations,

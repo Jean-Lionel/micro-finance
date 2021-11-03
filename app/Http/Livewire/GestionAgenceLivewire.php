@@ -20,9 +20,16 @@ class GestionAgenceLivewire extends Component
     	//JE LIMITE LES AGANCES A 2 DONC KINAMA ET 
 
         // SELECT agence_id, SUM(`montant`) FROM `caisse_caissiers` GROUP BY agence_id
-    	$agences = DB::select("SELECT agence_id, SUM(`montant`) as montant FROM `caisse_caissiers` GROUP BY agence_id");
-
-        //dd($agences[0]->agence_id);
+    	$ag = DB::select("SELECT agence_id, SUM(`montant`) as montant FROM `caisse_caissiers` as c  GROUP BY c.agence_id");
+    	//$agences_name = Agence::all();
+    	$agences = [];
+    	foreach ($ag as $key => $value) {
+    		if($value->agence_id){
+    			$value->name = Agence::find($value->agence_id)->name;
+    			$agences[] = $value;
+    		}
+    		
+    	}
         return view('livewire.gestion-agence-livewire',[
         	'agences' => $agences 
         ]);

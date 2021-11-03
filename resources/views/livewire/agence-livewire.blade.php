@@ -1,9 +1,6 @@
 <div>
-    {{-- Because she competes with no one, no one can compete with her. --}}
-
-
+  {{-- Because she competes with no one, no one can compete with her. --}}
 	<!-- Button trigger modal -->
-
 <!-- Modal -->
 @if(false)
 <div>
@@ -15,9 +12,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
       <form action="" wire:submit.prevent="saveAgence">
-
       	<div class="modal-body">
         	<div class="form-group">
         		<label for="">NOM DE L'AGENCE</label>
@@ -30,23 +25,16 @@
         		<label for="">DESCRIPTION</label>
         		 <textarea class="form-control" wire:model="description"></textarea>
         	</div>
-      </div>
-      
+      </div>  
         <button type="submit" class="btn btn-primary">Enregistrer</button>
- 
-    
       </form>
     </div>
   </div>
 </div>
 
 @endif
-
- 
  <div class="row">
-
   @foreach ($agences as $agence)
-
     <div class="col-md-6">
         <h5>AGENCE : {{$agence->name}}</h5>
         <h6>LISTE DES CAISSIERS</h6>
@@ -57,7 +45,6 @@
             <th>NOM ET PRENOM</th>
             <th>ROLES</th>
           </tr>
-
           @foreach ($agence->users as $key => $user)
             {{-- expr --}}
             <tr>
