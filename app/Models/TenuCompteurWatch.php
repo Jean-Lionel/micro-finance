@@ -34,11 +34,14 @@ class TenuCompteurWatch extends Model
 
     public static function takeTenuCompte(){
         if(!self::isAllReadyTaken()){
-            $all_compte = Compte::where('montant', '>=', TENU_COMPTE_MENSUELLE )->get();
+            //$all_compte = Compte::where('montant', '>=', TENU_COMPTE_MENSUELLE )->get();
+            $all_compte = Compte::all();
             //DESCRIPTION
-            $error_compte = Compte::where('montant', '>=', TENU_COMPTE_MENSUELLE )->get()->toJson();
-            $montant_total = $all_compte->count() * TENU_COMPTE_MENSUELLE; //MONTANT TOTAL DU TENU DE COMPTE
+            $error_compte = Compte::where('montant', '<', TENU_COMPTE_MENSUELLE )->get()->toJson();
 
+            $montant_total = $all_compte->count() * TENU_COMPTE_MENSUELLE; 
+            //MONTANT TOTAL DU TENU DE COMPTE
+            
            try {
             DB::beginTransaction();
             foreach ($all_compte as $key => $compte) {

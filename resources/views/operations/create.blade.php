@@ -8,13 +8,9 @@
 			@include('operations._form',['btnTitle' => 'Enregistrer'])
 		</form>
 	</div>
-
 	<div class="col-md-6 client-info">
-	
 	</div>
-
 </div>
-
 
 @endsection
 

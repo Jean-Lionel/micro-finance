@@ -72,18 +72,7 @@
 		</div>
 		
 	</div>
-
-
-
-
-
-
-
 </div>
-
-
-
-
 
 @section('javascript')
 
@@ -235,19 +224,18 @@
 			
 			<button class="btn btn-success user_compte" onClick="showContent(
 			'${data.compte.name}',
-			'${data.client.nom} ${data.client.prenom}','${data.client.cni}')" >Nyene compte</button>
-
+			'${data.client.nom} ${data.client.prenom}','${data.client.cni}')" >Nyene ikonti</button>
 
 			<button class="btn btn-warning" onClick="showContent('${data.compte.name}')" > Uwatumwe</button>
 
-
-
 			</div>
 
-			<div class="card-columns">
+			<div class="row">
 			<div class="card bg-primary">
 			<div class="card-body text-center">
-			<p class="card-text">#${formatNumber(data.compte.montant)} FBU</p>
+		
+			<p class="card-text text-white display-4 col-md-12">
+			#${formatNumber(data.compte.montant)} </p>
 			</div>
 			</div>
 
