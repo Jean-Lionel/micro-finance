@@ -94,18 +94,10 @@ class OperationController extends Controller
     {
 
          // dump(Gate::denies('is-admin'));
-
-
-
         if(Gate::denies('is-admin')){
-
-
             //dump(Gate::allows('is-versement-user'));
-
            if(Gate::denies('is-retrait-user') && ($request->type_operation == 'RETRAIT')){
-
             return response()->json(['error'=> "Vous essayez de faire une action dont vous n'avez le droit"]);
-
         }
 
         if(Gate::denies('is-versement-user') && ($request->type_operation == 'VERSEMENT')){
@@ -113,8 +105,6 @@ class OperationController extends Controller
         }
 
     }
-
-
 
 }
 
@@ -132,7 +122,6 @@ if(Gate::denies('is-versement-user') && ($request->type_operation == 'VERSEMENT'
 }
 
 }
-
     //FIN
 try {
    $compte = Compte::where('name','=',$request->compte_name)->firstOrFail();
@@ -149,15 +138,12 @@ if($compte){
 
     if($request->type_operation == 'RETRAIT'){
                 //TODO
-
                 //Verification que le montant est suffisant sur le compte en question
-
         if($compte->montant > $request->montant){
 
             try {
 
                 DB::beginTransaction();
-                
                 ComptePrincipalController::store_info($request->montant, 'RETRAIT');
 
                 $new_monant = $compte->montant - $request->montant;
@@ -175,12 +161,9 @@ if($compte){
                 return response()->json(['success'=>'Opération réussi']);
 
             } catch (\Exception $e) {
-
                 DB::rollback();
 
                 return response()->json(['error'=>$e->getMessage()]);
-
-
             }
 
         }else{

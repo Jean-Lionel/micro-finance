@@ -1,14 +1,9 @@
-
-
 <div class="row">
-
+	
 	@csrf
 	<div class="col-md-12">
 		<h4 class="text-center">Identification personnel</h4>
-
-
 		<div class="row">
-
 			<div class="col-md-3">
 				<fieldset class="form-group ">
 					<label for="nom">Nom</label>

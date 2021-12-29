@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.1",
+        "php": "^7.2|^8.1",
         "barryvdh/laravel-debugbar": "^3.3",
         "barryvdh/laravel-dompdf": "^0.8.6",
         "doctrine/dbal": "^2.10",
@@ -17,9 +17,9 @@
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.5",
         "kyslik/column-sortable": "^6.0",
-        "laravel/framework": "^7.0",
+        "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0",
+        "laravel/ui": "^3.4",
         "livewire/livewire": "^1.2",
         "mercuryseries/flashy": "^1.0"
     },

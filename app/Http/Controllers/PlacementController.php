@@ -43,8 +43,6 @@ class PlacementController extends Controller
 
         $search = \Request::get('search');
 
-
-
         $placements = Placement::sortable(['created_at'=>'desc'])
         ->where('montant','like', '%'.$search.'%')
         ->orWhere('compte_name','=', $search)

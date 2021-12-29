@@ -28,16 +28,16 @@
 
 @if($clients)
 
-<table class="table table-sm table-bordered table-striped table-inverse table-hover">
+<table class="table table-sm table-bordered table-responsive-sm table-striped table-inverse table-hover">
 	<thead>
 		<tr>
 			<th>No</th>
 			<th>@sortablelink('nom','Nom')</th>
 			<th>@sortablelink('prenom','Prénom') </th>
-			{{-- <th>@sortablelink('cni','CNI')</th> --}}
 			<th>Compte</th>
+			<th>@sortablelink('cni','CNI')</th> 
 			<th>@sortablelink('antenne','Antenne')</th>
-			<th>@sortablelink('date_naissance','Date de naissance')</th>
+			{{-- <th>@sortablelink('date_naissance','Date de naissance')</th> --}}
 			<th>@sortablelink('created_at','created at')</th>
 			
 			<th>Action</th>
@@ -50,15 +50,15 @@
 			<td>{{$key + 1}}</td>
 			<td>{{ $client->nom}}</td>
 			<td>{{ $client->prenom}}</td>
-			{{-- <td>{{ $client->cni}}</td> --}}
-			<td>
-				<ul>
+			
+			<td class="text-left">
+			
 					@foreach ($client->comptes as $compte)
-
-					<li>{{$compte->name  }}</li>
+					<span>{{$compte->name  }}</span>
 					@endforeach
-				</ul>
+				
 			</td>
+			<td class="">{{ $client->cni}}</td>
 			<td>{{ $client->antenne}}</td>
 			<td>{{ dateFormat($client->date_naissance)}}</td>
 			<td>{{dateFormat($client->created_at)}}</td>
