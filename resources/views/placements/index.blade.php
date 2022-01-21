@@ -33,7 +33,7 @@
 
 <table class="table table-bordered  table-sm  table-hover">
 	<thead>
-		<tr style="font-size: 0.9rem;">
+		<tr style="font-size: 1rem;">
 
 
 			<th>No</th>

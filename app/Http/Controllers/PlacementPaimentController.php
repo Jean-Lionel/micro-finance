@@ -34,8 +34,7 @@ class PlacementPaimentController extends Controller
     public function create()
     {
         $placement_paiment = new PlacementPaiment;
-        return view('placementPaiement.create', compact('placement_paiment'));   
-
+        return view('placementPaiement.create', compact('placement_paiment'));
      }
 
     /**
@@ -75,15 +74,12 @@ user_id
         try {
             DB::beginTransaction();
 
-            // dd($compte->montant);
-            if($compte->montant >= $request->montant){
+            // dd($placement);
+            if($placement->montant_restant >= $request->montant){
 
              ComptePrincipalController::store_info(abs($request->montant), 'MOINS');
-
-
              $new_monant = $compte->montant - abs($request->montant);
               $compte->update(['montant' => $new_monant]);
-
 
             ComptePrincipalOperationController::storeOperation(abs($request->montant), 'paiment_placement',$compte->name );
 

@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         MercurySeries\Flashy\FlashyServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -231,6 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Flashy' => MercurySeries\Flashy\Flashy::class,
+        'Image' => Intervention\Image\Facades\Image::class,
 
     ],
 

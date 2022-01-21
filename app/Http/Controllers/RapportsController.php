@@ -36,8 +36,6 @@ class RapportsController extends Controller
 		// $result = ComptePrincipalOperation::where('created_at','LIKE',$request.'%')->sum('depense');
 
 		// `retrait`, `versement`, `placement`, `decouvert`, `reboursement`, `tenue_compte`, `annulation_versement`, `annulation_retrait`, `paiment_placement`, `depense`
-
-
 		$data = DB::table('compte_principal_operations')
 				->where('created_at','LIKE',$searchDate.'%')
                 ->select(
@@ -65,24 +63,13 @@ class RapportsController extends Controller
        //	$retrait = Operation::where('type_operation','=','RETRAIT')->sum('montant');
 
         // $data['operation'] = DB::table('compte_principal_operations')
-
-
       // $data['total_versement'] = $versement;
       // $data['total_retrait'] = $retrait;
-
-
         return response()->json([
         	'rapport' => $data,
-        	
         	'operation' => [
         		'total_versement' => $versement,
         		'total_retrait' => $retrait
-
-            ]
-
-        		 ]);
-
-
+            ]]);
 	}
-	
 }

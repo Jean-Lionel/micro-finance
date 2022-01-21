@@ -13,7 +13,7 @@ class PDFController extends Controller
 		
 		$data = ['title' => 'Welcome to ItSolutionStuff.com'];
 		$pdf = PDF::loadView('pdf', $data);
-		//$pdf->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 6, array(0,0,0));
+		// $pdf->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 6, array(0,0,0));
 
 		return $pdf->stream();
 	}

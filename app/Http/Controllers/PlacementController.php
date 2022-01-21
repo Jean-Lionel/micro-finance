@@ -43,8 +43,6 @@ class PlacementController extends Controller
 
         $search = \Request::get('search');
 
-
-
         $placements = Placement::sortable(['created_at'=>'desc'])
         ->where('montant','like', '%'.$search.'%')
         ->orWhere('compte_name','=', $search)
@@ -130,7 +128,6 @@ class PlacementController extends Controller
             ]);
 
             PlacementCompteOperation::create([
-
                 'type_operation' => 'PLACEMENT',
                 'compte_name' => $request->compte_name,
                 'montant' => $request->montant,
@@ -152,14 +149,9 @@ class PlacementController extends Controller
         } catch (\Exception $e) {
 
             DB::rollback();
-
             errorMessage($e->getMessage());
-
             return back();
-            
         }
-
-
         return $this->index();
 
     }
@@ -172,10 +164,7 @@ class PlacementController extends Controller
      */
     public function show()
     {
-
-
         //$placement->status = 'NON PAYE';
-
     }
 
     public function finaliser(Placement $placement)
@@ -187,7 +176,6 @@ class PlacementController extends Controller
             ComptePrincipalController::store_info($placement->montant,'MOINS');
             ComptePrincipalOperationController::storeOperation($placement->montant,'paiment_placement',$placement->compte_name);
             $placement->status = 'DEJA PAYE';
-
             $placement->save();
 
             DB::commit();
@@ -256,8 +244,6 @@ class PlacementController extends Controller
                 $compte_principalOp->update([
                     'placement' => $request->montant
                 ]);
-
-
                 $placement->update([
 
                  'montant' => $request->montant,
@@ -269,8 +255,6 @@ class PlacementController extends Controller
                  'montant_restant' => $place_interet,
                  'date_placement' => $request->date_placement,
                  'date_fin' => $date_fin,
-
-
              ]);
 
             }
@@ -345,7 +329,7 @@ class PlacementController extends Controller
                 $placement->delete();
 
             }else{
-                 throw new Exception("Error parceQue vous n'avez pas le montant sur votre compte");
+                 throw new Exception("Error parce que vous n'avez pas le montant sur votre compte");
             }
             DB::commit();
             

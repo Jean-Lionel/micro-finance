@@ -1,14 +1,13 @@
-
-
 <div class="row">
-
+	
 	@csrf
 	<div class="col-md-12">
 		<h4 class="text-center">Identification personnel</h4>
 
-
+		<div>
+			{{ $errors }}
+		</div>
 		<div class="row">
-
 			<div class="col-md-3">
 				<fieldset class="form-group ">
 					<label for="nom">Nom</label>
@@ -229,6 +228,9 @@
 				<div class="form-group">
 					<label for="upload_image">Ajouter une photo</label>
 					<input type="file" name="upload_image" class="form-control-file" id="upload_image">
+
+					{!! $errors->first('upload_image', '<small class="help-block invalid-feedback">:message</small>') !!}
+					
 				</div>
 			</div>
 

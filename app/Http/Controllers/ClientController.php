@@ -46,20 +46,27 @@ class ClientController extends Controller
 
         $search = \Request::get('search'); 
 
-        
         $clients = Client::sortable(['created_at' => 'DESC'])
-        ->where('nom','like','%'.$search.'%')
-        ->orWhere('prenom','like','%'.$search.'%')
-        ->orWhere('cni','like','%'.$search.'%')
-        ->orWhere('nom_association','like','%'.$search.'%')
-        ->orWhere('profession','like','%'.$search.'%')
-        ->orWhere('date_naissance','like','%'.$search.'%')
-        ->orWhere('antenne','like','%'.$search.'%')
-        ->orWhere('created_at','like','%'.$search.'%')
-        ->orderBy('nom')
-        ->paginate();
+                        ->where(function($query) use($search){
+                            $data = explode(" ", $search);
+                            $search_elements = array_filter($data);
+                            $first_name = current($search_elements) ?? "";
+                            $last_name = next($search_elements) ?? "";
 
-
+                            if($first_name and $last_name){
+                                $query->where('nom','like','%'.$first_name.'%')
+                                ->where('prenom','like','%'.($last_name).'%');
+                            }else{
+                                $query->where('nom','like','%'.$first_name.'%')
+                                ->orWhere('prenom','like','%'.($first_name).'%')
+                                ->orWhere('cni','like','%'.$first_name.'%')
+                                ->orWhere('nom_association','like','%'.$first_name.'%')
+                                ->orWhere('profession','like','%'.$first_name.'%')
+                                ->orWhere('date_naissance','like','%'.$first_name.'%')
+                                ->orWhere('antenne','like','%'.$first_name.'%')
+                                ->orWhere('created_at','like','%'.$first_name.'%');
+                            }
+                        })->paginate();
 
         return view('clients.index', compact('clients','search'));
     }
@@ -86,9 +93,15 @@ class ClientController extends Controller
         $imageName = '';
         if (isset($request->upload_image)) {
             # code...
-            $imageName = time().'.'.$request->upload_image->extension();  
-            $request->upload_image->move(public_path('img\client_images'), $imageName);
+            $image = $request->file('upload_image');
+
+            dd($image);
+
         }
+
+            // $imageName = time().'.'.$request->upload_image->extension();  
+            // $request->upload_image->move(public_path('img\client_images'), $imageName);
+
         DB::transaction(function() use($request, $imageName) {
             $client = Client::create($request->all()  + ['image' => $imageName ]);  
             Compte::create(
@@ -161,28 +174,17 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
 
-
-
-
         try {
             DB::beginTransaction();
-
             $client->delete();
-
             foreach ($client->comptes as $compte) {
                 $compte->delete();
             }
-            DB::commit();
-
-            
+            DB::commit();  
         } catch (\Exception $e) {
               DB::rollback();
         }
-
-
-
         successMessage();
-
         return back();
     }
 }
