@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Image;
 
 class ClientController extends Controller
 {
@@ -95,8 +96,18 @@ class ClientController extends Controller
             # code...
             $image = $request->file('upload_image');
 
-            dd($image);
+            $imageName = time() . '.'. $image->getClientOriginalExtension();
 
+            $destinationPath  = public_path('img\client_images');
+            $imageFile = Image::make($image->getRealPath());
+
+            $imageFile->resize(150,150,function($constraint){
+                $constraint->aspectRatio();
+
+            })->save($destinationPath .'/'.   $imageName);
+
+            // $destinationPath = public_path('/uploads');
+            // $image->move($destinationPath, $imageName);
         }
 
             // $imageName = time().'.'.$request->upload_image->extension();  
