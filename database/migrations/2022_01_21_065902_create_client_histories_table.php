@@ -15,11 +15,13 @@ class CreateClientHistoriesTable extends Migration
     {
         Schema::create('client_histories', function (Blueprint $table) {
              $table->id();
-             $table->foreignId("client_id");
-            $table->string('nom');
-            $table->string('prenom');
+            $table->foreignId("client_id");
+            $table->foreignId('agence_id')->nullable();
+            $table->foreignId("user_id");
+            $table->string('nom')->nullable();
+            $table->string('prenom')->nullable();
             $table->string('antenne')->nullable();
-            $table->string('cni')->unique();
+            $table->string('cni')->nullable();
             $table->date('date_naissance');
             $table->date('date_ouverture')->nullable();
             $table->string('nom_association')->nullable();

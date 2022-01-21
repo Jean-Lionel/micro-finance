@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\ComptePrincipalController;
 use App\Http\Requests\FormClientRequest;
 use App\Models\Client;
+use App\Models\ClientHistory;
 use App\Models\Compte;
 use App\Models\ComptePrincipal;
 use Faker\Provider\url;
-
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Image;
 
 class ClientController extends Controller
@@ -101,7 +101,7 @@ class ClientController extends Controller
             $destinationPath  = public_path('img\client_images');
             $imageFile = Image::make($image->getRealPath());
 
-            $imageFile->resize(150,150,function($constraint){
+            $imageFile->resize(400,400,function($constraint){
                 $constraint->aspectRatio();
 
             })->save($destinationPath .'/'.   $imageName);
@@ -157,8 +157,6 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-
-
         return view('clients.edit',compact('client'));
     }
 
@@ -171,7 +169,44 @@ class ClientController extends Controller
      */
     public function update(FormClientRequest $request, Client $client)
     {
-        $client->update($request->all());
+       
+        try {
+            DB::beginTransaction();
+
+                 $imageName = '';
+                if (isset($request->upload_image)) {
+                    # code...
+                    $image = $request->file('upload_image');
+
+                    $imageName = time() . '.'. $image->getClientOriginalExtension();
+
+                    $destinationPath  = public_path('img\client_images');
+                    $imageFile = Image::make($image->getRealPath());
+
+                    $imageFile->resize(400,400,function($constraint){
+                        $constraint->aspectRatio();
+
+                    })->save($destinationPath .'/'.   $imageName);
+
+                    // $destinationPath = public_path('/uploads');
+                    // $image->move($destinationPath, $imageName);
+                }
+
+
+                $client->update($request->all() + ['image' => $imageName ]);
+
+                ClientHistory::create( array_merge([
+                    'user_id' => auth()->user()->id,
+                    'client_id' =>  $client->id,
+                ], $client->toArray() ) );
+            DB::commit();
+            
+        } catch (\Exception $e) {
+            DB::rollback();
+            die($e->getMessage());
+        }
+
+
 
         return $this->index();
     }
