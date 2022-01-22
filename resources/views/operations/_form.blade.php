@@ -135,35 +135,40 @@
 
 		compte_name.on('keyup',  function(event) {
 			event.preventDefault();
+			
 			/* Act on the event */
 
-			$.ajax({
-				url: '{{ route('client_by_compte_name') }}',
-				type: 'GET',
-				dataType: 'json',
-				data: {compte_name: compte_name.val()},
-			})
-			.done(function(data) {
-				
-				if(!data.error){
-					$('.client-info').html(client_information(data))
+			if (event.key === 'Enter' || event.keyCode === 13) {
+        // Do something
 
-				}else{
-					$('.client-info').html(`
-						<h5 class= "bg-danger">Numéro matricule est invalidé</h5>
-						`)
-				}
+					$.ajax({
+						url: '{{ route('client_by_compte_name') }}',
+						type: 'GET',
+						dataType: 'json',
+						data: {compte_name: compte_name.val()},
+					})
+					.done(function(data) {
+						
+						if(!data.error){
+							$('.client-info').html(client_information(data))
 
-				
-				// client_information(data.client);
-			})
-			.fail(function() {
-				console.log("error");
-			})
-			.always(function() {
-				console.log("complete");
-			});
+						}else{
+							$('.client-info').html(`
+								<h5 class= "bg-danger">Numéro matricule est invalidé</h5>
+								`)
+						}
 
+						
+						// client_information(data.client);
+					})
+					.fail(function() {
+						console.log("error");
+					})
+					.always(function() {
+						console.log("complete");
+					});
+
+			 }
 		});
 
 
@@ -239,13 +244,10 @@
 			<div class="card bg-primary">
 			
 			</div>
-
-
 			</div>
 			</div>
 
 			`
-
 
 			return html;
 		}
