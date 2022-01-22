@@ -170,7 +170,7 @@
 
 			<div class="card-group">
 			<div class="card">
-			<img class="card-img-top" src="/img/client_images/${data.client.image}" width="50px" alt="image" style="width: auto">
+			<img class="card-img-top" src="/img/client_images/${data.client.image}"  alt="image" style="width: auto">
 			</div>
 
 			<div class="card">
