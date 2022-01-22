@@ -4,22 +4,17 @@
 	<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>	COOPDI  | MANAGER</title>
-  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> --}}
+
 
 
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-  {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
-
-  {{-- <link rel="stylesheet" href="/css/bootstrap.css"> --}}
-  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
+ 
 
   <link rel="stylesheet" href="{{ asset('font-awesome/css/all.min.css') }}">
 
   <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}">
   <link rel="stylesheet" href= "{{ asset('css/decouvert_form.css')}}">
 
- 
-  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet'>
   <link rel="stylesheet" type="text/css" href="{{ asset('css/print.min.css') }}">
 
   <style>
@@ -148,8 +143,6 @@
     </div>
   </li>
 
-
-
 </div>
 
 <div class="container-fluid">
@@ -157,32 +150,24 @@
   @yield('content')
 </div>
 
-<script src="/jquery-3.5.1.min.js"></script>
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> --}}
-<script src="/js/popper.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="{{ asset('jquery-3.5.1.min.js') }}"></script>
 
-<!-- Compiled and minified JavaScript -->
- {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> --}}
+<script src="{{ asset('js/popper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
-<script src="/js/Chart.bundle.min.js"></script>
+<script src="{{ asset('js/Chart.bundle.min.js') }}"></script>
 
-<script src="/js/sweetalert2.all.min.js"></script>
-<script src="/js/print.min.js"></script>
+<script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('js/print.min.js') }}"></script>
 
-<script src="/js/script.js"></script>
-<script src="/js/nombre_en_lettre.js"></script>
+<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('js/nombre_en_lettre.js') }}"></script>
 @yield('javascript')
 @livewireScripts
 
-
 @include('flashy::message')
 
-@livewireScripts
 @stack('scripts')
-
-
 
 </body>
 </html>

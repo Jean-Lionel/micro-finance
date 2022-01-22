@@ -2,13 +2,15 @@
 @csrf
 
 <div class="row">
+
+{{-- 	<input type="text" name="number" id="test" pattern="([0-9]{1,3}).([0-9]{1,3})" title="Must contain a decimal number"> --}}
 	
 	<div class="col-md-10">
 		<h5 class="text-center">Enregistre une nouvel opération</h5>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-6">
 		<fieldset class="form-group">
-			<label for="compte_name">Saisir le numero du compte</label>
+			<label for="compte_name">Numero du compte</label>
 			<input type="text" class="form-control {{$errors->has('compte_name') ? 'is-invalid' : 'is-valid' }}" id="compte_name" name="compte_name" value="{{ old('compte_name') ?? $operation->compte_name ? $operation->compte_nam : 'COO-'}}">
 
 			{!! $errors->first('compte_name', '<small class="help-block invalid-feedback">:message</small>') !!}
@@ -16,33 +18,6 @@
 		</fieldset>
 
 		<fieldset class="form-group hide">
-			<label for="montant">Montant</label>
-			<input type="text" class="form-control {{$errors->has('montant') ? 'is-invalid' : 'is-valid' }} number" id="montant"   name="montant" value="{{ old('montant') ?? $operation->montant }}">
-			{!! $errors->first('montant', '<small class="help-block invalid-feedback">:message</small>') !!}
-		</fieldset>
-		
-	</div>
-
-	<div class="col-md-4 hide">
-
-		<fieldset class="form-group">
-			<label for="operer_par">OPERER PAR </label>
-			<input type="text" class="form-control {{$errors->has('operer_par') ? 'is-invalid' : 'is-valid' }}" id="operer_par"   name="operer_par" value="{{ old('operer_par') ?? $operation->operer_par }}">
-			{!! $errors->first('operer_par', '<small class="help-block invalid-feedback">:message</small>') !!}
-		</fieldset>
-
-		<fieldset class="form-group">
-			<label for="cni">CNI </label>
-			<input type="text" class="form-control {{$errors->has('cni') ? 'is-invalid' : 'is-valid' }}" id="cni"   name="cni" value="{{ old('cni') ?? $operation->cni }}">
-			{!! $errors->first('cni', '<small class="help-block invalid-feedback">:message</small>') !!}
-		</fieldset>
-
-		
-	</div>
-
-	<div class="col-md-4 hide">
-
-		<fieldset class="form-group">
 			<label for="type_operation">TYPE D'OPERATION</label>
 			<select class="form-control {{$errors->has('type_operation') ? 'is-invalid' : 'is-valid' }}" id="type_operation"  name="type_operation">
 				<option value="{{ old('type_operation') ?? $operation->type_operation }}">
@@ -65,10 +40,38 @@
 			</select>
 			{!! $errors->first('type_operation', '<small class="help-block invalid-feedback">:message</small>') !!}
 		</fieldset>
+		
+		
+	</div>
 
-		<div class="form-group">
-			<button type="submit" class="btn btn-outline-primary btn-block"> {{ $btnTitle}}</button>
-			
+	<div class="col-md-6 hide">
+
+		<fieldset class="form-group">
+			<label for="operer_par">OPERER PAR </label>
+			<input type="text" class="form-control {{$errors->has('operer_par') ? 'is-invalid' : 'is-valid' }}" id="operer_par"   name="operer_par" value="{{ old('operer_par') ?? $operation->operer_par }}">
+			{!! $errors->first('operer_par', '<small class="help-block invalid-feedback">:message</small>') !!}
+		</fieldset>
+
+		<fieldset class="form-group">
+			<label for="cni">CNI </label>
+			<input type="text" class="form-control {{$errors->has('cni') ? 'is-invalid' : 'is-valid' }}" id="cni"   name="cni" value="{{ old('cni') ?? $operation->cni }}">
+			{!! $errors->first('cni', '<small class="help-block invalid-feedback">:message</small>') !!}
+		</fieldset>
+
+		
+	</div>
+
+	<div class="row container hide  ">
+
+		<fieldset class="form-group col-md-6">
+			<label for="montant">Montant</label>
+			<input type="text" class="form-control {{$errors->has('montant') ? 'is-invalid' : 'is-valid' }} number" id="montant"   name="montant" value="{{ old('montant') ?? $operation->montant }}">
+			{!! $errors->first('montant', '<small class="help-block invalid-feedback">:message</small>') !!}
+		</fieldset>
+
+		<div class="form-group offset-md-1  col-md-5">
+			<label for=""></label>
+			<button type="submit" class="btn mr-0 mt-2 btn-outline-primary btn-block"> {{ $btnTitle}}</button>
 		</div>
 		
 	</div>
@@ -77,6 +80,15 @@
 @section('javascript')
 
 <script>
+
+	var fnf = document.getElementById("montant");
+
+	fnf.addEventListener('keyup', function(evt){
+	    var n = parseInt(this.value.replace(/\D/g,''),10);
+	    if(fnf.value != "")
+	    	fnf.value =  new Intl.NumberFormat('de-DE').format(n) ;
+	}, false);
+
 
 	const formatNumber = (number) => {
 			return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'FBU' }).format(number)
@@ -119,9 +131,6 @@
 
 		let compte_name = $('#compte_name')
 
-		
-		
-
 		//console.log(compte_name.val('bonjour'))
 
 		compte_name.on('keyup',  function(event) {
@@ -154,25 +163,23 @@
 			.always(function() {
 				console.log("complete");
 			});
-			
 
-			
 		});
 
 
 		let client_information = (data) => {
 
 			console.log(data);
-
-
 			let html = `
 			<div class="information">
 
-			<div class="card-group">
-			<div class="card">
-			<img class="card-img-top" src="/img/client_images/${data.client.image}"  alt="image" style="width: auto">
+			<div class="bg-dark text-center">
+			<p class="card-text text-white display-5 col-md-12">
+			SOLDE : #${formatNumber(data.compte.montant)} </p>
 			</div>
 
+			<div class="card-group">
+		
 			<div class="card">
 			<b class="card-title">Nom : ${data.client.nom}</b>
 			<b class="card-title">prénom : ${data.client.prenom}</b>
@@ -199,7 +206,6 @@
 						</ul>
 					</li>
 					<li class="list-group-item">
-
 						<ul class="list-inline">
 							<li class="list-inline-item"><b>3. </b> ${data.client.signateur_3_nom_prenom} </li>
 							<li class="list-inline-item">C.N.I: ${data.client.signateur_3_cni}</li>
@@ -208,13 +214,12 @@
 
 					</li>
 				</ul>
+			</div>
 
-
-					
-
-
-
-
+			<div class="card">
+			<img class="card-img-top" 
+			src="/img/client_images/${data.client.image}"  
+			alt="image" style="width: auto">
 			</div>
 			</div>
 			
@@ -232,17 +237,12 @@
 
 			<div class="row">
 			<div class="card bg-primary">
-			<div class="card-body text-center">
-		
-			<p class="card-text text-white display-4 col-md-12">
-			#${formatNumber(data.compte.montant)} </p>
-			</div>
+			
 			</div>
 
 
 			</div>
 			</div>
-
 
 			`
 
@@ -259,8 +259,6 @@
 			event.preventDefault()
 			if (isDoubleClicked($(this))) {
 
-				
-
 				return;
 			}
 
@@ -274,7 +272,7 @@
 			});
 
 			let compte_name = $('#compte_name').val()
-			let montant = $('#montant').val()
+			let montant = $('#montant').val().replace(/\D/g,'')
 			let operer_par = $('#operer_par').val()
 			let type_operation = $('#type_operation').val()
 			let cni = $('#cni').val()
@@ -308,9 +306,6 @@
 				return ;
 
 			}
-
-
-
 
 
 			$.ajax({

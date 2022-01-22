@@ -101,7 +101,7 @@ class ClientController extends Controller
             $destinationPath  = public_path('img\client_images');
             $imageFile = Image::make($image->getRealPath());
 
-            $imageFile->resize(400,400,function($constraint){
+            $imageFile->resize(400,600,function($constraint){
                 $constraint->aspectRatio();
 
             })->save($destinationPath .'/'.   $imageName);
@@ -183,7 +183,7 @@ class ClientController extends Controller
                     $destinationPath  = public_path('img\client_images');
                     $imageFile = Image::make($image->getRealPath());
 
-                    $imageFile->resize(400,400,function($constraint){
+                    $imageFile->resize(400,600,function($constraint){
                         $constraint->aspectRatio();
 
                     })->save($destinationPath .'/'.   $imageName);
