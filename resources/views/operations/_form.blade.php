@@ -1,8 +1,5 @@
-
 @csrf
-
 <div class="row">
-
 {{-- 	<input type="text" name="number" id="test" pattern="([0-9]{1,3}).([0-9]{1,3})" title="Must contain a decimal number"> --}}
 	
 	<div class="col-md-10">
@@ -110,14 +107,21 @@
 }
 
 
-	
+	function resetInput(){
+		$('#operer_par').val('')
+		// $('#type_operation').val('RETRAIT')
+		$('#cni').val('')
+		$('#compte_name').attr('disabled',false)
+
+		$('.hide').hide()
+	}
 
 	function showContent(compte ="",name="",cni=""){
 
 		$('#operer_par').val(name)
 		// $('#type_operation').val('RETRAIT')
 		$('#cni').val(cni)
-		$('#compte_name').attr('disabled','true')
+		$('#compte_name').attr('disabled',true)
 
 		$('.hide').show()
 		
@@ -135,11 +139,12 @@
 
 		compte_name.on('keyup',  function(event) {
 			event.preventDefault();
-			
+
 			/* Act on the event */
 
 			if (event.key === 'Enter' || event.keyCode === 13) {
-        // Do something
+        // Do somethin
+        				$("#loader").show()
 
 					$.ajax({
 						url: '{{ route('client_by_compte_name') }}',
@@ -157,8 +162,6 @@
 								<h5 class= "bg-danger">Numéro matricule est invalidé</h5>
 								`)
 						}
-
-						
 						// client_information(data.client);
 					})
 					.fail(function() {
@@ -184,8 +187,8 @@
 			</div>
 
 			<div class="card-group">
-		
-			<div class="card">
+
+			<div class="card ml-2">
 			<b class="card-title">Nom : ${data.client.nom}</b>
 			<b class="card-title">prénom : ${data.client.prenom}</b>
 			<b class="card-title">NUMERO DE COMPTE : ${'COO- ' +data.client.id}</b>
@@ -238,6 +241,7 @@
 
 			<button class="btn btn-warning" onClick="showContent('${data.compte.name}')" > Uwatumwe</button>
 
+			<button class="btn btn-danger" onClick="resetInput()" > Réinitialiser</button>
 			</div>
 
 			<div class="row">

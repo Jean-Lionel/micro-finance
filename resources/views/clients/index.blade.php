@@ -37,7 +37,7 @@
 			<th>Compte</th>
 			<th>@sortablelink('cni','CNI')</th> 
 			<th>@sortablelink('antenne','Antenne')</th>
-			{{-- <th>@sortablelink('date_naissance','Date de naissance')</th> --}}
+			<th>@sortablelink('date_naissance','Date de naissance')</th>
 			<th>@sortablelink('created_at','created at')</th>
 			
 			<th>Action</th>

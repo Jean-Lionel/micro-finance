@@ -8,7 +8,9 @@
 			<select wire:model="selectedUser" id="" class="form-control">
 				<option value="">Choisissez ...</option>
 				@foreach($users as $user)
-				<option value="{{ $user->id }}">{{ $user->first_name.'  '. $user->last_name }}</option>
+				<option value="{{ $user->id }}">
+					{{ $user->first_name.'  '. $user->last_name }}
+				</option>
 				@endforeach
 			</select>
 			<div class="form-group p-3 mb-2">
@@ -22,7 +24,6 @@
 		<div class="col-md-8">
 			@if($choosedUser)
 			<div class="card-header">{{ $choosedUser->first_name.' '. $choosedUser->last_name }} Le  {{ $currentDate }}</div>
-
 			@endif
 
 			<table class="table-sm table  table-striped table-bordered">
@@ -57,10 +58,7 @@
 
 				</li>
 				@endforeach
-				
-				
-				
-			</ul>		
+							</ul>		
 		</div>
 	</div>
 

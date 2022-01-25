@@ -31,7 +31,7 @@
 
 @if($placements)
 
-<table class="table table-bordered  table-sm  table-hover">
+<table class="table table-bordered   table-sm  table-hover">
 	<thead>
 		<tr style="font-size: 1rem;">
 
@@ -55,7 +55,7 @@
 			<th>Action</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody class="text-right">
 
 		@foreach($placements as $key=> $placement)
 		<tr>

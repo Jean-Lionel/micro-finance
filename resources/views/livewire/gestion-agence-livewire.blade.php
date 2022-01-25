@@ -47,11 +47,10 @@
 	   		<tr>
 	   			<td>{{ ++ $key}}</td>
 
-          <td>{{ $agence->name }}</td>
-	   			<td>{{ numberFormat($agence->montant)}} # FBU</td>
+          <td>{{ $agence->name ?? "" }}</td>
+	   			<td>{{ numberFormat($agence->montant ?? 0)}} # FBU</td>
 	   		</tr>
    		@endforeach
-   		
-   	</tbody>
+   		 
    </table>
 </div>
