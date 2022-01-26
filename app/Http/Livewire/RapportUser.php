@@ -47,10 +47,10 @@ class RapportUser extends Component
 								->whereDate('created_at',$this->currentDate)->sum('montant');
 
 	   $this->reboursement_decouverts = ReboursementDecouvert::where('user_id', $user_id)
-	   														   ->whereDate('created_at',$this->currentDate)->sum('montant');
+	   	 ->whereDate('created_at',$this->currentDate)->sum('montant');
 
 	   $this->paiment_placement = ComptePrincipalOperation::where('user_id', $user_id)
-	   														->whereDate('created_at',$this->currentDate)->sum('paiment_placement');
+	   		->whereDate('created_at',$this->currentDate)->sum('paiment_placement');
 
 	   $this->kirimbaOperations =  DB::select("select type_operation, SUM(montant) as montant  from `kirimba_operations` where (`user_id` = $user_id and date(`created_at`) = '$this->currentDate') and `kirimba_operations`.`deleted_at` is null group by `type_operation`");
 
