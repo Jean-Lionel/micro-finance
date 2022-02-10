@@ -93,8 +93,10 @@
 
 						@can('is-admin')
 
-						<a href="{{ route('decouverts.edit',$decouvert) }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-edit" title="Modifier"></i>Modifier</a>
-
+						@if ($decouvert->created_at->isToday())
+							{{-- expr --}}
+							<a href="{{ route('decouverts.edit',$decouvert) }}" class="btn btn-outline-dark btn-sm"><i class="fas fa-edit" title="Modifier"></i>Modifier</a>
+						@endif
 						@endcan
 
 						@endif

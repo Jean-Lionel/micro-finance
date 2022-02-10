@@ -5,8 +5,6 @@
 <div class="row">
 	<h4 class="text-center">INFORMATION DU DECOUVERT NUMERO : {{ $decouvert->id }} de {{ $decouvert->clientName }} COMPTE NUMERO  : {{$decouvert->compte_name}}</h4>
 	<div class="col-md-6">
-
-
 		<div class="card">
 			<div class="card" style="width: 40rem;">
 			<div class="card-header">
@@ -15,7 +13,6 @@
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item">Nom et prénom :<b>{{ $decouvert->client()->nom}}  {{ $decouvert->client()->prenom}} </b></li>
 				<li class="list-group-item">Antenne :<b>{{ $decouvert->client()->antenne}} </b></li>
-
 			{{-- 	<li class="list-group-item">Nom de l'Association :<b>{{ $decouvert->client()->nom_association}} </b></li> --}}
 				<li class="list-group-item">Nationalité :<b>{{ $decouvert->client()->nationalite}} </b></li>
 				<li class="list-group-item">CNI :<b>{{ $decouvert->client()->cni}} </b></li>
@@ -26,10 +23,7 @@
 					@if ($decouvert->client()->nom_conjoint != 'Null')
 						 | Nom du conjoint : <b>{{ $decouvert->client()->nom_conjoint }} </b>
 					@endif
-
-
 				</li>
-				
 				<li class="list-group-item">Profession : <b>{{ $decouvert->client()->profession}} </b>
 					<ul>
 						<li>
@@ -96,6 +90,11 @@
 				</li>
 				<li class="list-group-item d-flex justify-content-between">
 					<span>PERIODE :</span> <b>{{$decouvert->periode}}</b>
+
+					<div>
+						<button class="btn-primary" style="cursor:pointer">Augmenter la periode </button>
+						<button class="btn-warning pointer" style="cursor:pointer">Diminuer la periode</button>
+					</div>
 				</li>
 
 				@if(strtotime($decouvert->date_fin) < strtotime(date('Y-m-d')))

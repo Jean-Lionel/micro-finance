@@ -80,7 +80,6 @@ class User extends Authenticatable
         return $this->roles()->where('name','VERSEMENT')->first();
     }
 
-
     public function isRegisterClient(){
          return $this->roles()->where('name','ENREGISTREMENT DES CLIENTS')->first();
     }
@@ -102,7 +101,8 @@ class User extends Authenticatable
     // DROIT POUR KWIZERA CHANTAL AOUT 2021
 
     public function isDeleteDecouvert(){
-        return $this->first_name == "KWIZERA" && $this->last_name == "Chantal" && $this->id == 3; 
+        /*return $this->first_name == "KWIZERA" && $this->last_name == "Chantal" && $this->id == 3; */
+        return false;
     }
 
     // DROIT POUR JEAN LIONEL AOUT 2021
