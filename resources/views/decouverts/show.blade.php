@@ -90,11 +90,10 @@
 				</li>
 				<li class="list-group-item d-flex justify-content-between">
 					<span>PERIODE :</span> <b>{{$decouvert->periode}}</b>
-
 					<div>
-						<button class="btn-primary" style="cursor:pointer">Augmenter la periode </button>
-						<button class="btn-warning pointer" style="cursor:pointer">Diminuer la periode</button>
+						<livewire:update-decourt :decouvert="$decouvert->id" />
 					</div>
+					
 				</li>
 
 				@if(strtotime($decouvert->date_fin) < strtotime(date('Y-m-d')))
