@@ -17,6 +17,7 @@ class CreateWatchUpdateDecouvertsTable extends Migration
             $table->id();
             $table->foreignId('decouvert_id');
             $table->integer('periode');
+            $table->string('action');
             $table->text('description');
             $table->foreignId('user_id');
             $table->timestamps();
