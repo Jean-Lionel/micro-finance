@@ -89,7 +89,34 @@
 					<span>TOTAL A REMBOURSER :</span> <b>{{numberFormat($decouvert->total_a_rambourse)}}</b>
 				</li>
 				<li class="list-group-item d-flex justify-content-between">
-					<span>PERIODE :</span> <b>{{$decouvert->periode}}</b>
+					
+					<div>
+						<span>PERIODE :</span> <b>{{$decouvert->periode}}</b>
+						@canany(['is-admin','decouvert-manager'])
+
+						<div class="d-block">
+							<span class="bg-info mb-2">Modifié par</span>
+							@foreach ($decouvert->user_update_decouvert() as $element)
+								{{-- expr --}}
+								
+								<p  style="font-size: 0.8em; display: flex; line-height:1px; ">
+									<span class="mr-4">{{ $element->user->first_name .' '.
+									$element->user->last_name }}</span>
+									
+									<span class="mr-4" class="bg-success-">
+										Periode : de 
+										{{$element->fullDescrition['periode']}} ({{$element->action }})
+										{{ $element->periode}} (mois)
+									</span>
+									<span class="ml-2" style="display: block;">
+										Date: {{ $element->created_at}}
+									</span>
+								</p>
+							@endforeach
+						</div>
+
+						@endcanany
+					</div>
 					<div>
 						<livewire:update-decourt :decouvert="$decouvert->id" />
 					</div>

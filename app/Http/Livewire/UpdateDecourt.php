@@ -3,9 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Models\Decouvert;
-use Livewire\Component;
-use DB;
+use App\Models\WatchUpdateDecouvert;
 use Carbon\Carbon;
+use DB;
+use Livewire\Component;
 
 class UpdateDecourt extends Component
 {
@@ -46,6 +47,14 @@ class UpdateDecourt extends Component
                  $interetM = ($decouvert->total_a_rambourse - $decouvert->montant) / $decouvert->periode;
                  $nouvel_solde = $interetM * $this->periode;
                  $decouvert->date_fin= new Carbon($decouvert->date_fin);
+                 //Enregistrement des informations avant la modification
+                WatchUpdateDecouvert::create([
+                    'decouvert_id' => $decouvert->id,
+                    'periode' => $this->periode,
+                    'action' => $this->action,
+                    'user_id' => auth()->user()->id,
+                    'description' => $decouvert->toJson(),
+                ]);
 
                 //Augmenter la periode
                 if ($this->action == '+') {
@@ -59,6 +68,9 @@ class UpdateDecourt extends Component
                 //Diminuer la periode
                 if ($this->action == '-') {
                     // code...
+                    if($this->periode > $decouvert->periode )
+                        throw new \Exception("Periode invalide");
+                    
                     $decouvert->periode -= $this->periode;
                     $decouvert->date_fin =  $decouvert->date_fin->subMonths($this->periode);
                     $decouvert->total_a_rambourse -=   $nouvel_solde;
