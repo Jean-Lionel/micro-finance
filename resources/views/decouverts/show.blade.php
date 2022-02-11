@@ -91,7 +91,7 @@
 				<li class="list-group-item d-flex justify-content-between">
 					
 					<div>
-						<span>PERIODE :</span> <b>{{$decouvert->periode}}</b>
+						<span>PERIODE :</span> <b>{{$decouvert->periode}} (mois)</b>
 						@canany(['is-admin','decouvert-manager'])
 
 						<div class="d-block">
