@@ -192,8 +192,14 @@ class ClientController extends Controller
                     // $image->move($destinationPath, $imageName);
                 }
 
+                if ($imageName != '') {
+                    // code...
+                    $client->update($request->all() + ['image' => $imageName ]);
+                }else{
+                    $client->update($request->all());
+                }
 
-                $client->update($request->all() + ['image' => $imageName ]);
+                
 
                 ClientHistory::create( array_merge([
                     'user_id' => auth()->user()->id,
