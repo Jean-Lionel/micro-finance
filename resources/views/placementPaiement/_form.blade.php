@@ -63,10 +63,13 @@
 
 	function remplireData(data,montant_restant){
 		// console.log(data)
+		let compte_name = $('#compte_name').val();
 		$('#placement_id').val(data);
 		$('#montant_restant').val(montant_restant);
 
-		$("#same_info").html(`Placement N° ${data} | Montant Restant : # ${_formatNumber(montant_restant)} FBU`)
+		$("#same_info").html(
+			`Placement N° ${data} | Montant Restant : # ${_formatNumber(montant_restant)} FBU
+			<br> Sur le compte de placement N°: <b> ${compte_name} </b>`)
 		console.log($('#placement_id').val())
 
 	}

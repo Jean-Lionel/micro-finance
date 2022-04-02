@@ -7,9 +7,5 @@
 @method('PUT')
 @include('placements._form',['btnTitle' => 'Modifier'])
 
-
-
 </form>
-
-
 @endsection
