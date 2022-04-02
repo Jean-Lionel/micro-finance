@@ -66,8 +66,8 @@ class TenuCompteurWatch extends Model
             TenuCompteurWatch::create([
                     "montant" => $montant_total,
                     "status"  => "SUCCESS",
-                    "comptes_error" => $error_compte ,
-                    "comptes_success" => $all_compte->toJson(),
+                    "comptes_error" => $error_compte->count() ,
+                    "comptes_success" => $all_compte->count(), 
             ]);
             DB::commit();   
             //echo "REUSSI"; 

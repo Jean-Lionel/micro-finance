@@ -55,8 +55,6 @@ class ReboursementDecouvertController extends Controller
         ->where('paye','=',0)
         ->get();
 
-
-
         return response()->json(['decouverts'=> $decouverts]);
 
     }
@@ -77,12 +75,8 @@ class ReboursementDecouvertController extends Controller
     } catch (\Exception $e) {
 
         errorMessage("Vérifier que vous avez saisit des information correctes ");
-
-        return back();
-        
+        return back();   
     }
-
-   
 
      $validate  = $request->validate([
         'montant' => 'required|numeric|max:'.$decouvert->montant_restant.'|min:0',
@@ -108,7 +102,6 @@ class ReboursementDecouvertController extends Controller
             'paye' => $paye
         ]);
         ReboursementDecouvert::create($request->all());
-
         ComptePrincipalOperationController::storeOperation($request->montant, 'reboursement',$request->compte_name);
 
         DB::commit();
