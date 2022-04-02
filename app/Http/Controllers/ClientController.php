@@ -57,6 +57,9 @@ class ClientController extends Controller
                             if($first_name and $last_name){
                                 $query->where('nom','like','%'.$first_name.'%')
                                 ->where('prenom','like','%'.($last_name).'%');
+                            }
+                            if(is_numeric($search)){
+                                $query->where('id',$search);
                             }else{
                                 $query->where('nom','like','%'.$first_name.'%')
                                 ->orWhere('prenom','like','%'.($first_name).'%')
