@@ -74,31 +74,18 @@
 	<div class="col-md-6 col-sm-10">
 		<div class="card">
 			<div class="card-header">
-				<b>Information pour ces Comptes</b>
+				<b>Information pour son compte</b>
 			</div>
-
-			@if (count($client->comptes) <=0)
-				<div class="row">
-					<div class="col-md-8">
-						
-					</div>
-					<div class="col-md-4">
-						<a href="{{ route('create_compte',$client) }}" class="btn btn-sm btn-primary text-right"><i class="fas fa-cat"></i> Attribuer un compter</a>	
-					</div>
-				</div>
-				
-			@endif
-
 			@foreach($client->comptes as $compte)
-
-			
-
 			<ul class="list-group list-group-flush">
-				<li class="list-group-item"><b>COMPTE NO : </b>  {{ $compte->name }} </li>
-				<li class="list-group-item"><b>Montant   :</b> 
-					<h5>{{ numberFormat($compte->montant) }} FBU</h5></li>
-				<li class="list-group-item"></li>
-				
+				<li class="list-group-item d-flex justify-content-between">
+					<div>
+						<b>COMPTE NO : </b>  {{ $compte->name }} 
+					</div>
+					<div>
+					<h5><b>Montant   :</b>  {{ numberFormat($compte->montant) }} FBU</h5></li>
+					</div>
+				</li>
 			</ul>
 
 			@endforeach
@@ -147,7 +134,10 @@
 						</div>
 					</div>
 				</li>
-				
+
+				<li class="list-group-item">
+					<img src="{{ asset('/img/client_images/'.$client->image ) }}" alt="{{ $client->fullName }}" class="img-responsive">
+				</li>
 				
 			</ul>
 
