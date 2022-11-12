@@ -8,7 +8,7 @@
 	</div>
 	<div class="col-md-6">
 		
-		<div class="col-md-4 col-sm-6">
+	{{-- 	<div class="col-md-4 col-sm-6">
 			<form action="" class="navbar-form navbar-left">
 				<div class="input-group custom-search-form">
 					<input type="text" class="form-control" name="search" placeholder="Search..." value="{{$search ?? 'COO-'}}">
@@ -20,31 +20,32 @@
 
 				</div>
 			</form>
-		</div>
+		</div> --}}
 		TOTAL DES CLIENTS QUI N'ONT PAS ENCORE PAYE {{$nombre_total ?? 0}} PERSONNES
 	</div>
 
 
 
 	@if($decouverts)
+	<div class="info"></div>
 
-	<table class="table  table-hover table-striped  text-right" >
+	<table id="clients" class="" width="100%" >
 		<thead>
 			<tr>
 
 
 				<th>No</th>
 				<th>NOM ET PRENOM</th>
-				<th>@sortablelink('compte_name','COMPTE')</th>
-				<th>@sortablelink('montant','Montant') </th>
+				<th>COMPTE</th>
+				<th>Montant</th>
 				
 				<th>Interet en FBU </th>
-				<th>@sortablelink('total_a_rambourse','à rembourse') </th>
-				<th>@sortablelink('montant_restant','Reste') </th>
-				<th>@sortablelink('periode','Periode') </th>
-				<th>@sortablelink('date_fin','FIN') </th>
-				<th>@sortablelink('paye','Statut') </th>
-				<th>@sortablelink('created_at','Date') </th>
+				<th>à rembourse</th>
+				<th>Reste </th>
+				<th>Periode </th>
+				<th>FIN </th>
+				<th>Statut </th>
+				<th>Date</th>
 
 				<th>Action</th> 
 			</tr>
@@ -74,20 +75,39 @@
 
 					
 					<td>{{dateFormat($decouvert->created_at )}}</td>
-				<td>
+					<td>
 						<a href="{{ route('decouverts.show',$decouvert) }}" class="btn btn-outline-info"><i class="fa fa-eye" aria-hidden="true" title="Afficher plus d'information"></i>
-				</td>
-				</tr>
+						</td>
+					</tr>
 
-				@endforeach
-			</tbody>
-		</table>
+					@endforeach
+				</tbody>
+			</table>
 
-		{{ $decouverts->links()}}
-
-
-		@endif
+			{{-- {{ $decouverts->links()}} --}}
 
 
+			@endif
 
-		@endsection
+
+
+			@endsection
+
+
+			@section('javascript')
+
+			<script type="text/javascript">
+				$(document).ready( function () {
+					$('#clients').dataTable({
+						dom: 'Bfrtip',
+						buttons: [
+						'copy', 'csv', 'excel', 'pdf', 'print',
+						], 
+						pagingType: "full_numbers",
+						scrollX: true,
+					});
+
+				} );
+			</script>
+
+			@stop

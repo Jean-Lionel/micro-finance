@@ -8,7 +8,7 @@
 
 
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
- 
+
 
   <link rel="stylesheet" href="{{ asset('font-awesome/css/all.min.css') }}">
 
@@ -17,9 +17,11 @@
 
   <link rel="stylesheet" type="text/css" href="{{ asset('css/print.min.css') }}">
 
+   <link rel="stylesheet" type="text/css" href="{{ asset('datatable/css/datatables.min.css') }}" defer>
+
   <style>
 
-</style>
+  </style>
 
   @livewireStyles
 
@@ -47,7 +49,7 @@
       padding: 0px;
     }
     body{
-      
+
       /*background: rgba(138, 138, 138,0.3);*/
       background: #ebeff5;
 
@@ -62,63 +64,63 @@
   </style>
 </head>
 <body>
-  
+
 
 	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 border-bottom box-shadow" id="nav-bar" >
     <h5 class="my-0 mr-md-auto font-weight-normal {{set_active_router('home')}}"><a href="{{ route('home')}}">
       <i class="fa fa-home"></i> COOPDI BURUNDI</a></h5>
       <nav class="my-2 my-md-0 mr-md-3">
 
-         <a class="p-2  {{set_active_router('operations.index')}}" href="{{ route('operations.index') }}"><i class="fa fa-expand"></i> Operation</a>
+       <a class="p-2  {{set_active_router('operations.index')}}" href="{{ route('operations.index') }}"><i class="fa fa-expand"></i> Operation</a>
 
-         @can('is-register-client')
+       @can('is-register-client')
 
-         @cannot('is-admin')
+       @cannot('is-admin')
 
-         <a class="p-2  {{set_active_router('clients.index')}}" href="{{ route('clients.index') }}"><i class="fa fa-wheelchair-alt"></i> Client</a>
+       <a class="p-2  {{set_active_router('clients.index')}}" href="{{ route('clients.index') }}"><i class="fa fa-wheelchair-alt"></i> Client</a>
 
-         @endcannot
+       @endcannot
 
-         @endcan
-         @canany(['placement-manager','is-placement'])
-             @cannot('is-admin')
-            <a class="p-2 {{set_active_router('placements.index')}}" href="{{ route('placements.index') }}"><i class="fa fa-inbox"></i> Placement</a>
-            @endcannot
+       @endcan
+       @canany(['placement-manager','is-placement'])
+       @cannot('is-admin')
+       <a class="p-2 {{set_active_router('placements.index')}}" href="{{ route('placements.index') }}"><i class="fa fa-inbox"></i> Placement</a>
+       @endcannot
 
-         @endcanany
+       @endcanany
 
-    
 
-         @can('decouvert-manager')
 
-           @cannot('is-admin')
+       @can('decouvert-manager')
 
-           <a class="p-2 {{set_active_router('decouverts.index')}}" href="{{ route('decouverts.index') }}"><i class="fa fa-tint"></i> Decouvert</a>
+       @cannot('is-admin')
 
-           @endcannot
+       <a class="p-2 {{set_active_router('decouverts.index')}}" href="{{ route('decouverts.index') }}"><i class="fa fa-tint"></i> Decouvert</a>
 
-         @endcan
+       @endcannot
 
-        @can('is-admin')
-            {{-- expr --}}
-        
+       @endcan
 
-        <a class="p-2  {{set_active_router('clients.index')}}" href="{{ route('clients.index') }}"><i class="fa fa-wheelchair-alt"></i> Client</a>
+       @can('is-admin')
+       {{-- expr --}}
+
+
+       <a class="p-2  {{set_active_router('clients.index')}}" href="{{ route('clients.index') }}"><i class="fa fa-wheelchair-alt"></i> Client</a>
        
-        <a class="p-2 {{set_active_router('comptes.index')}}" href="{{ route('comptes.index') }}"><i class="fa fa-book"></i> Situation</a>
-        <a class="p-2 {{set_active_router('placements.index')}}" href="{{ route('placements.index') }}"><i class="fa fa-inbox"></i> Placement</a>
-        <a class="p-2 {{set_active_router('decouverts.index')}}" href="{{ route('decouverts.index') }}"><i class="fa fa-tint"></i> Decouvert</a>
+       <a class="p-2 {{set_active_router('comptes.index')}}" href="{{ route('comptes.index') }}"><i class="fa fa-book"></i> Situation</a>
+       <a class="p-2 {{set_active_router('placements.index')}}" href="{{ route('placements.index') }}"><i class="fa fa-inbox"></i> Placement</a>
+       <a class="p-2 {{set_active_router('decouverts.index')}}" href="{{ route('decouverts.index') }}"><i class="fa fa-tint"></i> Decouvert</a>
        
 
-        <a class="p-2 {{set_active_router('rapports')}}" href="{{ route('rapports.index') }}"><i class="fa fa-share"></i> Rapport</a>
+       <a class="p-2 {{set_active_router('rapports')}}" href="{{ route('rapports.index') }}"><i class="fa fa-share"></i> Rapport</a>
         {{-- <a class="p-2 {{set_active_router('rapports')}}" href="{{ route('placement-client.index') }}"><i class="fa fa-share"></i>Compte des place</a>
- --}}
+        --}}
 
-      
+
         <a class="p-2 {{set_active_router('register')}}"  href="{{ route('users.index') }}"><i class="fa fa-users"></i> Utilisateur</a>
-         @endcan
+        @endcan
 
-           <a  class="p-2 {{set_active_router('ikirimba-membre')}}" href="{{ route('ikirimba-membre') }}">Epargnes</a>
+        <a  class="p-2 {{set_active_router('ikirimba-membre')}}" href="{{ route('ikirimba-membre') }}">Epargnes</a>
 
 
       </nav>
@@ -162,6 +164,10 @@
 
 <script src="{{ asset('js/script.js') }}"></script>
 <script src="{{ asset('js/nombre_en_lettre.js') }}"></script>
+
+<script src="{{ asset('datatable/pdfmake.min.js') }}"></script>
+<script src="{{ asset('datatable/vfs_fonts.js') }}"></script>
+<script src="{{ asset('datatable/datatables.min.js') }}"></script>
 @yield('javascript')
 @livewireScripts
 

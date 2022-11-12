@@ -112,7 +112,6 @@ class UsersController extends Controller
             'agence_id'      => ['required'],
             ]);
  
-
         $user->roles()->sync($request->roles);
 
         $user->first_name = $request->first_name;

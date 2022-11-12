@@ -65,7 +65,7 @@ class OperationController extends Controller
         
         // TAKE TENU DE COMPTE 
         
-        TenuCompteurWatch::takeTenuCompte();
+      //  TenuCompteurWatch::takeTenuCompte();
 
        return view('operations.index',compact('operations','search', 'versement','retrait','montant_caisse'));
    }

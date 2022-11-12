@@ -200,7 +200,8 @@ class DecouvertController extends Controller
                                         $query->where('compte_name', '=',$search );
                                     }
                                 })
-                                ->whereDate('date_fin', '<', $now)->paginate(); 
+                                ->whereDate('date_fin', '<', $now)->get();
+                             
         $total = DB::select("select count(*) as nombre_total from `decouverts` where `paye` = 0 and date(`date_fin`) < '$now' and `decouverts`.`deleted_at` is null");
 
         $nombre_total = $total[0]->nombre_total;
